@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    src: url("/resources/css/billabong.ttf");
+    font-family: "insta"
+}
+
+
+body {
+    background-color: #fafafa;
+}
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 350px;
+    height: 470px;
+    margin: 200px auto;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+}
+.logo {
+    text-align: center;
+}
+
+.logoPicture {
+    margin: 35px 0;
+}
+
+.login-container input {
+    display: block;
+    width: 270px;
+    height: 36px;
+    padding: 8px;
+    color: rgba(var(--i1d, 38, 38, 38), 1);
+    font-family: -apple-;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+.loginBtn {
+    width: 268px;
+    height: 30px;
+    margin: 15px;
+    background-color: #b9dffc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.loginBtn:hover{
+    background-color:skyblue;
+}
+
+h1 {
+    font-size: 50px;
+    font-color: red;
+    font-family: "insta";
+}
+
+input {
+    margin: 3px auto;
+    background-color: #fafafa;
+    font-size: 12px;
+}
+
+footer {
+    position: relative;
+    top: 65px;
+    color: rgba(var(--fe0, 0, 55, 107), 1);
+    font-size: 12px;
+    text-align: center;
+    margin: 10px;
+}
+
+form > contant > input {
+    margin-bottom: 10px;
+}
+
+.main-container2 {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 350px;
+    height: 580px;
+    margin: 200px auto;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+}
+
+.main-container3 {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 350px;
+    height: 370px;
+    margin: 200px auto;
+    background-color: #fff;
+    border: 1px solid #dbdbdb;
+}

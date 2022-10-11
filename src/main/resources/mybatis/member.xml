@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="member">
+
+    <select id="login" resultType="Member">
+        SELECT *
+        FROM yourtrip.member
+        WHERE member_Id = #{memberId}
+          AND member_Pass = PASSWORD(#{memberPass})
+    </select>
+
+    <insert id="signup">
+        INSERT yourtrip.member (member_Num, member_Id, member_Pass, member_Name, member_Nick, member_RegDate,
+                                member_Phone, member_Mail)
+        VALUES (NULL, #{memberId}, PASSWORD(#{memberPass}), #{memberName}, #{memberNick}, now(), #{memberPhone},
+                #{memberMail})
+    </insert>
+
+
+</mapper>

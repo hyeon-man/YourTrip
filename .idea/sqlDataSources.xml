@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="a9f1ad32-39f6-4cca-9d2f-8ca58f459b40" name="YourTrip Mapping">
+      <data-sources db="8067cf35-6fe8-450d-9939-9027aa360ac6" ddl="0858f84c-0c9f-444d-9f19-a22dff6f770a" />
+      <scope>
+        <node kind="schema" qname="yourtrip" />
+      </scope>
+    </mapping>
+  </component>
+</project>
