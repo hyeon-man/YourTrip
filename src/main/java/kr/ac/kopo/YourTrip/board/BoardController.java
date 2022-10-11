@@ -92,6 +92,7 @@ public class BoardController {
         if (service.recommendCheck(boardNum) == 0) {
             service.recommendInsert(boardNum);
             service.recommend(boardNum);
+            model.addAttribute("msg", "추천 되었습니다");
             return "redirect:../" + boardNum;
 
         } else {

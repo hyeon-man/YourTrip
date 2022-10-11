@@ -42,7 +42,7 @@ public class RootController {
     public String login(HttpSession session, Member member) {
         service.login(member);
 
-            return "redirect:/board/list";
+        return "redirect:/board/list";
     }
 
     @PostMapping("member/signup")
