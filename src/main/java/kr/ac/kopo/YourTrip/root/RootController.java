@@ -51,4 +51,8 @@ public class RootController {
 
         return "member/login";
     }
+    @RequestMapping("/index2")
+    public String index2(){
+        return "index2";
+    }
 }
