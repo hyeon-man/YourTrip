@@ -22,10 +22,10 @@ public class RootController {
         return "index";
     }
 
-//    @GetMapping("/login")
-//    public String login() {
-//        return "member/login";
-//    }
+    @GetMapping("/login")
+    public String login() {
+        return "member/login";
+    }
 
     @GetMapping("member/signup")
     public String signup() {

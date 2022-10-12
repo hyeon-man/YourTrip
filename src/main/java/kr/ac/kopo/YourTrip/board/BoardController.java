@@ -5,12 +5,12 @@ import kr.ac.kopo.YourTrip.VO.Search;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import static java.lang.System.out;
 
 @Controller
 
@@ -92,11 +92,12 @@ public class BoardController {
         if (service.recommendCheck(boardNum) == 0) {
             service.recommendInsert(boardNum);
             service.recommend(boardNum);
-            model.addAttribute("msg", "추천 되었습니다");
+            model.addAttribute("msg", "추천 됐습니다");
+
             return "redirect:../" + boardNum;
 
         } else {
-            model.addAttribute("msg", "이미 추천한 게시글");
+
             return "redirect:../" + boardNum;
         }
     }

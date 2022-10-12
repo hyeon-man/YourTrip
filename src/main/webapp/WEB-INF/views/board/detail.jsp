@@ -3,12 +3,14 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <title>게시물 상세 보기 / ${item.boardTitle}</title>
+    <title>${item.boardTitle}</title>
     <script>
-        var param = '${msg}';
-        function recommend(){
-
-            alert(param)
+        function recommend() {
+            if ('${msg}' != null) {
+                alert("추천 되었습니다")
+            } else if ('${msg}' == null) {
+                alert("이미 추천한 게시글입니다")
+            }
         }
     </script>
 </head>
