@@ -27,10 +27,10 @@ public class RootController {
         return "member/login";
     }
 
-    @GetMapping("member/signup")
-    public String signup() {
-        return "member/signup";
-    }
+//    @GetMapping("/signup")
+//    public String signup() {
+//        return "member/signup";
+//    }
 
     @GetMapping("member/passfind")
     public String passfind() {
@@ -42,17 +42,18 @@ public class RootController {
     public String login(HttpSession session, Member member) {
         if(service.login(member)){
             session.setAttribute("member", member);
-            return "board/list";
+            return "redirect:board/list";
         } else {
             return "redirect:/index2";
         }
     }
 
-    @PostMapping("member/signup")
+    @PostMapping("/signup")
     public String signup(Member member) {
 
         service.signup(member);
-        return "member/login";
+
+        return "redirect: ./index2";
     }
 
     @RequestMapping("/index2")
