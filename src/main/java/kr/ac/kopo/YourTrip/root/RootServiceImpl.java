@@ -24,6 +24,7 @@ public class RootServiceImpl implements RootService {
             member.setMemberPass(null);
             member.setMemberNick(item.getMemberNick());
             member.setMemberName(item.getMemberName());
+            member.setMemberNum(item.getMemberNum());
 
             return true;
         } else {

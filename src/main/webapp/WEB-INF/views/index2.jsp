@@ -21,7 +21,7 @@
         <!-- Header -->
         <header id="header">
             <h1>YourTrip</h1>
-            <p>당신의 여행을 공유하고 감상하세요!</p>
+            <p>당신의 이야기를 공유하고 감상하세요!</p>
             <nav>
                 <ul>
                     <li><a href="https://www.instagram.com/hyeon_man/" target="_blank"
@@ -35,8 +35,7 @@
                             class="label"></span></a></li>
                     <!-- 세션에 정보가 있을 때 !-->
                     <c:if test="${sessionScope.member != null}">
-                    <li><a class="icon solid fa-lock-open text-white nav-link btn-primary" data-bs-toggle="modal"
-                           data-bs-target="#LoginModal"></a></li>
+                    <li><a class="icon solid fa-user-check text-white nav-link btn-primary" href="detail/${sessionScope.member.memberNum}"></a></li>
                     </c:if>
                     <!-- 세션에 정보가 있을 때 !-->
 
