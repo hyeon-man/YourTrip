@@ -55,4 +55,5 @@ public class RootController {
     public String index2(){
         return "index2";
     }
+
 }
