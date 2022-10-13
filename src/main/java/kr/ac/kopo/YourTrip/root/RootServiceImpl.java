@@ -4,18 +4,31 @@ import kr.ac.kopo.YourTrip.VO.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 @RequiredArgsConstructor
 @Service
 public class RootServiceImpl implements RootService {
     private final RootDao dao;
 
     @Override
-    public void login(Member member) {
-        dao.login(member);
+    public void signup(Member member) {
+        dao.signup(member);
     }
 
     @Override
-    public void signup(Member member) {
-        dao.signup(member);
+    public boolean login(Member member) {
+        Member item = dao.login(member);
+        if (item != null) {
+
+            member.setMemberId(item.getMemberId());
+            member.setMemberPass(null);
+            member.setMemberNick(item.getMemberNick());
+            member.setMemberName(item.getMemberName());
+
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

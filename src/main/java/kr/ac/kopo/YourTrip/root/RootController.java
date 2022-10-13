@@ -38,21 +38,25 @@ public class RootController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/login")
     public String login(HttpSession session, Member member) {
-        service.login(member);
-
-        return "redirect:/board/list";
+        if(service.login(member)){
+            session.setAttribute("member", member);
+            return "board/list";
+        } else {
+            return "redirect:/index2";
+        }
     }
 
     @PostMapping("member/signup")
     public String signup(Member member) {
-        service.signup(member);
 
+        service.signup(member);
         return "member/login";
     }
+
     @RequestMapping("/index2")
-    public String index2(){
+    public String index2() {
         return "index2";
     }
 

@@ -40,7 +40,6 @@
         </select>
     </nav>
     <!-- 네비바 영역  -->
-
     <!-- 검색창 영역  -->
     <div id="board-search">
         <div class="container">
@@ -94,6 +93,11 @@
     <!-- 게시판 리스트 영역 -->
 </section>
 <!-- 페이지네이션 -->
+<p>${sessionScope.member.memberName}</p>
+
+<p>${sessionScope.member.memberNick}</p>
+
+<p>${sessionScope.member.memberId}</p>
 
 
 

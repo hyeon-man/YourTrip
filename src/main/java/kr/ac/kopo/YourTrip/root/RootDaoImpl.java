@@ -13,13 +13,15 @@ public class RootDaoImpl implements RootDao{
         this.sql = sql;
     }
 
-    @Override
-    public void login(Member member) {
-        sql.selectOne("member.login", member);
-    }
 
     @Override
     public void signup(Member member) {
         sql.insert("member.signup", member);
     }
+
+    @Override
+    public Member login(Member member) {
+        return sql.selectOne("member.login", member);
+    }
+
 }
