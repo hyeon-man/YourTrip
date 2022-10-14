@@ -1,9 +1,10 @@
 package kr.ac.kopo.YourTrip.root;
 
 import kr.ac.kopo.YourTrip.VO.Member;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,29 +23,13 @@ public class RootController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "member/login";
-    }
-
-//    @GetMapping("/signup")
-//    public String signup() {
-//        return "member/signup";
-//    }
-
-    @GetMapping("member/passfind")
-    public String passfind() {
-        return "member/passfind";
-    }
-
-
     @PostMapping("/login")
     public String login(HttpSession session, Member member) {
-        if(service.login(member)){
+        if (service.login(member)) {
             session.setAttribute("member", member);
             return "redirect:board/list";
         } else {
-            return "redirect:/index2";
+            return "index";
         }
     }
 
@@ -53,12 +38,15 @@ public class RootController {
 
         service.signup(member);
 
-        return "redirect: ./index2";
+        return "index";
     }
 
-    @RequestMapping("/index2")
-    public String index2() {
-        return "index2";
-    }
+    @GetMapping("/detail/{memberNum}")
+    public String memberDetail(@PathVariable int memberNum, Model model){
+        Member member = service.item(memberNum);
+        member.setMemberPass(null);
+        model.addAttribute("item", member);
 
+        return "member/memberDetail";
+    }
 }

@@ -32,4 +32,10 @@ public class RootServiceImpl implements RootService {
         }
 
     }
+
+    @Override
+    public Member item(int memberNum) {
+
+        return dao.item(memberNum);
+    }
 }

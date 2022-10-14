@@ -7,4 +7,6 @@ public interface RootService {
     void signup(Member member);
 
     boolean login(Member member);
+
+    Member item(int memberNum);
 }

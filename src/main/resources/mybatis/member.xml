@@ -18,5 +18,10 @@
                 #{memberMail})
     </insert>
 
+    <select id="item" resultType="Member">
+        SELECT *
+        FROM yourtrip.member
+        WHERE member_Num = #{memberNum}
+    </select>
 
 </mapper>

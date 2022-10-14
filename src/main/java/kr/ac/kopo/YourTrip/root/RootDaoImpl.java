@@ -24,4 +24,9 @@ public class RootDaoImpl implements RootDao{
         return sql.selectOne("member.login", member);
     }
 
+    @Override
+    public Member item(int memberNum) {
+        return sql.selectOne("member.item", memberNum);
+    }
+
 }

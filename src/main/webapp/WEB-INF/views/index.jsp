@@ -1,110 +1,165 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
-    <script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function login() {
-            alert("메롱")
-        }
-    </script>
+    <title>YourTrip</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/resources/test/css/main.css"/>
+
 </head>
-
 <body>
+<div id="wrapper">
+    <div id="bg"></div>
+    <div id="overlay"></div>
+    <div id="main">
+        <!-- Header -->
+        <header id="header">
+            <h1>YourTrip</h1>
+            <p>당신의 이야기를 공유하고 감상하세요!</p>
+            <nav>
+                <ul>
+                    <li><a href="https://www.instagram.com/hyeon_man/" target="_blank"
+                           class="icon brands fa-instagram text-white"><span
+                            class="label">Instagram</span></a></li>
+                    <li><a href="https://www.facebook.com/profile.php?id=100007123350295" target="_blank"
+                           class="icon brands fa-facebook-f text-white"><span class="label">Facebook</span></a></li>
+                    <li><a href="https://github.com/hyeon-man" target="_blank" class="icon brands fa-github text-white"><span
+                            class="label">Github</span></a></li>
+                    <li><a href="board/list" class="icon solid fa-camera-retro text-white"><span
+                            class="label"></span></a></li>
+                    <!-- 세션에 정보가 있을 때 !-->
+                    <c:if test="${sessionScope.member != null}">
+                    <li><a class="icon solid fa-user-check text-white nav-link btn-primary" href="detail/${sessionScope.member.memberNum}"></a></li>
+                    </c:if>
+                    <!-- 세션에 정보가 있을 때 !-->
 
-<p><a href="board/list">게시판 가기</a></p>
+                    <!-- 세션에 정보가 없을 때 !-->
+                    <c:if test="${sessionScope.member == null}">
+                        <li><a class="icon solid fa-lock text-white nav-link btn-primary" data-bs-toggle="modal"
+                               data-bs-target="#LoginModal"></a></li>
+                        <li><a class="icon solid fa-user-plus" data-bs-toggle="modal"
+                               data-bs-target="#SignupModal"></a></li>
+                    </c:if>
+                    <!-- 세션에 정보가 없을 때 !-->
 
 
-<div class="container">
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/resources/img/1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Hot Tripper</h5>
-                    <p href="">Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="/resources/img/2.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Hot Tripper</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="/resources/img/3.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Hot Tripper</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+                </ul>
+            </nav>
+        </header>
+        <!-- Header -->
+
+
+        <!-- footer 임 -->
+        <footer id="footer">
+            <span class="copyright">&copy; Kr.ac.kopo <a class="text-white" target="_blank"
+                                                         href="https://www.kopo.ac.kr/daejeon/content.do?menu=5544">kopo</a></span>
+        </footer>
+        <!-- footer 임  -->
     </div>
 </div>
-
-<div class="justify-content-center">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        로그인
-    </button>
-</div>
-
-<!-- Modal -->
-<form method="post" action="/login">
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">로그인</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+<!-- 로그인 모달창임 -->
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content text-black">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">로그인</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/login">
                 <div class="modal-body">
-                    <input name="memberId" placeholder="아이디">
-                    <input name="memberPass" placeholder="비밀번호">
+                    <div>
+                        <div>
+                                <div>
+                                    <label>아이디:</label>
+                                    <input type="text" name="memberId" class="form-control">
+                                </div>
+
+                                <div>
+                                    <label>비밀번호:</label>
+                                    <input type="password" name="memberPass" class="form-control">
+                                </div>
+                                <div>
+                                </div>
+                                <div style="margin-left: 355px">
+                                    <button class="btn btn-danger btn-sm ">로그인</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
+                                </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Login</button>
-                </div>
-            </div>
+            </form>
+
         </div>
     </div>
-</form>
+</div>
+<!-- 회원가입 모달창임 -->
+<div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content text-black">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="SignupModallaber">회원 가입</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/signup">
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <div>
+                                <label>아이디:</label>
+                                <input type="text" name="memberId" class="form-control">
+                            </div>
+                            <div>
+                                <label>비밀번호:</label>
+                                <input type="password" name="memberPass" class="form-control">
+                            </div>
+                            <div>
+                                <label>이름:</label>
+                                <input type="text" name="memberName" class="form-control">
+                            </div>
+                            <div>
+                                <label>닉네임:</label>
+                                <input type="text" name="memberNick" class="form-control">
+                            </div>
+                            <div>
+                                <label>핸드폰 번호:</label>
+                                <input type="text" name="memberPhone" class="form-control">
+                            </div>
+                            <div>
+                                <label>이메일:</label>
+                                <input type="text" name="memberMail" class="form-control">
+                            </div>
+                            <div>
+                            </div>
+                            <div style="margin-left: 335px">
+                                <button class="btn btn-danger btn-sm ">회원 가입</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
-<!-- 드롭다운 메뉴 -->
-<div class="container-rig">
-    <div class="dropdown-menu-sm-start">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            WRT
-        </button>
-        <ul class="dropdown-menu">
-            <li class="dropdown-item-text">YourTrip</li>
-            <li class="dropdown-item-text">email : kimhyunmin34@naver.com</li>
-            <li class="dropdown-item-text">kr.ac.kopo</li>
-        </ul>
+        </div>
     </div>
 </div>
+
+<script>
+    window.onload = function () {
+        document.body.classList.remove('is-preload');
+    }
+    window.ontouchmove = function () {
+        return false;
+    }
+    window.onorientationchange = function () {
+        document.body.scrollTop = 0;
+    }
+</script>
 </body>
+
 </html>

@@ -7,4 +7,6 @@ public interface RootDao {
     void signup(Member member);
 
     Member login(Member member);
+
+    Member item(int memberNum);
 }
