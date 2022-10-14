@@ -1,0 +1,169 @@
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        10.8.4-MariaDB - mariadb.org binary distribution
+-- 서버 OS:                        Win64
+-- HeidiSQL 버전:                  11.3.0.6295
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- yourtrip 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `yourtrip` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `yourtrip`;
+
+-- 테이블 yourtrip.attach 구조 내보내기
+CREATE TABLE IF NOT EXISTS `attach` (
+  `attach_Num` int(11) NOT NULL AUTO_INCREMENT,
+  `attach_BoardNum` int(11) NOT NULL,
+  `attach_FileName` varchar(128) NOT NULL,
+  PRIMARY KEY (`attach_Num`),
+  KEY `FK_attach_board` (`attach_BoardNum`),
+  CONSTRAINT `FK_attach_board` FOREIGN KEY (`attach_BoardNum`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='첨부파일';
+
+-- 테이블 데이터 yourtrip.attach:~0 rows (대략적) 내보내기
+DELETE FROM `attach`;
+/*!40000 ALTER TABLE `attach` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attach` ENABLE KEYS */;
+
+-- 테이블 yourtrip.board 구조 내보내기
+CREATE TABLE IF NOT EXISTS `board` (
+  `board_Num` int(11) NOT NULL AUTO_INCREMENT COMMENT '게시글 번호',
+  `board_Title` varchar(32) DEFAULT NULL COMMENT '게시글 제목',
+  `board_Content` text DEFAULT NULL COMMENT '게시글 내용',
+  `board_Hit` int(11) DEFAULT NULL COMMENT '게시글 조회수',
+  `board_Recommend` int(11) DEFAULT NULL COMMENT '게시글 추천수',
+  `board_Write` varchar(32) DEFAULT NULL COMMENT '게시글 작성자',
+  `board_Date` datetime DEFAULT NULL COMMENT '게시글 작성일',
+  PRIMARY KEY (`board_Num`),
+  KEY `FK_board_member` (`board_Write`),
+  CONSTRAINT `FK_board_member` FOREIGN KEY (`board_Write`) REFERENCES `member` (`member_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COMMENT='게시판 테이블';
+
+-- 테이블 데이터 yourtrip.board:~1 rows (대략적) 내보내기
+DELETE FROM `board`;
+/*!40000 ALTER TABLE `board` DISABLE KEYS */;
+INSERT INTO `board` (`board_Num`, `board_Title`, `board_Content`, `board_Hit`, `board_Recommend`, `board_Write`, `board_Date`) VALUES
+   (67, '어드민 테스트', '어드민123\r\n', 0, 0, 'ADMIN', '2022-10-14 10:35:40');
+/*!40000 ALTER TABLE `board` ENABLE KEYS */;
+
+-- 테이블 yourtrip.follow 구조 내보내기
+CREATE TABLE IF NOT EXISTS `follow` (
+  `follow_member` int(11) NOT NULL,
+  `following_member` int(11) NOT NULL,
+  PRIMARY KEY (`follow_member`),
+  KEY `FK__member_following` (`following_member`),
+  CONSTRAINT `FK__member_follow` FOREIGN KEY (`follow_member`) REFERENCES `member` (`member_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__member_following` FOREIGN KEY (`following_member`) REFERENCES `member` (`member_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='팔로우 / 팔로워';
+
+-- 테이블 데이터 yourtrip.follow:~0 rows (대략적) 내보내기
+DELETE FROM `follow`;
+/*!40000 ALTER TABLE `follow` DISABLE KEYS */;
+/*!40000 ALTER TABLE `follow` ENABLE KEYS */;
+
+-- 테이블 yourtrip.hit 구조 내보내기
+CREATE TABLE IF NOT EXISTS `hit` (
+  `hit_Num` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `board_Num` int(11) DEFAULT NULL,
+  `member_Num` int(11) DEFAULT NULL,
+  PRIMARY KEY (`hit_Num`),
+  KEY `FK__board` (`board_Num`),
+  KEY `FK__member` (`member_Num`),
+  CONSTRAINT `FK__board` FOREIGN KEY (`board_Num`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__member` FOREIGN KEY (`member_Num`) REFERENCES `member` (`member_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='조회수';
+
+-- 테이블 데이터 yourtrip.hit:~0 rows (대략적) 내보내기
+DELETE FROM `hit`;
+/*!40000 ALTER TABLE `hit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `hit` ENABLE KEYS */;
+
+-- 테이블 yourtrip.member 구조 내보내기
+CREATE TABLE IF NOT EXISTS `member` (
+  `member_Num` int(11) NOT NULL AUTO_INCREMENT COMMENT '회원 고유 번호',
+  `member_Id` varchar(32) NOT NULL COMMENT '회원 아이디',
+  `member_Pass` varchar(64) NOT NULL COMMENT '회원 비밀번호',
+  `member_Name` varchar(16) NOT NULL COMMENT '회원 이름',
+  `member_Nick` varchar(50) NOT NULL COMMENT '회원 닉네임',
+  `member_RegDate` datetime NOT NULL COMMENT '회원 가입일',
+  `member_Phone` varchar(16) NOT NULL DEFAULT '' COMMENT '회원 핸드폰 번호',
+  `member_Mail` varchar(32) NOT NULL DEFAULT '' COMMENT '회원 이메일',
+  PRIMARY KEY (`member_Num`) USING BTREE,
+  UNIQUE KEY `member_Id` (`member_Id`),
+  UNIQUE KEY `member_Nick` (`member_Nick`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='회원 테이블';
+
+-- 테이블 데이터 yourtrip.member:~4 rows (대략적) 내보내기
+DELETE FROM `member`;
+/*!40000 ALTER TABLE `member` DISABLE KEYS */;
+INSERT INTO `member` (`member_Num`, `member_Id`, `member_Pass`, `member_Name`, `member_Nick`, `member_RegDate`, `member_Phone`, `member_Mail`) VALUES
+   (1, 'ADMIN', '*A4B6157319038724E3560894F7F932C8886EBFCF', '어드민', '어드민', '2022-09-28 13:07:49', '010-0000-1111', 'ADMIN@ADMIN'),
+   (2, 'test', '*A4B6157319038724E3560894F7F932C8886EBFCF', 'test', 'test', '2022-10-06 14:38:27', '01088888888', 'test@gmail.com'),
+   (3, 'test112', '*94BDCEBE19083CE2A1F959FD02F964C7AF4CFC29', '김현민테스트', '현맨', '2022-10-13 16:08:52', '01083143368', 'Tesmail'),
+   (4, 'test111111', '*A4B6157319038724E3560894F7F932C8886EBFCF', '김현민', '테스트123', '2022-10-13 16:09:42', '1231123', '123123');
+/*!40000 ALTER TABLE `member` ENABLE KEYS */;
+
+-- 테이블 yourtrip.note 구조 내보내기
+CREATE TABLE IF NOT EXISTS `note` (
+  `note_Num` int(11) NOT NULL AUTO_INCREMENT COMMENT '쪽지 번호 ',
+  `note_Title` varchar(12) NOT NULL COMMENT '쪽지 제목',
+  `note_Content` varchar(128) NOT NULL COMMENT '쪽지 내용',
+  `note_Date` datetime NOT NULL COMMENT '쪽지 발신일',
+  `note_Write` varchar(32) NOT NULL DEFAULT '' COMMENT '쪽지 작성자',
+  PRIMARY KEY (`note_Num`) USING BTREE,
+  KEY `FK_note_member` (`note_Write`),
+  CONSTRAINT `FK_note_member` FOREIGN KEY (`note_Write`) REFERENCES `member` (`member_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='쪽지 테이블';
+
+-- 테이블 데이터 yourtrip.note:~0 rows (대략적) 내보내기
+DELETE FROM `note`;
+/*!40000 ALTER TABLE `note` DISABLE KEYS */;
+/*!40000 ALTER TABLE `note` ENABLE KEYS */;
+
+-- 테이블 yourtrip.recommend 구조 내보내기
+CREATE TABLE IF NOT EXISTS `recommend` (
+  `recommend_Num` int(11) NOT NULL AUTO_INCREMENT,
+  `recommend_member_num` int(11) DEFAULT NULL,
+  `recommend_board_num` int(11) DEFAULT NULL,
+  PRIMARY KEY (`recommend_Num`),
+  KEY `FK_recommend_member` (`recommend_member_num`),
+  KEY `FK_recommend_board` (`recommend_board_num`),
+  CONSTRAINT `FK_recommend_board` FOREIGN KEY (`recommend_board_num`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_recommend_member` FOREIGN KEY (`recommend_member_num`) REFERENCES `member` (`member_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COMMENT='게시글 추천 테이블';
+
+-- 테이블 데이터 yourtrip.recommend:~0 rows (대략적) 내보내기
+DELETE FROM `recommend`;
+/*!40000 ALTER TABLE `recommend` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recommend` ENABLE KEYS */;
+
+-- 테이블 yourtrip.reply 구조 내보내기
+CREATE TABLE IF NOT EXISTS `reply` (
+  `reply_Num` int(11) NOT NULL AUTO_INCREMENT COMMENT '댓글 PK',
+  `reply_Write` varchar(32) NOT NULL DEFAULT '' COMMENT '댓글 작성자',
+  `reply_Content` varchar(64) NOT NULL DEFAULT '' COMMENT '댓글 내용',
+  `reply_boardNum` int(11) NOT NULL COMMENT '댓글이 속한 게시판 번호',
+  `reply_Date` datetime NOT NULL COMMENT '댓글 작성일',
+  PRIMARY KEY (`reply_Num`),
+  KEY `FK_reply_member` (`reply_Write`),
+  KEY `FK_reply_board` (`reply_boardNum`),
+  CONSTRAINT `FK_reply_board` FOREIGN KEY (`reply_boardNum`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_reply_member` FOREIGN KEY (`reply_Write`) REFERENCES `member` (`member_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='댓글 테이블';
+
+-- 테이블 데이터 yourtrip.reply:~0 rows (대략적) 내보내기
+DELETE FROM `reply`;
+/*!40000 ALTER TABLE `reply` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reply` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
