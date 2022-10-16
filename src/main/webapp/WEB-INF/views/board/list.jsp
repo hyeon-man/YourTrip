@@ -11,7 +11,11 @@
     <script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
-
+    <script>
+        function logout(){
+            alert("로그아웃 완료.")
+        }
+    </script>
 </head>
 <body>
 <!-- 네비바 영역  -->
@@ -102,7 +106,7 @@
     </div>
     <c:if test="${sessionScope.member != null}">
         <div class="float-start">
-            <a href="/logout" style="text-decoration: none black">
+            <a href="/logout" style="text-decoration: none black" onclick="logout()">
                 로그아웃
             </a>
         </div>
