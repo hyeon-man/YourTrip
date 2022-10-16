@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>YourTrip</title>
+
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
@@ -93,10 +94,10 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
+
 <!-- 회원가입 모달창임 -->
 <div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">

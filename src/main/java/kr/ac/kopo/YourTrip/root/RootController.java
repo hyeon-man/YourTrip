@@ -49,4 +49,11 @@ public class RootController {
 
         return "member/memberDetail";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+
+        return "redirect:/";
+    }
 }
