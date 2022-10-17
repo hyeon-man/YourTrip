@@ -7,7 +7,7 @@
     <script>
         function recommend() {
             if ('${msg}' != null) {
-                alert("추천 되었습니다")
+                alert("추천 완료")
             } else if ('${msg}' == null) {
                 alert("이미 추천한 게시글입니다")
             }

@@ -21,12 +21,12 @@
 <!-- 네비바 영역  -->
 <section class="notice">
     <div class="page-title">
-        <div class="container">
-            <h3>메인 게시판</h3>
-        </div>
+<%--        <div class="container">--%>
+<%--            <h3>메인 게시판</h3>--%>
+<%--        </div>--%>
     </div>
     <nav id="nav3">
-        <a href="..">YourTrip</a>
+        <a href=".." style="text-decoration: none">YourTrip</a>
         <ul>
             <li><a href="#">menu1</a></li>
             <li><a href="#">menu2</a></li>
@@ -56,7 +56,7 @@
                     <div>
                         <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
                            aria-controls="offcanvasExample">
-                            <i class="bi bi-list"></i>
+                            <i class="bi bi-gear"></i>
                         </a>
                     </div>
                 </form>
@@ -105,7 +105,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <c:if test="${sessionScope.member != null}">
-        <div class="float-start">
+        <div class="float-end">
             <a href="/logout" style="text-decoration: none black" onclick="logout()">
                 로그아웃
             </a>
@@ -120,22 +120,20 @@
     </c:if>
 
 
-<%--    이거 나중에 수정 할 때 살리면 됨--%>
-<%--    <div class="offcanvas-body">--%>
-<%--        <div class="justify-content-center" >--%>
-<%--            <i class="bi bi-person"></i>--%>
-<%--            <p>${sessionScope.member.memberName} (${sessionScope.member.memberNick})님</p>--%>
-<%--        </div>--%>
-<%--        <div class="dropdown mt-3">--%>
-<%--            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">--%>
-<%--                Dropdown button--%>
-<%--            </button>--%>
-<%--            <ul class="dropdown-menu">--%>
-<%--                <li><a class="dropdown-item" href="#">Action</a></li>--%>
-<%--                <li><a class="dropdown-item" href="#">Another action</a></li>--%>
-<%--                <li><a class="dropdown-item" href="#">Something else here</a></li>--%>
-<%--            </ul>--%>
-<%--        </div>--%>
+    <div class="offcanvas-body">
+        <div class="justify-content-center" >
+            <i class="bi bi-person"></i>
+            <p>${sessionScope.member.memberName} (${sessionScope.member.memberNick})님</p>
+        </div>
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                리스트 이동
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">게시글 리스트</a></li>
+                <li><a class="dropdown-item" href="#">추천 리스트</a></li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -163,7 +161,7 @@
                             <div>
                             </div>
                             <div style="margin-left: 355px">
-                                <button class="btn btn-danger btn-sm ">로그인</button>
+                                <button class="btn btn-danger btn-sm" style="float: right">로그인</button>
                                 <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
                             </div>
                         </div>
