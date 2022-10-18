@@ -1,176 +1,89 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <html>
-<head>
-    <title>Main board</title>
-    <link rel="stylesheet" href="/resources/css/board.css">
-    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-    <script type="text/javascript" src="/resources/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
-    <script>
-        function logout(){
-            alert("로그아웃 완료.")
-        }
-    </script>
+<head>
+    <title>Title</title>
+    <link href="/resources/css/list_styles.css" rel="stylesheet">
 </head>
 <body>
-<!-- 네비바 영역  -->
-<section class="notice">
-    <div class="page-title">
-<%--        <div class="container">--%>
-<%--            <h3>메인 게시판</h3>--%>
-<%--        </div>--%>
-    </div>
-    <nav id="nav3">
-        <a href=".." style="text-decoration: none">YourTrip</a>
-        <ul>
-            <li><a href="#">menu1</a></li>
-            <li><a href="#">menu2</a></li>
-            <li><a href="#">menu3</a></li>
-            <li><a href="#">menu4</a></li>
-            <li><a href="#">menu5</a></li>
-        </ul>
-    </nav>
-
-
-    <!-- 네비바 영역  -->
-    <!-- 검색창 영역  -->
-    <div id="board-search">
-        <div class="container">
-            <div class="search-window">
-                <form method="get">
-                    <div class="search-wrap">
-                        <select name="kind">
-                            <option value="1" ${pager.kind == 1 ? 'selected' : ''} > 제목</option>
-                            <option value="2" ${pager.kind == 2 ? 'selected' : ''}> 글 번호</option>
-                            <option value="3" ${pager.kind == 3 ? 'selected' : ''}> 작성자</option>
-                        </select>
-                        <input name="keyword" placeholder="검색어를 입력해주세요." value="${pager.keyword}">
-                        <button class="btn btn-dark">검색</button>
-                    </div>
-                    <button class="btn btn-dark"><a href="add" style="text-decoration: none">글쓰기</a></button>
-                    <div>
-                        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-                           aria-controls="offcanvasExample">
-                            <i class="bi bi-gear"></i>
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- 검색창 영역 -->
-
-    <!-- 게시판 리스트 영역 -->
-    <div id="board-list">
-        <div class="container">
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-title">제목</th>
-                    <th scope="col" class="th-date">작성자</th>
-                    <th scope="col" class="th-date">조회수</th>
-                    <th scope="col" class="th-date">추천수</th>
-                    <th scope="col" class="th-date">등록일시</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="item" items="${list}">
-                    <tr>
-                        <td>${item.boardNum}</td>
-                        <td><a href="detail/${item.boardNum}">${item.boardTitle}</a></td>
-                        <td>${item.boardWrite}</td>
-                        <td>${item.boardHit}</td>
-                        <td>${item.boardRecommend}</td>
-                        <td>${item.boardDate}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- 게시판 리스트 영역 -->
-</section>
-<!-- 페이지네이션 -->
-
-
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-    <div class="offcanvas-header">
-        <h3 class="offcanvas-title" id="offcanvasExampleLabel">회원 정보</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <c:if test="${sessionScope.member != null}">
-        <div class="float-end">
-            <a href="/logout" style="text-decoration: none black" onclick="logout()">
-                로그아웃
-            </a>
-        </div>
-    </c:if>
-    <c:if test="${sessionScope.member == null}">
-        <div class="float-start">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                로그인
-            </button>
-        </div>
-    </c:if>
-
-
-    <div class="offcanvas-body">
-        <div class="justify-content-center" >
-            <i class="bi bi-person"></i>
-            <p>${sessionScope.member.memberName} (${sessionScope.member.memberNick})님</p>
-        </div>
-        <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                리스트 이동
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">게시글 리스트</a></li>
-                <li><a class="dropdown-item" href="#">추천 리스트</a></li>
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-5">
+        <a class="navbar-brand" href="../" style="font-size: x-large">YourTrip</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
             </ul>
         </div>
     </div>
-</div>
-
-
-<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-        <div class="modal-content text-black">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">로그인</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form method="post" action="/login">
-                <div class="modal-body">
-                    <div>
-                        <div>
-                            <div>
-                                <label>아이디:</label>
-                                <input type="text" name="memberId" class="form-control">
-                            </div>
-
-                            <div>
-                                <label>비밀번호:</label>
-                                <input type="password" name="memberPass" class="form-control">
-                            </div>
-                            <div>
-                            </div>
-                            <div style="margin-left: 355px">
-                                <button class="btn btn-danger btn-sm" style="float: right">로그인</button>
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
-                            </div>
-                        </div>
-                    </div>
+</nav>
+<!-- Page Content-->
+<div class="container px-4 px-lg-5">
+    <!-- Heading Row-->
+    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0"
+                                   src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..."/></div>
+        <div class="col-lg-5">
+            <h1 class="font-weight-light">Business Name or Tagline</h1>
+            <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it
+                makes a great use of the standard Bootstrap core components. Feel free to use this template for any
+                project you want!</p>
+            <a class="btn btn-primary" href="#!">See more pictures!</a>
+        </div>
+    </div>
+    <!-- Call to Action-->
+    <div class="card text-white bg-secondary my-5 py-4 text-center">
+        <div class="card-body"><h3 class="text-white m-0" >여행자님의 이야기도 공유 해보세요, {BoardTotalCount}건의 이야기가 공유 되고 있어요!</h3></div>
+    </div>
+    <!-- Content Row-->
+    <div class="row gx-4 gx-lg-5">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Card One</h2>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex
+                        numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
                 </div>
-            </form>
+                <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Card Two</h2>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus
+                        at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates
+                        quos eligendi labore.</p>
+                </div>
+                <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Card Three</h2>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex
+                        numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                </div>
+                <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
+            </div>
         </div>
     </div>
 </div>
-
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/resources/js/list_scripts.js"></script>
 </body>
 </html>

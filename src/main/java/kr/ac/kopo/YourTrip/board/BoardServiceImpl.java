@@ -54,4 +54,9 @@ public class BoardServiceImpl implements BoardService {
     public void recommendInsert(int boardNum) {
         dao.recommendInsert(boardNum);
     }
+
+    @Override
+    public void hit(int boardNum) {
+        dao.hit(boardNum);
+    }
 }

@@ -59,4 +59,12 @@
         INSERT yourtrip.recommend
         VALUES (NULL, 1, #{boardNum})
     </insert>
+
+    <update id="hit">
+        UPDATE yourtrip.board
+        SET board_Hit = board_Hit + 1
+        Where board_Num = #{boardNum}
+    </update>
+
+
 </mapper>

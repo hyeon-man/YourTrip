@@ -21,4 +21,6 @@ public interface BoardDao {
     void recommend(int boardNum);
 
     void recommendInsert(int boardNum);
+
+    void hit(int boardNum);
 }

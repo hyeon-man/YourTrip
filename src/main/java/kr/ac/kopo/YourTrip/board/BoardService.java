@@ -21,4 +21,7 @@ public interface BoardService {
     void recommend(int boardNum);
 
     void recommendInsert(int boardNum);
+
+
+    void hit(int boardNum);
 }

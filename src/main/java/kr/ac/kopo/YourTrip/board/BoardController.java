@@ -3,17 +3,15 @@ package kr.ac.kopo.YourTrip.board;
 import kr.ac.kopo.YourTrip.VO.Board;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.PrintWriter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static java.lang.System.out;
 
 @Controller
-
 /*의존성 주입*/
 @RequestMapping("/board")
 public class BoardController {
@@ -51,10 +49,14 @@ public class BoardController {
 
     /*게시물 상세보기*/
     @GetMapping("/detail/{boardNum}")
-    public String detail(@PathVariable int boardNum, Model model) {
-
+    public String detail(@PathVariable int boardNum, Model model, HttpServletRequest request, HttpServletResponse response){
+        service.hit(boardNum);
         Board item = service.item(boardNum);
         model.addAttribute("item", item);
+
+
+
+
 
         return "board/detail";
     }

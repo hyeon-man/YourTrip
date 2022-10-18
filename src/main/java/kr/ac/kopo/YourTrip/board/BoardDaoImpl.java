@@ -53,5 +53,10 @@ public class BoardDaoImpl implements BoardDao {
         sql.insert("board.recommendInsert", boardNum);
     }
 
+    @Override
+    public void hit(int boardNum) {
+        sql.update("board.hit", boardNum);
+    }
+
 
 }

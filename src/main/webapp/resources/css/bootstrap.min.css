@@ -6305,7 +6305,7 @@ textarea.form-control-lg {
     margin-right: -100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    transition: transform .6s ease-in-out
+    transition: transform .2s ease-in-out
 }
 
 @media (prefers-reduced-motion: reduce) {
