@@ -12,33 +12,33 @@ import java.util.List;
 
 
 @Controller
-/*의존성 주입*/
 @RequestMapping("/board")
 public class BoardController {
     final BoardService service;
-
     public BoardController(BoardService service) {
         this.service = service;
     }
 
-    /*리스트 페이지*/
     @RequestMapping("/list")
     public String list(Model model, Search search) {
 
-        List<Board> list = service.list(search);
+        List<Board> list = service.list(search); // 리스트 뽑아오기 이거 쓸 지 안 쓸 지 모르곘는데 아마 안 쓸 듯
+        int boardTotal = service.total(); // 전체 게시글수 카운팅
+        Board hotTopic = service.hotTopic(); // 핫토픽 한개
+
         model.addAttribute("list", list);
+        model.addAttribute("total", boardTotal);
+        model.addAttribute("hotTopic", hotTopic);
 
         return "board/list";
     }
 
-    /*게시물 등록 페이지*/
     @GetMapping("/add")
     public String add() {
 
         return "board/add";
     }
 
-    /*게시물 등록 적용*/
     @PostMapping("/add")
     public String add(Board board) {
 
@@ -47,21 +47,16 @@ public class BoardController {
         return "redirect:list";
     }
 
-    /*게시물 상세보기*/
     @GetMapping("/detail/{boardNum}")
-    public String detail(@PathVariable int boardNum, Model model, HttpServletRequest request, HttpServletResponse response){
+    public String detail(@PathVariable int boardNum, Model model, HttpServletRequest request, HttpServletResponse response) {
         service.hit(boardNum);
         Board item = service.item(boardNum);
         model.addAttribute("item", item);
 
 
-
-
-
         return "board/detail";
     }
 
-    /*게시물 삭제*/
     @RequestMapping("/detail/delete/{boardNum}")
     public String delete(@PathVariable int boardNum) {
 
@@ -70,7 +65,6 @@ public class BoardController {
         return "redirect:../../list";
     }
 
-    /*게시물 수정 페이지*/
     @GetMapping("detail/update/{boardNum}")
     public String update(@PathVariable int boardNum, Model model) {
 
@@ -80,7 +74,6 @@ public class BoardController {
         return "board/update";
     }
 
-    /*게시물 수정 적용*/
     @PostMapping("detail/update/{boardNum}")
     public String update(@PathVariable int boardNum, Board board) {
 
@@ -95,7 +88,6 @@ public class BoardController {
             service.recommendInsert(boardNum);
             service.recommend(boardNum);
             model.addAttribute("msg", "추천 됐습니다");
-
             return "redirect:../" + boardNum;
 
         } else {

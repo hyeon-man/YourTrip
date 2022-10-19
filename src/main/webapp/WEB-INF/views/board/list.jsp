@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Title</title>
+    <title>YourTrip 여행자들의 커뮤니티</title>
     <link href="/resources/css/list_styles.css" rel="stylesheet">
 </head>
 <body>
@@ -16,10 +16,12 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                <%--                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>--%>
+                <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
+                <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
+                                        href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                    ${sessionScope.member.memberName}여행자님 </a></li>
             </ul>
         </div>
     </div>
@@ -29,27 +31,27 @@
     <!-- Heading Row-->
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
         <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0"
-                                   src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..."/></div>
+                                   src="/resources/img/2.jpg" alt="..."/></div>
         <div class="col-lg-5">
-            <h1 class="font-weight-light">Business Name or Tagline</h1>
-            <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it
-                makes a great use of the standard Bootstrap core components. Feel free to use this template for any
-                project you want!</p>
-            <a class="btn btn-primary" href="#!">See more pictures!</a>
+            <h1 class="font-weight-light">Today Rank #1</h1>
+
+            <p> #뉴욕 #유학 #해외</p>
+            <p> ${hotTopic.boardContent} ... "
+                "더보기 예정 ㅋㅋ. </p>
+            <a class="btn btn-primary" href="">See more</a>
         </div>
     </div>
     <!-- Call to Action-->
-    <div class="card text-white bg-secondary my-5 py-4 text-center">
-        <div class="card-body"><h3 class="text-white m-0" >여행자님의 이야기도 공유 해보세요, {BoardTotalCount}건의 이야기가 공유 되고 있어요!</h3></div>
+    <div class="card text-white bg-info my-5 py-4 text-center ">
+        <div class="card-body "><h3 class="m-0 text-black">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
     </div>
     <!-- Content Row-->
     <div class="row gx-4 gx-lg-5">
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card One</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex
-                        numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                    <h2 class="card-title">국내 여행 갤러리</h2>
+                    <p class="card-text">국내 여행의 이야기를 모아놨어요 !</p>
                 </div>
                 <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
             </div>
@@ -57,10 +59,8 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card Two</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus
-                        at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates
-                        quos eligendi labore.</p>
+                    <h2 class="card-title"> International Hot Topic </h2>
+                    <p class="card-text">해외 여행의 이야기를 모아놨어요 !</p>
                 </div>
                 <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
             </div>
@@ -68,12 +68,41 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card Three</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex
-                        numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                    <h2 class="card-title">QnA</h2>
+                    <p class="card-text"> 여행 전 궁금점이 생겼다면 ?
+                        다른 여행자분들에게 질문을 남겨보세요!</p>
                 </div>
                 <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- sidebar area-->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="/logout">
+            <button> 로그아웃 </button>
+        </form>
+        <div>
+            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
+            etc.
+        </div>
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
         </div>
     </div>
 </div>

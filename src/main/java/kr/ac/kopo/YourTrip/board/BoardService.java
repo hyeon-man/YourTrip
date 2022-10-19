@@ -24,4 +24,8 @@ public interface BoardService {
 
 
     void hit(int boardNum);
+
+    int total();
+
+    Board hotTopic();
 }

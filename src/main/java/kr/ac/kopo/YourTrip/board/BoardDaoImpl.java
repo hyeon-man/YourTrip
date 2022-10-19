@@ -58,5 +58,17 @@ public class BoardDaoImpl implements BoardDao {
         sql.update("board.hit", boardNum);
     }
 
+    @Override
+    public int total() {
+        return sql.selectOne("board.total");
+
+    }
+
+    @Override
+    public Board hotTopic() {
+
+        return sql.selectOne("board.HotTopic");
+    }
+
 
 }

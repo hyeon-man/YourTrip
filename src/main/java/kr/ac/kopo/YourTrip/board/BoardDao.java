@@ -23,4 +23,8 @@ public interface BoardDao {
     void recommendInsert(int boardNum);
 
     void hit(int boardNum);
+
+    int total();
+
+    Board hotTopic();
 }

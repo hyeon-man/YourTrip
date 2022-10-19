@@ -4,6 +4,8 @@
 
 <mapper namespace="board">
 
+
+    <!-- list 갖고오는 쿼리 -->
     <select id="list" resultType="Board">
         SELECT *
         FROM yourtrip.board
@@ -18,24 +20,29 @@
         </if>
     </select>
 
+    <!-- add 쿼리  todo board write value 수정 해야함 -->
     <insert id="add">
         INSERT INTO yourtrip.board
         (BOARD_NUM, BOARD_TITLE, BOARD_CONTENT, BOARD_HIT, BOARD_RECOMMEND, BOARD_WRITE, BOARD_DATE)
         VALUES (NULL, #{boardTitle}, #{boardContent}, 0, 0, 'ADMIN', NOW())
     </insert>
 
+    <!-- 한 개 가져오는 쿼리-->
     <select id="item" resultType="Board">
         SELECT *
         FROM yourtrip.board
         WHERE board_Num = #{boardNum}
     </select>
 
+    <!-- 게시글 삭제 -->
     <delete id="delete">
         DELETE
         FROM yourtrip.board
         WHERE board_Num = #{boardNum}
     </delete>
 
+
+    <!-- 게시글 수정 쿼리 -->
     <update id="update">
         UPDATE yourtrip.board
         SET board_Title   = #{boardTitle},
@@ -43,28 +50,42 @@
         WHERE board_Num = #{boardNum}
     </update>
 
+    <!-- 추천 확인 쓸지 안 쓸지 아직 미정-->
     <select id="recommendCheck" resultType="Integer">
         select count(*)
         from yourtrip.recommend
         where recommend_board_num = #{boardNum}
     </select>
 
+    <!--추천 + 1 -->
     <update id="recommend">
         update yourtrip.board
         set board_Recommend = board_Recommend + 1
         where board_Num = #{boardNum}
     </update>
 
+    <!-- Recommend 테이블에 값 insert 하는 쿼리인데 쓸지 안 쓸지 아직 미정 -->
     <insert id="recommendInsert">
         INSERT yourtrip.recommend
         VALUES (NULL, 1, #{boardNum})
     </insert>
 
+    <!-- Hit Query -->
     <update id="hit">
         UPDATE yourtrip.board
         SET board_Hit = board_Hit + 1
         Where board_Num = #{boardNum}
     </update>
 
+    <!-- Board Total Query -->
+    <select id="total" resultType="int">
+        SELECT COUNT(*)
+        FROM yourtrip.board
+    </select>
 
+    <select id="HotTopic" resultType="Board">
+        SELECT *
+        FROM yourtrip.board
+        WHERE board_recommend = (select max(board_recommend) from board)
+    </select>
 </mapper>

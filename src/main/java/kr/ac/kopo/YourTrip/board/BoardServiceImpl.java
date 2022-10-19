@@ -59,4 +59,14 @@ public class BoardServiceImpl implements BoardService {
     public void hit(int boardNum) {
         dao.hit(boardNum);
     }
+
+    @Override
+    public int total() {
+        return dao.total();
+    }
+
+    @Override
+    public Board hotTopic() {
+        return dao.hotTopic();
+    }
 }
