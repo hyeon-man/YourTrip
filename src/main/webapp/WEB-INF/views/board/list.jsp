@@ -36,14 +36,13 @@
             <h1 class="font-weight-light">Today Rank #1</h1>
 
             <p> #뉴욕 #유학 #해외</p>
-            <p> ${hotTopic.boardContent} ... "
-                "더보기 예정 ㅋㅋ. </p>
-            <a class="btn btn-primary" href="">See more</a>
+            <p> ${hotTopic.boardContent} <!-- 핫토픽 내용 불러오기--> </p>
+            <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
         </div>
     </div>
     <!-- Call to Action-->
-    <div class="card text-white bg-info my-5 py-4 text-center ">
-        <div class="card-body "><h3 class="m-0 text-black">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
+    <div class="card text-white bg-dark my-5 py-4 text-center ">
+        <div class="card-body "><h3 class="m-0 text-white">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
     </div>
     <!-- Content Row-->
     <div class="row gx-4 gx-lg-5">
@@ -53,7 +52,7 @@
                     <h2 class="card-title">국내 여행 갤러리</h2>
                     <p class="card-text">국내 여행의 이야기를 모아놨어요 !</p>
                 </div>
-                <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
+                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
@@ -62,17 +61,16 @@
                     <h2 class="card-title"> International Hot Topic </h2>
                     <p class="card-text">해외 여행의 이야기를 모아놨어요 !</p>
                 </div>
-                <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
+                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
                     <h2 class="card-title">QnA</h2>
-                    <p class="card-text"> 여행 전 궁금점이 생겼다면 ?
-                        다른 여행자분들에게 질문을 남겨보세요!</p>
+                    <p class="card-text"> 여행 전 궁금점이 생겼다면 ? 다른 여행자분들에게 질문을 남겨보세요!</p>
                 </div>
-                <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">See more</a></div>
+                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="">See more</a></div>
             </div>
         </div>
     </div>
@@ -87,9 +85,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form action="/logout">
-            <button> 로그아웃 </button>
-        </form>
+        <c:if test="${sessionScope.member != null}">
+            <form action="/logout">
+                <button> 로그아웃</button>
+            </form>
+        </c:if>
         <div>
             Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
             etc.
