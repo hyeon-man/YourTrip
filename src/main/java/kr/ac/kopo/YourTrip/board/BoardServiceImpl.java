@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,4 +70,25 @@ public class BoardServiceImpl implements BoardService {
     public Board hotTopic() {
         return dao.hotTopic();
     }
+
+    @Override
+    public List<Reply> getReply(int boardNum) {
+        return dao.getReply(boardNum);
+    }
+
+    @Override
+    public void addReply(Reply reply) {
+        dao.addReply(reply);
+    }
+
+    @Override
+    public Reply getReplyItem(int replyNum) {
+        return dao.getReplyItem(replyNum);
+    }
+
+    @Override
+    public void deleteReply(int replyNum) {
+        dao.deleteReply(replyNum);
+    }
+
 }

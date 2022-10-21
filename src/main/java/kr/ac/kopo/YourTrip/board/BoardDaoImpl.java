@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,26 @@ public class BoardDaoImpl implements BoardDao {
     public Board hotTopic() {
 
         return sql.selectOne("board.HotTopic");
+    }
+
+    @Override
+    public List<Reply> getReply(int boardNum) {
+        return sql.selectList("reply.list", boardNum);
+    }
+
+    @Override
+    public void addReply(Reply reply) {
+        sql.insert("reply.insert", reply);
+    }
+
+    @Override
+    public Reply getReplyItem(int replyNum) {
+        return sql.selectOne("reply.item", replyNum);
+    }
+
+    @Override
+    public void deleteReply(int replyNum) {
+        sql.delete("reply.deleteReply", replyNum);
     }
 
 

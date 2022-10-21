@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,10 +49,13 @@ public class BoardController {
     }
 
     @GetMapping("/detail/{boardNum}")
-    public String detail(@PathVariable int boardNum, Model model, HttpServletRequest request, HttpServletResponse response) {
-        service.hit(boardNum);
+    public String detail(@PathVariable int boardNum, Model model) {
+//        service.hit(boardNum);
+
         Board item = service.item(boardNum);
         model.addAttribute("item", item);
+        List<Reply> list = service.getReply(boardNum);
+        model.addAttribute("ReplyList", list);
 
 
         return "board/detail";

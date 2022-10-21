@@ -61,36 +61,51 @@
 <!-- Related items section-->
 
 <!-- Comments section-->
-<section class="mb-5 container" style="width:1272px; height: 432px">
+<section class="mb-5 container" style="width:1250px; height: auto">
     <div class="card bg-light">
         <div class="card-body">
-            <!-- Comment form-->
-            <form class="mb-4">
-                <textarea class="form-control" rows="3" placeholder="궁금한점이 있다면 다른 여행자에게 질문을 남겨보세요!"></textarea>
-                <button class="float-end btn btn-primary" style="margin-top: 5px" onclick="Sucess()">등록</button>
+            <form class="mb-4" action="/addReply/${item.boardNum}" method="post">
+                <textarea name="replyContent" class="form-control" rows="3" type="textarea"
+                          placeholder="궁금한점이 있다면 여행자님에게 질문을 남겨보세요!"></textarea>
+                <button class="float-end btn btn-primary" style="margin-top: 5px">등록</button>
             </form>
             <br>
-            <!-- Comment with nested comments-->
-            <div class="d-flex mb-4">
-                <!-- Parent comment-->
-                <div class="ms-3">
-                    <div class="fw-bold">{작성자}</div>
-                    {작성자의 댓글 내용}
-                    <!-- Child comment 1-->
-                </div>
+
+            <c:if test="${ReplyList.size() < 1}">
+            <div class="d-flex" style="margin-top: 15px">
             </div>
-            <!-- Single comment-->
-            <div class="d-flex">
-                <%--         프로필사진 구현하면 여기다 쓰자       <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>--%>
-                    <div class="ms-3">
-                        <div class="fw-bold">{작성자}</div>
-                        {작성자의 댓글 내용}
-                    </div>
+            <div class="ms-3">
+                <div class="fw-bold"> 아직 등록된 댓글이 없어요!</div>
+                여행자님이 댓글을 남겨보세요!
             </div>
         </div>
+        </c:if>
+
+        <c:forEach var="reply" items="${ReplyList}">
+            <div class="d-block" style="margin-top: 15px">
+                <div class="ms-3">
+                    <div class="fw-bold"> ${reply.replyWrite}
+                        <c:if test="${sessionScope.member.memberId == reply.replyWrite}">
+
+                            <div class="float-end">
+                                <a class="btn btn-secondary btn-sm" style="margin-left: 10px"> 수정 </a>
+                            </div>
+
+                            <div class="float-end">
+                                <a class="btn btn-danger btn-sm" href="deleteReply/${reply.replyNum}"> 삭제 </a>
+                            </div>
+
+                        </c:if>
+                    </div>
+                        ${reply.replyContent}
+                </div>
+            </div>
+        </c:forEach>
+    </div>
     </div>
 </section>
 </div>
+
 
 <br>
 <!-- Footer-->
@@ -103,7 +118,7 @@
 <script src="/resources/js/detail_scripts.js"></script>
 
 <script>
-    function Sucess(){
+    function Sucess() {
         alert("댓글 등록 완료!")
     }
 </script>

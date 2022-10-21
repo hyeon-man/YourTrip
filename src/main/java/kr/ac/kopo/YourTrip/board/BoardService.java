@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 
 import java.util.List;
@@ -28,4 +29,12 @@ public interface BoardService {
     int total();
 
     Board hotTopic();
+
+    List<Reply> getReply(int boardNum);
+
+    void addReply(Reply reply);
+
+    Reply getReplyItem(int replyNum);
+
+    void deleteReply(int replyNum);
 }
