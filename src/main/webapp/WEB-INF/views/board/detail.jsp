@@ -22,7 +22,7 @@
                 <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
                 <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
                                         href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    ${sessionScope.member.memberName}여행자님 </a></li>
+                    ${sessionScope.member.memberName} </a></li>
             </ul>
         </div>
     </div>
@@ -66,7 +66,7 @@
         <div class="card-body">
             <form class="mb-4" action="/addReply/${item.boardNum}" method="post">
                 <textarea name="replyContent" class="form-control" rows="3" type="textarea"
-                          placeholder="궁금한점이 있다면 여행자님에게 질문을 남겨보세요!"></textarea>
+                          placeholder="궁금한점이 있다면 여행자님에게 댓글을 남겨 소통해보세요!"></textarea>
                 <button class="float-end btn btn-primary" style="margin-top: 5px">등록</button>
             </form>
             <br>
@@ -112,6 +112,84 @@
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
 </footer>
+
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <c:if test="${sessionScope.member != null}">
+            <div>
+                <p>로그인 계정 : ${sessionScope.member.memberId}</p>
+                <p>로그인 이름 : ${sessionScope.member.memberName}</p>
+                <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
+            </div>
+
+            <form action="/logout">
+                <button class="text-black btn-primary float-end"> 로그아웃 </button>
+            </form>
+        </c:if>
+
+        <c:if test="${sessionScope.member == null}">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#LoginModal">
+                    로그인
+            </button>
+        </c:if>
+        <br>
+
+        <div class="dropdown mt-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content text-black">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">로그인</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/login">
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <div>
+                                <label>아이디:</label>
+                                <input type="text" name="memberId" class="form-control">
+                            </div>
+
+                            <div>
+                                <label>비밀번호:</label>
+                                <input type="password" name="memberPass" class="form-control">
+                            </div>
+                            <div>
+                            </div>
+                            <div style="margin-left: 350px; margin-top: 10px">
+                                <button class="btn btn-danger btn-sm ">로그인</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

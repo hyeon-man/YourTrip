@@ -1,16 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 
-<head>
-    <title>YourTrip 여행자들의 커뮤니티</title>
-    <link href="/resources/css/list_styles.css" rel="stylesheet">
-</head>
-<body>
-<!-- Responsive navbar-->
+---------------------nav --------------------------
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="../" style="font-size: x-large">YourTrip</a>
+        <a class="navbar-brand" href="/" style="font-size: x-large">YourTrip</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -21,63 +13,21 @@
                 <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
                 <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
                                         href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    ${sessionScope.member.memberName}여행자님 </a></li>
+                    ${sessionScope.member.memberName} </a></li>   -----------모달 트리거 -------------
             </ul>
         </div>
     </div>
 </nav>
-<!-- Page Content-->
-<div class="container px-4 px-lg-5">
-    <!-- Heading Row-->
-    <div class="row gx-4 gx-lg-5 align-items-center my-5">
-        <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0"
-                                   src="/resources/img/2.jpg" alt="..."/></div>
-        <div class="col-lg-5">
-            <h1 class="font-weight-light">Today Rank #1</h1>
+---------------------nav --------------------------
 
-            <p> #뉴욕 #유학 #해외</p>
-            <p> ${hotTopic.boardContent} <!-- 핫토픽 내용 불러오기--> </p>
-            <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
-        </div>
-    </div>
-    <!-- Call to Action-->
-    <div class="card text-white bg-dark my-5 py-4 text-center ">
-        <div class="card-body "><h3 class="m-0 text-white">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
-    </div>
-    <!-- Content Row-->
-    <div class="row gx-4 gx-lg-5">
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">국내 여행 갤러리</h2>
-                    <p class="card-text">국내 여행의 이야기를 모아놨어요 !</p>
-                </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title"> International Hot Topic </h2>
-                    <p class="card-text">해외 여행의 이야기를 모아놨어요 !</p>
-                </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">QnA</h2>
-                    <p class="card-text"> 여행 전 궁금점이 생겼다면 ? 다른 여행자분들에게 질문을 남겨보세요!</p>
-                </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="">See more</a></div>
-            </div>
-        </div>
-    </div>
-</div>
+---------------------footer--------------------------
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
+</footer>
+---------------------footer--------------------------
 
+---------------------side bar / modal -------------
 
-<!-- sidebar area-->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h5>
@@ -98,7 +48,7 @@
 
         <c:if test="${sessionScope.member == null}">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                로그인
+                    로그인
             </button>
         </c:if>
         <br>
@@ -152,13 +102,6 @@
     </div>
 </div>
 
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
-</footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="/resources/js/list_scripts.js"></script>
-</body>
-</html>
+
+
+
