@@ -36,7 +36,7 @@
             <h1 class="font-weight-light">Today Rank #1</h1>
 
             <p> #뉴욕 #유학 #해외</p>
-            <p> ${hotTopic.boardContent} <!-- 핫토픽 내용 불러오기--> </p>
+            <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
             <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
         </div>
     </div>

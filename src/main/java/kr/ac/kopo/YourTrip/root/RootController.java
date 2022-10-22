@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -24,10 +25,14 @@ public class RootController {
     }
 
     @PostMapping("/login")
-    public String login(HttpSession session, Member member) {
+    public String login(HttpSession session, Member member, HttpServletRequest request) {
+        String referer = request.getHeader("referer");
+
+        System.out.println("이전페이지는" + referer);
+
         if (service.login(member)) {
             session.setAttribute("member", member);
-            return "redirect:board/list";
+            return "redirect:" + referer;
         } else {
             return "index";
         }
@@ -51,9 +56,11 @@ public class RootController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session,HttpServletRequest request){
         session.invalidate();
+        String referer = request.getHeader("referer");
+        System.out.println("이전페이지는" + referer);
 
-        return "redirect:/board/list";
+        return "redirect:" + referer;
     }
 }

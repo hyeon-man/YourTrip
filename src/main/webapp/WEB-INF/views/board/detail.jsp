@@ -11,7 +11,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="/" style="font-size: x-large">YourTrip</a>
+        <a class="navbar-brand" href="../list" style="font-size: x-large">YourTrip</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -22,7 +22,7 @@
                 <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
                 <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
                                         href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    ${sessionScope.member.memberName} </a></li>
+                    ${sessionScope.member.memberName}여행자님 </a></li>
             </ul>
         </div>
     </div>
@@ -35,8 +35,10 @@
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
                                        src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."/></div>
             <div class="col-md-6">
-                <div class="small mb-1">#뉴욕 #미국 #유학</div>
-                <h1 class="display-5 fw-bolder">${item.boardTitle}</h1>
+                <div class="small mb-1 d-inline">#뉴욕</div>
+                <div class="small mb-1 d-inline">#미국</div>
+                <div class="small mb-1 d-inline">#유학</div>
+                <h5 class="display-5 fw-bolder">${item.boardTitle}</h5>
                 <div class="fs-5 mb-5">
                     <span>작성자 : ${item.boardWrite}</span>
                     <br>
@@ -45,7 +47,7 @@
                 <p class="lead">
                     ${item.boardContent}
                 </p>
-                <div class="d-flex">
+                <div class="d-flex float-end">
                     <button class="btn btn-outline-danger flex-shrink-0" type="button">
                         <i class="bi bi-heart"></i>
                     </button>
