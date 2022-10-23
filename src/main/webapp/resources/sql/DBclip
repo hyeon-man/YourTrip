@@ -29,7 +29,10 @@ CREATE TABLE IF NOT EXISTS `attach` (
   CONSTRAINT `FK_attach_board` FOREIGN KEY (`attach_board_num`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='첨부파일\r\n';
 
--- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 데이터 yourtrip.attach:~0 rows (대략적) 내보내기
+DELETE FROM `attach`;
+/*!40000 ALTER TABLE `attach` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attach` ENABLE KEYS */;
 
 -- 테이블 yourtrip.board 구조 내보내기
 DROP TABLE IF EXISTS `board`;
@@ -46,20 +49,52 @@ CREATE TABLE IF NOT EXISTS `board` (
   CONSTRAINT `FK_board_member` FOREIGN KEY (`board_Write`) REFERENCES `member` (`member_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COMMENT='게시판 테이블';
 
--- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 데이터 yourtrip.board:~3 rows (대략적) 내보내기
+DELETE FROM `board`;
+/*!40000 ALTER TABLE `board` DISABLE KEYS */;
+INSERT INTO `board` (`board_Num`, `board_Title`, `board_Content`, `board_Hit`, `board_Recommend`, `board_Write`, `board_Date`) VALUES
+	(76, '252', '523', 0, 0, 'ADMIN', '2022-10-18 19:17:05'),
+	(77, '놀러 갔다 왔어요!', '3255', 2, 1, 'ADMIN', '2022-10-18 19:22:21'),
+	(78, '125312', '3523535', 0, 0, 'ADMIN', '2022-10-18 19:22:23'),
+	(79, '32516737', '5757', 0, 0, 'ADMIN', '2022-10-18 19:22:31');
+/*!40000 ALTER TABLE `board` ENABLE KEYS */;
+
+-- 테이블 yourtrip.board_hash_connect 구조 내보내기
+DROP TABLE IF EXISTS `board_hash_connect`;
+CREATE TABLE IF NOT EXISTS `board_hash_connect` (
+  `connect_boardNum` int(11) DEFAULT NULL,
+  `connect_hashNum` int(11) DEFAULT NULL,
+  KEY `FK__board` (`connect_boardNum`),
+  KEY `FK__hash` (`connect_hashNum`),
+  CONSTRAINT `FK__board` FOREIGN KEY (`connect_boardNum`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__hash` FOREIGN KEY (`connect_hashNum`) REFERENCES `hash` (`hash_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='해시랑 보드 중간 ';
+
+-- 테이블 데이터 yourtrip.board_hash_connect:~0 rows (대략적) 내보내기
+DELETE FROM `board_hash_connect`;
+/*!40000 ALTER TABLE `board_hash_connect` DISABLE KEYS */;
+INSERT INTO `board_hash_connect` (`connect_boardNum`, `connect_hashNum`) VALUES
+	(77, 1),
+	(77, 2),
+	(77, 3);
+/*!40000 ALTER TABLE `board_hash_connect` ENABLE KEYS */;
 
 -- 테이블 yourtrip.hash 구조 내보내기
 DROP TABLE IF EXISTS `hash`;
 CREATE TABLE IF NOT EXISTS `hash` (
-  `hash_num` int(11) NOT NULL AUTO_INCREMENT,
-  `hash_boardNum` int(11) NOT NULL,
-  `hash_name` varchar(32) NOT NULL,
-  PRIMARY KEY (`hash_num`),
-  KEY `FK_hash_board` (`hash_boardNum`),
-  CONSTRAINT `FK_hash_board` FOREIGN KEY (`hash_boardNum`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='해시태그 모음 테이블';
+  `hash_Num` int(11) NOT NULL AUTO_INCREMENT,
+  `hash_Name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`hash_Num`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='해시태그 ';
 
--- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 데이터 yourtrip.hash:~3 rows (대략적) 내보내기
+DELETE FROM `hash`;
+/*!40000 ALTER TABLE `hash` DISABLE KEYS */;
+INSERT INTO `hash` (`hash_Num`, `hash_Name`) VALUES
+	(1, '뉴욕'),
+	(2, '미국'),
+	(3, '유학');
+/*!40000 ALTER TABLE `hash` ENABLE KEYS */;
 
 -- 테이블 yourtrip.member 구조 내보내기
 DROP TABLE IF EXISTS `member`;
@@ -77,7 +112,15 @@ CREATE TABLE IF NOT EXISTS `member` (
   UNIQUE KEY `member_Nick` (`member_Nick`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='회원 테이블';
 
--- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 데이터 yourtrip.member:~4 rows (대략적) 내보내기
+DELETE FROM `member`;
+/*!40000 ALTER TABLE `member` DISABLE KEYS */;
+INSERT INTO `member` (`member_Num`, `member_Id`, `member_Pass`, `member_Name`, `member_Nick`, `member_RegDate`, `member_Phone`, `member_Mail`) VALUES
+	(1, 'ADMIN', '*A4B6157319038724E3560894F7F932C8886EBFCF', '어드민', '어드민', '2022-09-28 13:07:49', '010-0000-1111', 'ADMIN@ADMIN'),
+	(2, 'test', '*A4B6157319038724E3560894F7F932C8886EBFCF', 'test', 'test', '2022-10-06 14:38:27', '01088888888', 'test@gmail.com'),
+	(3, 'test112', '*94BDCEBE19083CE2A1F959FD02F964C7AF4CFC29', '김현민테스트', '현맨', '2022-10-13 16:08:52', '01083143368', 'Tesmail'),
+	(4, 'test111111', '*A4B6157319038724E3560894F7F932C8886EBFCF', '김현민', '테스트123', '2022-10-13 16:09:42', '1231123', '123123');
+/*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 -- 테이블 yourtrip.recommend 구조 내보내기
 DROP TABLE IF EXISTS `recommend`;
@@ -92,7 +135,10 @@ CREATE TABLE IF NOT EXISTS `recommend` (
   CONSTRAINT `FK_recommend_member` FOREIGN KEY (`recommend_member_num`) REFERENCES `member` (`member_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='게시글 추천 테이블';
 
--- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 데이터 yourtrip.recommend:~2 rows (대략적) 내보내기
+DELETE FROM `recommend`;
+/*!40000 ALTER TABLE `recommend` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recommend` ENABLE KEYS */;
 
 -- 테이블 yourtrip.reply 구조 내보내기
 DROP TABLE IF EXISTS `reply`;
@@ -107,9 +153,12 @@ CREATE TABLE IF NOT EXISTS `reply` (
   KEY `FK_reply_board` (`reply_boardNum`),
   CONSTRAINT `FK_reply_board` FOREIGN KEY (`reply_boardNum`) REFERENCES `board` (`board_Num`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_reply_member` FOREIGN KEY (`reply_Write`) REFERENCES `member` (`member_Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COMMENT='댓글 테이블';
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COMMENT='댓글 테이블';
 
--- 내보낼 데이터가 선택되어 있지 않습니다.
+-- 테이블 데이터 yourtrip.reply:~1 rows (대략적) 내보내기
+DELETE FROM `reply`;
+/*!40000 ALTER TABLE `reply` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reply` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
