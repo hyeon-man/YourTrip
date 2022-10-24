@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Hash;
 import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.apache.ibatis.session.SqlSession;
@@ -89,6 +90,16 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public void deleteReply(int replyNum) {
         sql.delete("reply.deleteReply", replyNum);
+    }
+
+    @Override
+    public List<Hash> getHash(int boardNum) {
+        return sql.selectList("board.getHash",boardNum);
+    }
+
+    @Override
+    public void replyUpdate(Reply reply) {
+        sql.update("reply.replyUpdate", reply);
     }
 
 

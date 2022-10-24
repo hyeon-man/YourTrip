@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Hash;
 import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 
@@ -37,4 +38,8 @@ public interface BoardService {
     Reply getReplyItem(int replyNum);
 
     void deleteReply(int replyNum);
+
+    List<Hash> getHash(int boardNum);
+
+    void replyUpdate(Reply reply);
 }

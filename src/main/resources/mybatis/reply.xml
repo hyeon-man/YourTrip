@@ -25,4 +25,9 @@
         FROM yourtrip.reply
         WHERE reply_Num = #{replyNum}
     </delete>
+    <update id="replyUpdate">
+        UPDATE yourtrip.reply
+        SET reply_Content = #{replyContent}
+        WHERE reply_Num = #{replyNum}
+    </update>
 </mapper>

@@ -88,4 +88,12 @@
         FROM yourtrip.board
         WHERE board_recommend = (select max(board_recommend) from board)
     </select>
+
+    <select id="getHash" resultType="Hash">
+        SELECT hash.hash_Name
+        FROM yourtrip.board_hash_connect,
+             yourtrip.hash
+        WHERE yourtrip.board_hash_connect.connect_boardNum = #{boardNum}
+          AND yourtrip.board_hash_connect.connect_hashNum = yourtrip.hash.hash_Num;
+    </select>
 </mapper>

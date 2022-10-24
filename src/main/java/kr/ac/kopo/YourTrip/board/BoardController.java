@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Hash;
 import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,10 @@ public class BoardController {
         model.addAttribute("total", boardTotal);
         model.addAttribute("hotTopic", hotTopic);
 
+        int boardNum = hotTopic.getBoardNum();
+        List<Hash> hashList = service.getHash(boardNum);
+        model.addAttribute("hash", hashList);
+
         return "board/list";
     }
 
@@ -50,13 +55,15 @@ public class BoardController {
 
     @GetMapping("/detail/{boardNum}")
     public String detail(@PathVariable int boardNum, Model model) {
-//        service.hit(boardNum);
 
         Board item = service.item(boardNum);
         model.addAttribute("item", item);
+
         List<Reply> list = service.getReply(boardNum);
         model.addAttribute("ReplyList", list);
 
+        List<Hash> hash = service.getHash(boardNum);
+        model.addAttribute("hash", hash);
 
         return "board/detail";
     }
@@ -98,5 +105,17 @@ public class BoardController {
 
             return "redirect:../" + boardNum;
         }
+    }
+
+    @PostMapping("/replyUpdate/{replyNum}")
+    public String replyUpdate(@PathVariable int replyNum,Reply reply,HttpServletRequest request){
+
+        String referer = request.getHeader("referer");
+        System.out.println("이전페이지는" + referer);
+
+        reply.setReplyNum(replyNum);
+        service.replyUpdate(reply);
+
+        return "redirect:" + referer;
     }
 }

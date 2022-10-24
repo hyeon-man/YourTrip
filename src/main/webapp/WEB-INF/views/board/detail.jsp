@@ -35,9 +35,13 @@
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
                                        src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."/></div>
             <div class="col-md-6">
-                <div class="small mb-1 d-inline">#뉴욕</div>
-                <div class="small mb-1 d-inline">#미국</div>
-                <div class="small mb-1 d-inline">#유학</div>
+                <c:forEach items="${hash}" var="hash">
+                    <div class="small mb-1 d-inline">
+                        <a style="text-decoration: none" href="../search/${hash.hashName}">
+                            #${hash.hashName}
+                        </a>
+                    </div>
+                </c:forEach>
                 <h5 class="display-5 fw-bolder">${item.boardTitle}</h5>
                 <div class="fs-5 mb-5">
                     <span>작성자 : ${item.boardWrite}</span>
@@ -88,12 +92,13 @@
                 <div class="ms-3">
                     <div class="fw-bold"> ${reply.replyWrite}
                         <c:if test="${sessionScope.member.memberId == reply.replyWrite}">
-
-                            <div class="float-end">
-                                <a class="btn btn-secondary btn-sm" style="margin-left: 10px"> 수정 </a>
+                            <div>
+                                <button type="button" class="btn btn-secondary btn-sm float-end" data-bs-toggle="modal"
+                                        data-bs-target="#replyUpdate">수정
+                                </button>
                             </div>
 
-                            <div class="float-end">
+                            <div class="float-end" style="margin-right: 10px">
                                 <a class="btn btn-danger btn-sm" href="deleteReply/${reply.replyNum}"> 삭제 </a>
                             </div>
 
@@ -130,13 +135,13 @@
             </div>
 
             <form action="/logout">
-                <button class="text-black btn-primary float-end"> 로그아웃 </button>
+                <button class="text-black btn-primary float-end"> 로그아웃</button>
             </form>
         </c:if>
 
         <c:if test="${sessionScope.member == null}">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#LoginModal">
-                    로그인
+                로그인
             </button>
         </c:if>
         <br>
@@ -153,7 +158,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -190,7 +194,32 @@
     </div>
 </div>
 
+<c:forEach var="reply" items="${ReplyList}">
+    <div class="modal fade" id="replyUpdate" tabindex="-1" aria-labelledby="replyUpdate" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content text-black">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="replyUpdate">댓글 수정</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="../replyUpdate/${reply.replyNum}">
+                    <div class="modal-body">
+                        <div>
+                            <div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="replyContent"
+                                           aria-label="Recipient's username with two button addons">
+                                    <button class="btn btn-outline-secondary">변경</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
+            </div>
+        </div>
+    </div>
+</c:forEach>
 
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -198,7 +227,7 @@
 <script src="/resources/js/detail_scripts.js"></script>
 
 <script>
-    function Sucess() {
+    function reply() {
         alert("댓글 등록 완료!")
     }
 </script>

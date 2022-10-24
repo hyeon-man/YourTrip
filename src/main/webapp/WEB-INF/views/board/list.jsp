@@ -35,8 +35,13 @@
         <div class="col-lg-5">
             <h1 class="font-weight-light">Today Rank #1</h1>
 
-            <p> #뉴욕 #유학 #해외</p>
-            <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
+            <c:forEach items="${hash}" var="hash">
+                <div class="small mb-1 d-inline">
+                    <a style="text-decoration: none" href="search/${hash.hashName}">
+                        #${hash.hashName}
+                    </a>
+                </div>
+            </c:forEach>            <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
             <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
         </div>
     </div>

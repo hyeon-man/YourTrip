@@ -1,6 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.VO.Board;
+import kr.ac.kopo.YourTrip.VO.Hash;
 import kr.ac.kopo.YourTrip.VO.Reply;
 import kr.ac.kopo.YourTrip.VO.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,16 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteReply(int replyNum) {
         dao.deleteReply(replyNum);
+    }
+
+    @Override
+    public List<Hash> getHash(int boardNum) {
+        return dao.getHash(boardNum);
+    }
+
+    @Override
+    public void replyUpdate(Reply reply) {
+        dao.replyUpdate(reply);
     }
 
 }
