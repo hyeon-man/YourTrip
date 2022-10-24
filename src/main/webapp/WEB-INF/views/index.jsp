@@ -30,7 +30,7 @@
                             class="label">Instagram</span></a></li>
                     <li><a href="https://www.facebook.com/profile.php?id=100007123350295" target="_blank"
                            class="icon brands fa-facebook-f text-white"><span class="label">Facebook</span></a></li>
-                    <li><a href="https://github.com/hyeon-man" target="_blank" class="icon brands fa-github text-white"><span
+                    <li><a href="https://github.com/hyeon-man/YourTrip" target="_blank" class="icon brands fa-github text-white"><span
                             class="label">Github</span></a></li>
                     <li><a href="board/list" class="icon solid fa-camera-retro text-white"><span
                             class="label"></span></a></li>

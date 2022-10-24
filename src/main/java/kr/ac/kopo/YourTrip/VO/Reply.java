@@ -15,4 +15,5 @@ public class Reply {
     private String replyContent; // 댓글 내용
     private int replyBoardNum; // 댓글이 달린 게시글
     private Date replyDate; // 댓글 시간간
+    private String memberName;
 }

@@ -11,7 +11,7 @@
 
     <insert id="insert">
         INSERT INTO yourtrip.reply
-        VALUES (NULL, 'ADMIN', #{replyContent}, #{replyBoardNum}, NOW())
+        VALUES (NULL, #{memberName}, #{replyContent}, #{replyBoardNum}, NOW())
     </insert>
 
     <select id="item" resultType="Reply">

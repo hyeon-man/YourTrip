@@ -110,12 +110,12 @@ public class BoardController {
     @PostMapping("/replyUpdate/{replyNum}")
     public String replyUpdate(@PathVariable int replyNum,Reply reply,HttpServletRequest request){
 
-        String referer = request.getHeader("referer");
-        System.out.println("이전페이지는" + referer);
+        String prevPage = request.getHeader("referer");
+        System.out.println("이전페이지는" + prevPage);
 
         reply.setReplyNum(replyNum);
         service.replyUpdate(reply);
 
-        return "redirect:" + referer;
+        return "redirect:" + prevPage;
     }
 }
