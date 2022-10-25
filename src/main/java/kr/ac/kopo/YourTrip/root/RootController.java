@@ -34,7 +34,7 @@ public class RootController {
             session.setAttribute("member", member);
             return "redirect:" + referer;
         } else {
-            return "index";
+            return "redirect:/";
         }
     }
 
