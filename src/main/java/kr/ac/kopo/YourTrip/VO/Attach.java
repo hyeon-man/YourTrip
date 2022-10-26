@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Attach {
     private int id;
 
-    private String fileName;
+    private String attachFileName;
 
-    private int boardId;
+    private int attachBoardNum;
 }

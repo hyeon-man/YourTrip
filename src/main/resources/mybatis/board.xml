@@ -9,6 +9,7 @@
     <select id="list" resultType="Board">
         SELECT *
         FROM yourtrip.board
+
         <if test="kind == 1">
             where board_Title LIKE CONCAT(CONCAT('%',#{keyword}),'%')
         </if>
@@ -18,13 +19,18 @@
         <if test="kind == 3">
             where board_Write LIKE CONCAT(CONCAT('%',#{keyword}),'%')
         </if>
+
     </select>
 
-    <!-- add 쿼리  todo board write value 수정 해야함 -->
     <insert id="add">
         INSERT INTO yourtrip.board
-        (BOARD_NUM, BOARD_TITLE, BOARD_CONTENT, BOARD_HIT, BOARD_RECOMMEND, BOARD_WRITE, BOARD_DATE)
-        VALUES (NULL, #{boardTitle}, #{boardContent}, 0, 0, 'ADMIN', NOW())
+        (BOARD_TITLE, BOARD_CONTENT, BOARD_RECOMMEND, BOARD_WRITE, BOARD_DATE)
+        VALUES (#{boardTitle}, #{boardContent}, 0, #{boardWrite}, NOW())
+
+        <selectKey keyProperty="boardNum" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
     </insert>
 
     <!-- 한 개 가져오는 쿼리-->
@@ -95,5 +101,11 @@
              yourtrip.hash
         WHERE yourtrip.board_hash_connect.connect_boardNum = #{boardNum}
           AND yourtrip.board_hash_connect.connect_hashNum = yourtrip.hash.hash_Num;
+    </select>
+
+    <select id="hotTopicPicture" resultType="Attach">
+        SELECT yourtrip.attach.attach_filename
+        FROM yourtrip.attach
+        WHERE attach_board_num = #{boardNum}
     </select>
 </mapper>

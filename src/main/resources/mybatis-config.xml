@@ -11,12 +11,14 @@
         <typeAlias type="kr.ac.kopo.YourTrip.VO.Member" alias="Member"/>
         <typeAlias type="kr.ac.kopo.YourTrip.VO.Reply" alias="Reply"/>
         <typeAlias type="kr.ac.kopo.YourTrip.VO.Hash" alias="Hash"/>
+        <typeAlias type="kr.ac.kopo.YourTrip.VO.Attach" alias="Attach"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="mybatis/board.xml"/>
         <mapper resource="mybatis/member.xml"/>
         <mapper resource="mybatis/reply.xml"/>
+        <mapper resource="mybatis/attach.xml"/>
     </mappers>
 
 </configuration>

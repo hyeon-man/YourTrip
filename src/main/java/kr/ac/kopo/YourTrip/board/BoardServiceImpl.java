@@ -1,11 +1,9 @@
 package kr.ac.kopo.YourTrip.board;
 
-import kr.ac.kopo.YourTrip.VO.Board;
-import kr.ac.kopo.YourTrip.VO.Hash;
-import kr.ac.kopo.YourTrip.VO.Reply;
-import kr.ac.kopo.YourTrip.VO.Search;
+import kr.ac.kopo.YourTrip.VO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,9 +11,11 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     final BoardDao dao;
 
-    public BoardServiceImpl(BoardDao dao) {
+    public BoardServiceImpl(BoardDao dao, AttachDao attachDao) {
         this.dao = dao;
+        this.attachDao = attachDao;
     }
+    final AttachDao attachDao;
 
     @Override
     public List<Board> list(Search search) {
@@ -23,8 +23,19 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void add(Board board) {
         dao.add(board);
+        System.out.println(board.getBoardNum() + "보드넘은");
+
+        if(board.getAttachs() != null){
+            for (Attach attach : board.getAttachs()){
+                attach.setAttachBoardNum(board.getBoardNum());
+                attachDao.add(attach);
+                System.out.println(attach.getAttachBoardNum() + "보드넘은");
+
+            }
+        }
     }
 
     @Override
@@ -101,5 +112,11 @@ public class BoardServiceImpl implements BoardService {
     public void replyUpdate(Reply reply) {
         dao.replyUpdate(reply);
     }
+
+    @Override
+    public List<Attach> hotTopicPicture(int boardNum) {
+        return dao.hotTopicPicture(boardNum);
+    }
+
 
 }

@@ -1,9 +1,6 @@
 package kr.ac.kopo.YourTrip.board;
 
-import kr.ac.kopo.YourTrip.VO.Board;
-import kr.ac.kopo.YourTrip.VO.Hash;
-import kr.ac.kopo.YourTrip.VO.Reply;
-import kr.ac.kopo.YourTrip.VO.Search;
+import kr.ac.kopo.YourTrip.VO.*;
 
 import java.util.List;
 
@@ -41,4 +38,6 @@ public interface BoardDao {
     List<Hash> getHash(int boardNum);
 
     void replyUpdate(Reply reply);
+
+    List<Attach> hotTopicPicture(int boardNum);
 }
