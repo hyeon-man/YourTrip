@@ -9,6 +9,7 @@
 1020 / sidebar 수정
 1022 / sidebar 에서 로그인시 이전 페이지로 돌아가게 바꿈 
 1024 / 댓글 수정기능 (Modal), Detail page hash 값 db에서 불러옴, MainBoard HotTopic도 board.hash태그 가져옴 
+1025 / 자잘한 로그인 수정 
 
 
 
