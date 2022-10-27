@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -31,13 +32,13 @@ public class ReplyController {
     }
 
     @RequestMapping("board/detail/deleteReply/{replyNum}")
-    public String deleteReply(@PathVariable int replyNum) {
+    public String deleteReply(@PathVariable int replyNum, HttpServletRequest request) {
 
-        Reply reply = service.getReplyItem(replyNum); // 어디 Board로 돌아가야할지 몰라서 걍 댓글 지우기전에 boardNum 뽑아옴
-        int targetBoard = reply.getReplyBoardNum();
+        String prevPage = request.getHeader("referer");
+        System.out.println("이전페이지는" + prevPage);
 
         service.deleteReply(replyNum);
 
-        return "redirect:../" + targetBoard;
+        return "redirect:" + prevPage;
     }
 }

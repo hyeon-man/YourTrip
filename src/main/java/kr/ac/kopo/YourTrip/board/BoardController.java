@@ -28,6 +28,7 @@ public class BoardController {
     public String list(Model model, Search search) {
 
         List<Board> list = service.list(search); // 리스트 뽑아오기 이거 쓸 지 안 쓸 지 모르곘는데 아마 안 쓸 듯
+
         int boardTotal = service.total(); // 전체 게시글수 카운팅
         Board hotTopic = service.hotTopic(); // 핫토픽 한개
         List <Attach>  hotTopicPicture = service.hotTopicPicture(hotTopic.getBoardNum());
@@ -120,10 +121,12 @@ public class BoardController {
 
     @RequestMapping("/detail/recommend/{boardNum}")
     public String recommend(@PathVariable int boardNum, Model model) {
+
         if (service.recommendCheck(boardNum) == 0) {
             service.recommendInsert(boardNum);
             service.recommend(boardNum);
             model.addAttribute("msg", "추천 됐습니다");
+
             return "redirect:../" + boardNum;
 
         } else {
