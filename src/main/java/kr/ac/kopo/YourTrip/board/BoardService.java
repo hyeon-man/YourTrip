@@ -41,4 +41,6 @@ public interface BoardService {
     void replyUpdate(Reply reply);
 
     List<Attach> hotTopicPicture(int boardNum);
+
+    List<Attach> getAttach(int boardNum);
 }

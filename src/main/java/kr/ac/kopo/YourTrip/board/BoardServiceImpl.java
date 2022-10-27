@@ -26,13 +26,11 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     public void add(Board board) {
         dao.add(board);
-        System.out.println(board.getBoardNum() + "보드넘은");
 
         if(board.getAttachs() != null){
             for (Attach attach : board.getAttachs()){
                 attach.setAttachBoardNum(board.getBoardNum());
                 attachDao.add(attach);
-                System.out.println(attach.getAttachBoardNum() + "보드넘은");
 
             }
         }
@@ -116,6 +114,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Attach> hotTopicPicture(int boardNum) {
         return dao.hotTopicPicture(boardNum);
+    }
+
+    @Override
+    public List<Attach> getAttach(int boardNum) {
+        return dao.getAttach(boardNum);
     }
 
 

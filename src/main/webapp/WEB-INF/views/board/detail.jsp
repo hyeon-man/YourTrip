@@ -4,8 +4,18 @@
 <html>
 <head>
     <title>YourTrip</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/detail_styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('#ssibal :first-child').addClass('active');
+        });
+    </script>
+
 </head>
 
 <!-- Navigation-->
@@ -28,12 +38,32 @@
     </div>
 </nav>
 
-<!-- Product section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                                       src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."/></div>
+            <div class="col-md-6">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="ssibal">
+                        <c:forEach items="${attach}" var="attach">
+                            <div class="carousel-item">
+                            <img src="/images/${attach.attachFileName}" class="d-block w-100">
+                            <%--<img class="card-img-top mb-5 mb-md-0"
+                             src="/images/${attach.attachFileName}"/>--%>
+                            </div>
+                        </c:forEach>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-6">
                 <c:forEach items="${hash}" var="hash">
                     <div class="small mb-1 d-inline">
@@ -97,7 +127,6 @@
                                         data-bs-target="#replyUpdate">수정
                                 </button>
                             </div>
-
                             <div class="float-end" style="margin-right: 10px">
                                 <a class="btn btn-danger btn-sm" href="deleteReply/${reply.replyNum}"> 삭제 </a>
                             </div>
@@ -222,15 +251,10 @@
 </c:forEach>
 
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="/resources/js/detail_scripts.js"></script>
 
-<script>
-    function reply() {
-        alert("댓글 등록 완료!")
-    }
-</script>
+
 </body>
 
 </html>

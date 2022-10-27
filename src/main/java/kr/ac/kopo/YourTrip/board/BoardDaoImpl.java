@@ -104,5 +104,10 @@ public class BoardDaoImpl implements BoardDao {
         return sql.selectList("hotTopicPicture", boardNum);
     }
 
+    @Override
+    public List<Attach> getAttach(int boardNum) {
+        return sql.selectList("board.getAttach", boardNum);
+    }
+
 
 }

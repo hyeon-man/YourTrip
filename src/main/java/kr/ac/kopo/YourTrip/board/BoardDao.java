@@ -40,4 +40,6 @@ public interface BoardDao {
     void replyUpdate(Reply reply);
 
     List<Attach> hotTopicPicture(int boardNum);
+
+    List<Attach> getAttach(int boardNum);
 }

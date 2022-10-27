@@ -108,4 +108,11 @@
         FROM yourtrip.attach
         WHERE attach_board_num = #{boardNum}
     </select>
+
+    <select id="getAttach" resultType="Attach">
+        SELECT yourtrip.attach.attach_filename
+        FROM yourtrip.attach
+        WHERE attach_board_num = #{boardNum}
+
+    </select>
 </mapper>
