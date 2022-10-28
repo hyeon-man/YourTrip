@@ -1,7 +1,7 @@
 package kr.ac.kopo.YourTrip.board;
 
-import kr.ac.kopo.YourTrip.VO.*;
-import kr.ac.kopo.YourTrip.util.PageUtil;
+import kr.ac.kopo.YourTrip.Vo.*;
+import kr.ac.kopo.YourTrip.Util.PageUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -123,20 +123,13 @@ public class BoardController {
         return "redirect:../" + boardNum;
     }
 
-    @RequestMapping("/detail/recommend/{boardNum}")
-    public String recommend(@PathVariable int boardNum, Model model) {
-
-        if (service.recommendCheck(boardNum) == 0) {
-            service.recommendInsert(boardNum);
-            service.recommend(boardNum);
-            model.addAttribute("msg", "추천 됐습니다");
-
-            return "redirect:../" + boardNum;
-
-        } else {
-
-            return "redirect:../" + boardNum;
-        }
+    @RequestMapping("/recommend/{boardNum}")
+    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request,@SessionAttribute Member member) {
+        String prevPage = pageUtil.prevPage(request);
+        String memberId = member.getMemberId();
+//        service.recommend(memberId);
+        // TODO: 2022-10-28 이거 해야됨  
+            return "redirect:"+ prevPage;
     }
 
     @PostMapping("/replyUpdate/{replyNum}")

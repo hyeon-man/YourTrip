@@ -56,26 +56,6 @@
         WHERE board_Num = #{boardNum}
     </update>
 
-    <!-- 추천 확인 쓸지 안 쓸지 아직 미정-->
-    <select id="recommendCheck" resultType="Integer">
-        select count(*)
-        from yourtrip.recommend
-        where recommend_board_num = #{boardNum}
-    </select>
-
-    <!--추천 + 1 -->
-    <update id="recommend">
-        update yourtrip.board
-        set board_Recommend = board_Recommend + 1
-        where board_Num = #{boardNum}
-    </update>
-
-    <!-- Recommend 테이블에 값 insert 하는 쿼리인데 쓸지 안 쓸지 아직 미정 -->
-    <insert id="recommendInsert">
-        INSERT yourtrip.recommend
-        VALUES (NULL, 1, #{boardNum})
-    </insert>
-
     <!-- Hit Query -->
     <update id="hit">
         UPDATE yourtrip.board

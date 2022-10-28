@@ -1,8 +1,7 @@
 package kr.ac.kopo.YourTrip.root;
 
-import kr.ac.kopo.YourTrip.VO.Member;
+import kr.ac.kopo.YourTrip.Vo.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

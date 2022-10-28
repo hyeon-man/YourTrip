@@ -5,6 +5,18 @@
 <head>
     <title>YourTrip 여행자들의 커뮤니티</title>
     <link href="/resources/css/list_styles.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/resources/css/detail_styles.css">
+    <script src="/resources/js/detail_scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#ssibal :first-child').addClass('active');
+        });
+    </script>
+
 </head>
 <body>
 <!-- Responsive navbar-->
@@ -31,28 +43,41 @@
     <!-- Heading Row-->
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
         <div class="col-lg-7">
-<%--            <img class="img-fluid rounded mb-4 mb-lg-0"--%>
-<%--                                   src="/images/${hotTopicPicture.fileName}" alt="..."/>--%>
-        </div>
-        <c:forEach var="hotTopicPicture" items="${hotTopicPicture}">
-            <div class="col-lg-7">
-                        <img class="img-fluid rounded mb-4 mb-lg-0"
-                                               src="/images/${hotTopicPicture.attachFileName}" alt="..."/>
-            </div>
-        </c:forEach>
-        <div class="col-lg-5">
-            <h1 class="font-weight-light">Today Rank #1</h1>
-
-            <c:forEach items="${hash}" var="hash">
-                <div class="small mb-1 d-inline">
-                    <a style="text-decoration: none" href="search/${hash.hashName}">
-                        #${hash.hashName}
-                    </a>
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" id="ssibal">
+                    <c:forEach items="${hotTopicPicture}" var="hotPicture">
+                        <div class="carousel-item">
+                            <img src="/images/${hotPicture.attachFileName}" class="d-block w-100 img-fluid rounded mb-4 mb-lg-0" style="max-height: 500px" >
+                        </div>
+                    </c:forEach>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-            </c:forEach>            <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
-            <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
+            </div>
+            </div>
+            <div class="col-lg-5">
+                <h1 class="font-weight-light">Today Rank #1</h1>
+                <c:forEach items="${hash}" var="hash">
+                    <div class="small mb-1 d-inline">
+                        <a style="text-decoration: none" href="search/${hash.hashName}">
+                            #${hash.hashName}
+                        </a>
+                    </div>
+                </c:forEach>
+                <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
+                <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
+            </div>
         </div>
-    </div>
+
+
     <!-- Call to Action-->
     <div class="card text-white bg-dark my-5 py-4 text-center ">
         <div class="card-body "><h3 class="m-0 text-white">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
@@ -88,6 +113,7 @@
         </div>
     </div>
 </div>
+</div>
 
 
 <!-- sidebar area-->
@@ -105,12 +131,13 @@
             </div>
 
             <form action="/logout">
-                <button class="text-black btn-primary float-end"> 로그아웃 </button>
+                <button class="text-black btn-primary float-end"> 로그아웃</button>
             </form>
         </c:if>
 
         <c:if test="${sessionScope.member == null}">
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#LoginModal">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                    data-bs-target="#LoginModal">
                 로그인
             </button>
         </c:if>
@@ -128,7 +155,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -155,7 +181,8 @@
                             </div>
                             <div style="margin-left: 350px; margin-top: 10px">
                                 <button class="btn btn-danger btn-sm ">로그인</button>
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기
+                                </button>
                             </div>
                         </div>
                     </div>

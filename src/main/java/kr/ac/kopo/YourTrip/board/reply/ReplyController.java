@@ -1,9 +1,9 @@
 package kr.ac.kopo.YourTrip.board.reply;
 
-import kr.ac.kopo.YourTrip.VO.Member;
-import kr.ac.kopo.YourTrip.VO.Reply;
+import kr.ac.kopo.YourTrip.Vo.Member;
+import kr.ac.kopo.YourTrip.Vo.Reply;
 import kr.ac.kopo.YourTrip.board.BoardService;
-import kr.ac.kopo.YourTrip.util.PageUtil;
+import kr.ac.kopo.YourTrip.Util.PageUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class ReplyController {
@@ -40,6 +39,6 @@ public class ReplyController {
 
         service.deleteReply(replyNum);
 
-        return "redirect:/" + prevPage;
+        return "redirect:" + prevPage;
     }
 }

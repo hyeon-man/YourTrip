@@ -1,6 +1,6 @@
 package kr.ac.kopo.YourTrip.board;
 
-import kr.ac.kopo.YourTrip.VO.*;
+import kr.ac.kopo.YourTrip.Vo.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,20 +37,6 @@ public class BoardDaoImpl implements BoardDao {
         sql.update("board.update", board);
     }
 
-    @Override
-    public int recommendCheck(int boardNum) {
-        return sql.selectOne("board.recommendCheck", boardNum);
-    }
-
-    @Override
-    public void recommend(int boardNum) {
-        sql.update("board.recommend", boardNum);
-    }
-
-    @Override
-    public void recommendInsert(int boardNum) {
-        sql.insert("board.recommendInsert", boardNum);
-    }
 
     @Override
     public void hit(int boardNum) {

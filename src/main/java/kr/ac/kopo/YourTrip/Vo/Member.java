@@ -1,4 +1,4 @@
-package kr.ac.kopo.YourTrip.VO;
+package kr.ac.kopo.YourTrip.Vo;
 
 import lombok.Getter;
 import lombok.Setter;

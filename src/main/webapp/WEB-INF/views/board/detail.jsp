@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="/resources/css/detail_styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#ssibal :first-child').addClass('active');
         });
     </script>
@@ -46,17 +47,19 @@
                     <div class="carousel-inner" id="ssibal">
                         <c:forEach items="${attach}" var="attach">
                             <div class="carousel-item">
-                            <img src="/images/${attach.attachFileName}" class="d-block w-100">
-                            <%--<img class="card-img-top mb-5 mb-md-0"
-                             src="/images/${attach.attachFileName}"/>--%>
+                                <img src="/images/${attach.attachFileName}" class="d-block w-100">
+                                    <%--<img class="card-img-top mb-5 mb-md-0"
+                                     src="/images/${attach.attachFileName}"/>--%>
                             </div>
                         </c:forEach>
 
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -82,13 +85,16 @@
                     ${item.boardContent}
                 </p>
                 <div class="d-flex float-end">
-                    <button class="btn btn-outline-danger flex-shrink-0" type="button">
-                        <i class="bi bi-heart"></i>
-                    </button>
-
-                    <button class="btn btn-outline-primary flex-shrink-0 " type="button" style="margin-left: 5px">
-                        <i class="bi bi-share"></i>
-                    </button>
+                    <form action="/board/recommend/${item.boardNum}" method="post">
+                        <button class="btn btn-outline-danger flex-shrink-0">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </form>
+                    <form>
+                        <button class="btn btn-outline-primary flex-shrink-0 " type="button" style="margin-left: 5px">
+                            <i class="bi bi-share"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -120,7 +126,7 @@
         <c:forEach var="reply" items="${ReplyList}">
             <div class="d-block" style="margin-top: 15px">
                 <div class="ms-3">
-                    <div class="fw-bold"> ${reply.replyWrite}
+                    <div class="fw-bold"> ${reply.replyWrite} (<fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate>)
                         <c:if test="${sessionScope.member.memberId == reply.replyWrite}">
                             <div>
                                 <button type="button" class="btn btn-secondary btn-sm float-end" data-bs-toggle="modal"

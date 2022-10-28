@@ -1,6 +1,6 @@
 package kr.ac.kopo.YourTrip.board;
 
-import kr.ac.kopo.YourTrip.VO.*;
+import kr.ac.kopo.YourTrip.Vo.*;
 
 import java.util.List;
 
@@ -14,12 +14,6 @@ public interface BoardDao {
     void delete(int boardNum);
 
     void update(Board board);
-
-    int recommendCheck(int boardNum);
-
-    void recommend(int boardNum);
-
-    void recommendInsert(int boardNum);
 
     void hit(int boardNum);
 

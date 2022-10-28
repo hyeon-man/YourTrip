@@ -1,11 +1,10 @@
-package kr.ac.kopo.YourTrip.VO;
+package kr.ac.kopo.YourTrip.Vo;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
 import java.util.List;
 
 @Getter

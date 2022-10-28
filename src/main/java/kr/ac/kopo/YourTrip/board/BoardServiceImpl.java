@@ -1,7 +1,6 @@
 package kr.ac.kopo.YourTrip.board;
 
-import kr.ac.kopo.YourTrip.VO.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import kr.ac.kopo.YourTrip.Vo.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,21 +48,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void update(Board board) {
         dao.update(board);
-    }
-
-    @Override
-    public int recommendCheck(int boardNum) {
-        return dao.recommendCheck(boardNum);
-    }
-
-    @Override
-    public void recommend(int boardNum) {
-        dao.recommend(boardNum);
-    }
-
-    @Override
-    public void recommendInsert(int boardNum) {
-        dao.recommendInsert(boardNum);
     }
 
     @Override

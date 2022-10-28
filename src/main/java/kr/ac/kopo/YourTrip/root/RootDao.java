@@ -1,6 +1,6 @@
 package kr.ac.kopo.YourTrip.root;
 
-import kr.ac.kopo.YourTrip.VO.Member;
+import kr.ac.kopo.YourTrip.Vo.Member;
 
 public interface RootDao {
 
