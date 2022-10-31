@@ -39,11 +39,6 @@ public class BoardDaoImpl implements BoardDao {
 
 
     @Override
-    public void hit(int boardNum) {
-        sql.update("board.hit", boardNum);
-    }
-
-    @Override
     public int total() {
         return sql.selectOne("board.total");
 
@@ -93,6 +88,33 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public List<Attach> getAttach(int boardNum) {
         return sql.selectList("board.getAttach", boardNum);
+    }
+
+
+    //추천
+    @Override
+    public int recommendCheck(Board board) {
+        return sql.selectOne("board.recommendCheck", board);
+    }
+
+    @Override
+    public void insertRecommendTable(Board board) {
+        sql.insert("insertRecommendTable", board);
+    }
+
+    @Override
+    public void updateBoardRecommend(Board board) {
+        sql.update("updateBoardRecommend", board);
+    }
+
+    @Override
+    public List<Board> hashSearchList(String hashName) {
+        return sql.selectList("board.hashSearchList", hashName);
+    }
+
+    @Override
+    public int hashSearchListTotal(String hashName) {
+        return sql.selectOne("board.hashSearchListTotal", hashName);
     }
 
 

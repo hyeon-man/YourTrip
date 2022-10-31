@@ -11,18 +11,15 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#ssibal :first-child').addClass('active');
-        });
-    </script>
 
 </head>
 <body>
+
+
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="../" style="font-size: x-large">YourTrip</a>
+        <a class="navbar-brand" href="/board/list" style="font-size: x-large">YourTrip</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -38,87 +35,29 @@
         </div>
     </div>
 </nav>
+
+    <div style="width: 1000px; margin-left: 475px" class="card text-white bg-dark my-5 py-4 text-center">
+        <div class="card-body"><h3 class="m-0 text-white"> ${HashName}에대한 게시글 결과에요,  ${total}건의 이야기가 있어요!</h3></div>
+    </div>
+
 <!-- Page Content-->
+<c:forEach items="${list}" var="item">
 <div class="container px-4 px-lg-5">
-    <!-- Heading Row-->
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
+
         <div class="col-lg-7">
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="ssibal">
-                    <c:forEach items="${hotTopicPicture}" var="hotPicture">
-                        <div class="carousel-item">
-                            <img src="/images/${hotPicture.attachFileName}"
-                                 class="d-block w-100 img-fluid rounded mb-4 mb-lg-0" style="max-height: 500px">
-                        </div>
-                    </c:forEach>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            </div>
+            <a href="/board/detail/${item.boardNum}">
+            <img src="/images/${item.boardImage}" class="d-block w-100 img-fluid rounded mb-4 mb-lg-0">
+            </a>
         </div>
+
         <div class="col-lg-5">
-            <h1 class="font-weight-light">Today Rank #1</h1>
-            <c:forEach items="${hash}" var="hash">
-                <div class="small mb-1 d-inline">
-                    <a style="text-decoration: none" href="search/${hash.hashName}">
-                        #${hash.hashName}
-                    </a>
-                </div>
-            </c:forEach>
-            <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
-            <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
-        </div>
-    </div>
-
-
-    <!-- Call to Action-->
-    <div class="card text-white bg-dark my-5 py-4 text-center ">
-        <div class="card-body "><h3 class="m-0 text-white">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
-    </div>
-    <!-- Content Row-->
-    <div class="row gx-4 gx-lg-5 text-center">
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title text-center">Popular Hash</h2>
-                    <p class="card-text">인기 해시태그에요 </p>
-                </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-5 text-center">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title text-center"> 검색 </h2>
-                    <p class="card-text">해외 여행의 이야기를 모아놨어요 !</p>
-                </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">Search</a></div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title text-center">이야기 공유하기</h2>
-                    <p class="card-text text-center"> 여행자님의 이야기를 공유 해보세요</p>
-                </div>
-                <div class="card-footer text-center"><a class="btn btn-secondary btn-sm" href="/board/add">Add Story</a>
-                </div>
-            </div>
+            <h3 class="font-weight-light text-black"><a class="text-black" href="/board/detail/${item.boardNum}" style="text-decoration: none">${item.boardTitle}</a> </h3>
+            <p>${item.boardWrite} 여행자님의 이야기</p>
         </div>
     </div>
 </div>
-</div>
-
+</c:forEach>
 
 <!-- sidebar area-->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">

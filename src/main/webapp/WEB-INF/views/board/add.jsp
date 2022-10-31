@@ -90,7 +90,7 @@
                 </div>
                 <div class="input-group mb-3">
                     <input type="file" name="attach" class="form-control form-control-sm">
-                    <button type="button">삭제</button>
+                    <button type="button" class="btn-danger">삭제</button>
                 </div>
             </div>
 

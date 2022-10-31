@@ -51,11 +51,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void hit(int boardNum) {
-        dao.hit(boardNum);
-    }
-
-    @Override
     public int total() {
         return dao.total();
     }
@@ -73,11 +68,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void addReply(Reply reply) {
         dao.addReply(reply);
-    }
-
-    @Override
-    public Reply getReplyItem(int replyNum) {
-        return dao.getReplyItem(replyNum);
     }
 
     @Override
@@ -105,5 +95,24 @@ public class BoardServiceImpl implements BoardService {
         return dao.getAttach(boardNum);
     }
 
+    @Override
+    public void recommend(Board board) {
+        if(dao.recommendCheck(board) == 0){
+            dao.insertRecommendTable(board);
+            dao.updateBoardRecommend(board);
+            System.out.println("추천 완료");
+        } else {
+            System.out.println("이미 추천한 게시글");
+        }
+    }
 
+    @Override
+    public List<Board> hashSearchList(String hashName) {
+        return dao.hashSearchList(hashName);
+    }
+
+    @Override
+    public int hashSearchListTotal(String hashName) {
+        return dao.hashSearchListTotal(hashName);
+    }
 }

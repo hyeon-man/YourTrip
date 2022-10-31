@@ -94,6 +94,7 @@ public class BoardController {
         // 사진
         List<Attach> attachs = service.getAttach(boardNum);
         model.addAttribute("attach", attachs);
+        // 추천 유무
 
         return "board/detail";
     }
@@ -124,11 +125,15 @@ public class BoardController {
     }
 
     @RequestMapping("/recommend/{boardNum}")
-    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request,@SessionAttribute Member member) {
+    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request,@SessionAttribute Member member, Board board) {
         String prevPage = pageUtil.prevPage(request);
-        String memberId = member.getMemberId();
-//        service.recommend(memberId);
-        // TODO: 2022-10-28 이거 해야됨  
+
+        board.setMemberNum(member.getMemberNum());
+        board.setBoardWrite(member.getMemberId());
+        board.setBoardNum(boardNum);
+
+        service.recommend(board);
+
             return "redirect:"+ prevPage;
     }
 
@@ -140,5 +145,17 @@ public class BoardController {
             service.replyUpdate(reply);
 
             return "redirect:" + prevPage;
+        }
+    @RequestMapping("search/{HashName}")
+        public String search(@PathVariable String HashName, Model model){
+
+        List<Board> list = service.hashSearchList(HashName);
+        model.addAttribute("list", list);
+        int total = service.hashSearchListTotal(HashName);
+        model.addAttribute("total", total);
+        model.addAttribute("HashName", HashName);
+
+            return "board/search";
+
         }
     }

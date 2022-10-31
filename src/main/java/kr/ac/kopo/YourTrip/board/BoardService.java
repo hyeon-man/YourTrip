@@ -16,9 +16,6 @@ public interface BoardService {
     void update(Board board);
 
 
-
-    void hit(int boardNum);
-
     int total();
 
     Board hotTopic();
@@ -26,8 +23,6 @@ public interface BoardService {
     List<Reply> getReply(int boardNum);
 
     void addReply(Reply reply);
-
-    Reply getReplyItem(int replyNum);
 
     void deleteReply(int replyNum);
 
@@ -38,4 +33,10 @@ public interface BoardService {
     List<Attach> hotTopicPicture(int boardNum);
 
     List<Attach> getAttach(int boardNum);
+
+    void recommend(Board board);
+
+    List<Board> hashSearchList(String hashName);
+
+    int hashSearchListTotal(String hashName);
 }

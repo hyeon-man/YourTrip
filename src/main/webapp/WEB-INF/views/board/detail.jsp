@@ -86,8 +86,9 @@
                 </p>
                 <div class="d-flex float-end">
                     <form action="/board/recommend/${item.boardNum}" method="post">
-                        <button class="btn btn-outline-danger flex-shrink-0">
-                            <i class="bi bi-heart"></i>
+                        <!-- 여기 추천 한거면 BUTTON CLASS 에 ACTIVE 해줘야함-->
+                        <button class="btn btn-outline-danger flex-shrink-0" id="${item.boardNum}">
+                            <i class="bi bi-heart active"></i>
                         </button>
                     </form>
                     <form>
