@@ -18,8 +18,13 @@ public class Board {
     private int boardRecommend;
     private String boardWrite;
 
+    private int memberNum;
+
     private List<MultipartFile> attach;
     private List<Attach> attachs;
+
+    private String boardImage;
+    private String hashName;
 
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

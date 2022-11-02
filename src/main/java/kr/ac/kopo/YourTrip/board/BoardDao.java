@@ -15,8 +15,6 @@ public interface BoardDao {
 
     void update(Board board);
 
-    void hit(int boardNum);
-
     int total();
 
     Board hotTopic();
@@ -36,4 +34,14 @@ public interface BoardDao {
     List<Attach> hotTopicPicture(int boardNum);
 
     List<Attach> getAttach(int boardNum);
+
+    int recommendCheck(Board board);
+
+    void insertRecommendTable(Board board);
+
+    void updateBoardRecommend(Board board);
+
+    List<Board> hashSearchList(String hashName);
+
+    int hashSearchListTotal(String hashName);
 }

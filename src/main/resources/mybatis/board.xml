@@ -56,13 +56,6 @@
         WHERE board_Num = #{boardNum}
     </update>
 
-    <!-- Hit Query -->
-    <update id="hit">
-        UPDATE yourtrip.board
-        SET board_Hit = board_Hit + 1
-        Where board_Num = #{boardNum}
-    </update>
-
     <!-- Board Total Query -->
     <select id="total" resultType="int">
         SELECT COUNT(*)
@@ -93,6 +86,44 @@
         SELECT yourtrip.attach.attach_filename
         FROM yourtrip.attach
         WHERE attach_board_num = #{boardNum}
+    </select>
 
+    <!-- 추천  -->
+    <select id="recommendCheck" resultType="Integer">
+        SELECT COUNT(*)
+        FROM yourtrip.recommend
+        WHERE recommend_board_num = #{boardNum}
+          AND recommend_member_num = #{memberNum}
+    </select>
+
+    <insert id="insertRecommendTable">
+        INSERT INTO yourtrip.recommend VALUES (NULL, #{memberNum},#{boardNum})
+    </insert>
+
+    <update id="updateBoardRecommend">
+        UPDATE yourtrip.board
+        SET board_Recommend = board.board_Recommend + 1
+        WHERE board_Num = #{boardNum}
+    </update>
+    <!-- 추천  -->
+    <select id="hashSearchList" resultType="Board">
+        SELECT yourtrip.board.*,
+               yourtrip.hash.hash_name
+        FROM   yourtrip.board,
+               yourtrip.hash,
+               yourtrip.board_hash_connect
+        WHERE  board.board_num = board_hash_connect.connect_boardnum
+          AND hash.hash_num = board_hash_connect.connect_hashnum
+          AND hash.hash_name = #{hashName};
+    </select>
+
+    <select id="hashSearchListTotal" resultType="Integer">
+        SELECT COUNT(*)
+        FROM   yourtrip.board,
+               yourtrip.hash,
+               yourtrip.board_hash_connect
+        WHERE  board.board_num = board_hash_connect.connect_boardnum
+          AND hash.hash_num = board_hash_connect.connect_hashnum
+          AND hash.hash_name = #{hashName};
     </select>
 </mapper>

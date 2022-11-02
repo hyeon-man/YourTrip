@@ -124,12 +124,11 @@ public class BoardController {
     }
 
     @RequestMapping("/recommend/{boardNum}")
-    public String recommend(@PathVariable int boardNum, PageUtil pageUtil, HttpServletRequest request, @SessionAttribute Member member) {
+    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request,@SessionAttribute Member member) {
         String prevPage = pageUtil.prevPage(request);
-
         String memberId = member.getMemberId();
 //        service.recommend(memberId);
-        // TODO: 2022-10-28 이거 해야됨
+        // TODO: 2022-10-28 이거 해야됨  
             return "redirect:"+ prevPage;
     }
 
