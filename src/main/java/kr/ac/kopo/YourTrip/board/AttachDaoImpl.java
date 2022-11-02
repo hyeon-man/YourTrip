@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AttachDaoImpl implements AttachDao{
-    @Autowired
-    SqlSession sql;
+    final SqlSession sql;
+    public AttachDaoImpl(SqlSession sql) {
+        this.sql = sql;
+    }
 
     @Override
     public void add(Attach attach) {
