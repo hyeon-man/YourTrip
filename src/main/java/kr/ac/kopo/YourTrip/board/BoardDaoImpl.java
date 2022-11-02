@@ -72,7 +72,7 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public List<Hash> getHash(int boardNum) {
-        return sql.selectList("board.getHash",boardNum);
+        return sql.selectList("board.getHash", boardNum);
     }
 
     @Override
@@ -115,6 +115,21 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int hashSearchListTotal(String hashName) {
         return sql.selectOne("board.hashSearchListTotal", hashName);
+    }
+
+    @Override
+    public List<Hash> hashOption() {
+        return sql.selectList("board.hashOption");
+    }
+
+    @Override
+    public List<Board> search(Search search) {
+        return sql.selectList("board.search", search);
+    }
+
+    @Override
+    public int keyworldTotalList(String keyword) {
+        return sql.selectOne("board.keyworldTotalList", keyword);
     }
 
 

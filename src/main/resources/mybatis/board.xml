@@ -97,7 +97,8 @@
     </select>
 
     <insert id="insertRecommendTable">
-        INSERT INTO yourtrip.recommend VALUES (NULL, #{memberNum},#{boardNum})
+        INSERT INTO yourtrip.recommend
+        VALUES (NULL, #{memberNum}, #{boardNum})
     </insert>
 
     <update id="updateBoardRecommend">
@@ -109,21 +110,38 @@
     <select id="hashSearchList" resultType="Board">
         SELECT yourtrip.board.*,
                yourtrip.hash.hash_name
-        FROM   yourtrip.board,
-               yourtrip.hash,
-               yourtrip.board_hash_connect
-        WHERE  board.board_num = board_hash_connect.connect_boardnum
+        FROM yourtrip.board,
+             yourtrip.hash,
+             yourtrip.board_hash_connect
+        WHERE board.board_num = board_hash_connect.connect_boardnum
           AND hash.hash_num = board_hash_connect.connect_hashnum
           AND hash.hash_name = #{hashName};
     </select>
 
     <select id="hashSearchListTotal" resultType="Integer">
         SELECT COUNT(*)
-        FROM   yourtrip.board,
-               yourtrip.hash,
-               yourtrip.board_hash_connect
-        WHERE  board.board_num = board_hash_connect.connect_boardnum
+        FROM yourtrip.board,
+             yourtrip.hash,
+             yourtrip.board_hash_connect
+        WHERE board.board_num = board_hash_connect.connect_boardnum
           AND hash.hash_num = board_hash_connect.connect_hashnum
           AND hash.hash_name = #{hashName};
+    </select>
+
+    <select id="hashOption" resultType="Hash">
+        select yourtrip.hash.hash_Name
+        FROM yourtrip.hash
+    </select>
+
+    <select id="search" resultType="Board">
+        SELECT *
+        FROM yourtrip.board
+        where board.board_Content LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+    </select>
+
+    <select id="keyworldTotalList" resultType="Integer">
+        SELECT COUNT(*)
+        FROM yourtrip.board
+        where board.board_Content LIKE CONCAT(CONCAT('%',#{keyword}),'%')
     </select>
 </mapper>

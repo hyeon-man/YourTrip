@@ -44,4 +44,11 @@ public interface BoardDao {
     List<Board> hashSearchList(String hashName);
 
     int hashSearchListTotal(String hashName);
+
+
+    List<Hash> hashOption();
+
+    List<Board> search(Search search);
+
+    int keyworldTotalList(String keyword);
 }

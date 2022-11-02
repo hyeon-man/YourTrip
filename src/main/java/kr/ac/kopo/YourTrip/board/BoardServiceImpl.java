@@ -115,4 +115,21 @@ public class BoardServiceImpl implements BoardService {
     public int hashSearchListTotal(String hashName) {
         return dao.hashSearchListTotal(hashName);
     }
+
+    @Override
+    public List<Hash> hashOption() {
+        return dao.hashOption();
+    }
+
+    @Override
+    public List<Board> search(Search search) {
+        return dao.search(search);
+    }
+
+    @Override
+    public int keyworldTotalList(String keyword) {
+        return dao.keyworldTotalList(keyword);
+    }
+
+
 }

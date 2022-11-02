@@ -10,13 +10,51 @@
     <script src="/resources/js/detail_scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-
+    <link href="/resources/summernote/summernote.min.css" rel="stylesheet">
+    <script src="/resources/summernote/summernote.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#ssibal :first-child').addClass('active');
         });
     </script>
+    <script>
+        $(function () {
+            $('#summernote').summernote({
+                lang: 'ko-KR' // default: 'en-US'
+            });
 
+            $("#attachs").on("click", ".delete", function () {
+                const div = $(this).closest(".input-group");
+                div.remove();
+            });
+
+            $("#add").click(function () {
+                const div = $("<div>");
+                div.addClass("input-group");
+                div.addClass("mb-3");
+
+                const input = $("<input>");
+
+                input.attr("type", "file");
+                input.attr("name", "attach");
+                input.addClass("form-control");
+                input.addClass("form-control-sm");
+
+                const button = $("<button>");
+                button.attr("type", "button");
+                button.addClass("btn");
+                button.addClass("btn-sm");
+                button.addClass("btn-outline-danger");
+                button.addClass("delete");
+                button.text("삭제");
+
+                div.append(input);
+                div.append(button);
+
+                $("#attachs").append(div);
+            });
+        });
+    </script>
 </head>
 <body>
 <!-- Responsive navbar-->
@@ -88,10 +126,24 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title text-center">Popular Hash</h2>
-                    <p class="card-text">인기 해시태그에요 </p>
+                    <h2 class="card-title text-center">빠른 #검색</h2>
+                    <p class="card-text"></p>
                 </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>
+                <%--                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>--%>
+                <div class="card-footer">
+                    <div>
+                        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button"
+                                data-bs-toggle="dropdown">
+                            Hash List
+                        </button>
+                        <ul class="dropdown-menu">
+                            <c:forEach items="${hashOption}" var="hashOption">
+                                <li><a class="dropdown-item"
+                                       href="/board/search/${hashOption.hashName}">#${hashOption.hashName}</a></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -101,7 +153,13 @@
                     <h2 class="card-title text-center"> 검색 </h2>
                     <p class="card-text">해외 여행의 이야기를 모아놨어요 !</p>
                 </div>
-                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">Search</a></div>
+                <div class="card-footer">
+                    <%--                    <a class="btn btn-secondary btn-sm" href="#searchModal" data-bs-target="#searchModal" aria-controls="searchModal">Search</a>--%>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#searchModal" data-bs-whatever="@fat">Search
+                    </button>
+
+                </div>
             </div>
         </div>
 
@@ -111,7 +169,13 @@
                     <h2 class="card-title text-center">이야기 공유하기</h2>
                     <p class="card-text text-center"> 여행자님의 이야기를 공유 해보세요</p>
                 </div>
-                <div class="card-footer text-center"><a class="btn btn-secondary btn-sm" href="/board/add">Add Story</a>
+                <div class="card-footer text-center">
+                    <%--                    <a class="btn btn-secondary btn-sm" href="/board/add">Add Story</a>--%>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#WriteModal">
+                        Add Story
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -129,7 +193,6 @@
     <div class="offcanvas-body">
         <c:if test="${sessionScope.member != null}">
             <div>
-                <p>로그인 계정 : ${sessionScope.member.memberId}</p>
                 <p>로그인 이름 : ${sessionScope.member.memberName}</p>
                 <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
             </div>
@@ -196,6 +259,77 @@
     </div>
 </div>
 
+
+<!--검색모달 -->
+
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">검색하기</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="get" action="/board/search">
+                    <div class="mb-3">
+                        <input class="form-control" id="message-text" name="keyword" placeholder="검색어를 입력하세요"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="WriteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">이야기 공유</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form action="/board/add" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="form-label">제목</label> <input type="text" name="boardTitle"
+                                                                        class="form-control form-control-sm">
+                        </div>
+                        <%--                        <div class="form-group">--%>
+                        <%--                            <label class="form-label">해시태그</label> <input type="text"--%>
+                        <%--                                                                          name="hashName" class="form-control form-control-sm">--%>
+                        <%--                        </div>--%>
+                        <div class="form-group">
+                            <label class="form-label">내용 작성:</label>
+                            <textarea id="summernote" name="boardContent"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>첨부파일:
+                                <button type="button" id="add" class="btn btn-sm btn-primary">추가</button>
+                            </label>
+                            <div id="attachs">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="file" name="attach" class="form-control form-control-sm">
+                                <button type="button" class="btn-danger">삭제</button>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>

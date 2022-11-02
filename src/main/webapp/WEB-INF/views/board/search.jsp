@@ -36,27 +36,38 @@
     </div>
 </nav>
 
+<c:if test="${total > 0}">
     <div style="width: 1000px; margin-left: 475px" class="card text-white bg-dark my-5 py-4 text-center">
-        <div class="card-body"><h3 class="m-0 text-white"> ${HashName}에대한 게시글 결과에요,  ${total}건의 이야기가 있어요!</h3></div>
+        <div class="card-body"><h3 class="m-0 text-white"> ${HashName}에대한 검색 결과에요, ${total}건의 이야기가 있어요!</h3></div>
     </div>
+</c:if>
+
+<c:if test="${total == 0}">
+    <div style="width: 1000px; margin-left: 475px" class="card text-white bg-dark my-5 py-4 text-center">
+        <div class="card-body">
+            <h3 class="m-0 text-white"><a href="/board/list" style="text-decoration: none" class="text-white" > ${HashName}에대한 게시글 검색 결과가 없어요 </a></h3>
+        </div>
+    </div>
+</c:if>
 
 <!-- Page Content-->
 <c:forEach items="${list}" var="item">
-<div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 align-items-center my-5">
 
-        <div class="col-lg-7">
-            <a href="/board/detail/${item.boardNum}">
-            <img src="/images/${item.boardImage}" class="d-block w-100 img-fluid rounded mb-4 mb-lg-0">
-            </a>
-        </div>
+            <div class="col-lg-7">
+                <a href="/board/detail/${item.boardNum}">
+                    <img src="/images/${item.boardImage}" class="d-block w-100 img-fluid rounded mb-4 mb-lg-0">
+                </a>
+            </div>
 
-        <div class="col-lg-5">
-            <h3 class="font-weight-light text-black"><a class="text-black" href="/board/detail/${item.boardNum}" style="text-decoration: none">${item.boardTitle}</a> </h3>
-            <p>${item.boardWrite} 여행자님의 이야기</p>
+            <div class="col-lg-5">
+                <h3 class="font-weight-light text-black"><a class="text-black" href="/board/detail/${item.boardNum}"
+                                                            style="text-decoration: none">${item.boardTitle}</a></h3>
+                <p>${item.boardWrite} 여행자님의 이야기</p>
+            </div>
         </div>
     </div>
-</div>
 </c:forEach>
 
 <!-- sidebar area-->
@@ -69,7 +80,6 @@
         <c:if test="${sessionScope.member != null}">
             <div>
                 <p>로그인 계정 : ${sessionScope.member.memberId}</p>
-                <p>로그인 이름 : ${sessionScope.member.memberName}</p>
                 <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
             </div>
 
@@ -136,7 +146,7 @@
 </div>
 
 <!-- Footer-->
-<footer class="py-5 bg-dark">
+<footer class="py-5 bg-dark" style="position: fixed; bottom: 0; width: 100%">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
 </footer>
 <!-- Bootstrap core JS-->

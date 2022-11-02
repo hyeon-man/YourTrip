@@ -79,7 +79,7 @@
                 <div class="fs-5 mb-5">
                     <span>작성자 : ${item.boardWrite}</span>
                     <br>
-                    <span> 작성일 : ${item.boardDate}</span>
+                    <span> 작성 일시 : ${item.boardDate}</span>
                 </div>
                 <p class="lead">
                     ${item.boardContent}
@@ -166,7 +166,6 @@
         <c:if test="${sessionScope.member != null}">
             <div>
                 <p>로그인 계정 : ${sessionScope.member.memberId}</p>
-                <p>로그인 이름 : ${sessionScope.member.memberName}</p>
                 <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
             </div>
 
