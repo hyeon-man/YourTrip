@@ -43,8 +43,6 @@ public class BoardController {
         List<Hash> hashList = service.getHash(boardNum);
         model.addAttribute("hash", hashList);
 
-        List<Hash> hashOption = service.hashOption();
-        model.addAttribute("hashOption", hashOption);
         return "board/list";
     }
 
@@ -127,7 +125,7 @@ public class BoardController {
     }
 
     @RequestMapping("/recommend/{boardNum}")
-    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request, @SessionAttribute Member member, Board board) {
+    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request,@SessionAttribute Member member, Board board) {
         String prevPage = pageUtil.prevPage(request);
 
         board.setMemberNum(member.getMemberNum());
@@ -136,48 +134,28 @@ public class BoardController {
 
         service.recommend(board);
 
-        return "redirect:" + prevPage;
+            return "redirect:"+ prevPage;
     }
 
     @PostMapping("/replyUpdate/{replyNum}")
     public String replyUpdate(@PathVariable int replyNum, Reply reply, PageUtil pageUtil, HttpServletRequest request) {
-        String prevPage = pageUtil.prevPage(request);
+            String prevPage = pageUtil.prevPage(request);
 
-        reply.setReplyNum(replyNum);
-        service.replyUpdate(reply);
+            reply.setReplyNum(replyNum);
+            service.replyUpdate(reply);
 
-        return "redirect:" + prevPage;
-    }
-
+            return "redirect:" + prevPage;
+        }
     @RequestMapping("search/{HashName}")
-    public String search(@PathVariable String HashName, Model model) {
+        public String search(@PathVariable String HashName, Model model){
 
         List<Board> list = service.hashSearchList(HashName);
         model.addAttribute("list", list);
         int total = service.hashSearchListTotal(HashName);
-
-        model.addAttribute("total", total);
-
-        model.addAttribute("HashName", HashName);
-
-        return "board/search";
-
-    }
-
-    @RequestMapping("/search")
-    public String search(Search search, Model model){
-        String HashName = search.getKeyword();
-
-        List<Board> searchList = service.search(search);
-        model.addAttribute("list", searchList);
-
-        int total = service.keyworldTotalList(search.getKeyword());
-        System.out.println("토탈값" + total);
-
         model.addAttribute("total", total);
         model.addAttribute("HashName", HashName);
 
-        return "board/search";
+            return "board/search";
 
+        }
     }
-}
