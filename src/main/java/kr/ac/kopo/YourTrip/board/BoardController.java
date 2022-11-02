@@ -33,12 +33,13 @@ public class BoardController {
         int boardTotal = service.total(); // 전체 게시글수 카운팅
         Board hotTopic = service.hotTopic(); // 핫토픽 한개
         List<Attach> hotTopicPicture = service.hotTopicPicture(hotTopic.getBoardNum());
+        List<Hash> hashOption = service.hashOption();
 
         model.addAttribute("list", list);
         model.addAttribute("total", boardTotal);
         model.addAttribute("hotTopic", hotTopic);
         model.addAttribute("hotTopicPicture", hotTopicPicture);
-
+        model.addAttribute("hashOption", hashOption);
         int boardNum = hotTopic.getBoardNum();
         List<Hash> hashList = service.getHash(boardNum);
         model.addAttribute("hash", hashList);
@@ -125,7 +126,7 @@ public class BoardController {
     }
 
     @RequestMapping("/recommend/{boardNum}")
-    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request,@SessionAttribute Member member, Board board) {
+    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request, @SessionAttribute Member member, Board board) {
         String prevPage = pageUtil.prevPage(request);
 
         board.setMemberNum(member.getMemberNum());
@@ -134,20 +135,21 @@ public class BoardController {
 
         service.recommend(board);
 
-            return "redirect:"+ prevPage;
+        return "redirect:" + prevPage;
     }
 
     @PostMapping("/replyUpdate/{replyNum}")
     public String replyUpdate(@PathVariable int replyNum, Reply reply, PageUtil pageUtil, HttpServletRequest request) {
-            String prevPage = pageUtil.prevPage(request);
+        String prevPage = pageUtil.prevPage(request);
 
-            reply.setReplyNum(replyNum);
-            service.replyUpdate(reply);
+        reply.setReplyNum(replyNum);
+        service.replyUpdate(reply);
 
-            return "redirect:" + prevPage;
-        }
-    @RequestMapping("search/{HashName}")
-        public String search(@PathVariable String HashName, Model model){
+        return "redirect:" + prevPage;
+    }
+
+    @RequestMapping("/search/{HashName}")
+    public String search(@PathVariable String HashName, Model model) {
 
         List<Board> list = service.hashSearchList(HashName);
         model.addAttribute("list", list);
@@ -155,7 +157,17 @@ public class BoardController {
         model.addAttribute("total", total);
         model.addAttribute("HashName", HashName);
 
-            return "board/search";
-
-        }
+        return "board/search";
     }
+
+    @RequestMapping("/search")
+    public String search(Search search, Model model) {
+        List<Board> list = service.search(search);
+        model.addAttribute("list", list);
+        int total = service.keyworldTotalList(search.getKeyword());
+        model.addAttribute("total", total);
+        String hashName = search.getKeyword();
+        model.addAttribute("HashName",hashName);
+        return "board/search";
+    }
+}
