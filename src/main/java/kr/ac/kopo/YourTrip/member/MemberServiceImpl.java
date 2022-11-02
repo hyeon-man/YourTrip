@@ -1,4 +1,4 @@
-package kr.ac.kopo.YourTrip.root;
+package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
 import lombok.RequiredArgsConstructor;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class RootServiceImpl implements RootService {
-    private final RootDao dao;
+public class MemberServiceImpl implements MemberService {
+    private final MemberDao dao;
 
     @Override
     public void signup(Member member) {

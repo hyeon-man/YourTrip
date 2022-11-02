@@ -9,7 +9,7 @@
     <select id="list" resultType="Board">
         SELECT *
         FROM yourtrip.board
-
+        LIMIT 9
         <if test="kind == 1">
             where board_Title LIKE CONCAT(CONCAT('%',#{keyword}),'%')
         </if>

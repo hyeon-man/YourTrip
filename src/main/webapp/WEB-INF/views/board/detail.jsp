@@ -6,7 +6,6 @@
     <title>YourTrip</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/css/detail_styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 
     <script src="https://code.jquery.com/jquery-3.6.1.js"
@@ -75,7 +74,9 @@
                         </a>
                     </div>
                 </c:forEach>
-                <h5 class="display-5 fw-bolder">${item.boardTitle}</h5>
+                <div >
+                    <h1 class="fw-bolder">${item.boardTitle} </h1>
+                </div>
                 <div class="fs-5 mb-5">
                     <span>작성자 : ${item.boardWrite}</span>
                     <br>
@@ -127,7 +128,8 @@
         <c:forEach var="reply" items="${ReplyList}">
             <div class="d-block" style="margin-top: 15px">
                 <div class="ms-3">
-                    <div class="fw-bold"> ${reply.replyWrite} (<fmt:formatDate value="${reply.replyDate}" pattern="yyyy-MM-dd hh:mm"></fmt:formatDate>)
+                    <div class="fw-bold"> ${reply.replyWrite} (<fmt:formatDate value="${reply.replyDate}"
+                                                                               pattern="yyyy-MM-dd hh:mm"></fmt:formatDate>)
                         <c:if test="${sessionScope.member.memberId == reply.replyWrite}">
                             <div>
                                 <button type="button" class="btn btn-secondary btn-sm float-end" data-bs-toggle="modal"

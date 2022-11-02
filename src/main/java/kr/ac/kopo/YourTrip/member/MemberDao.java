@@ -1,12 +1,12 @@
-package kr.ac.kopo.YourTrip.root;
+package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
 
-public interface RootService {
+public interface MemberDao {
 
     void signup(Member member);
 
-    boolean login(Member member);
+    Member login(Member member);
 
     Member item(int memberNum);
 }

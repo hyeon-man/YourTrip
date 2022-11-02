@@ -30,7 +30,6 @@ public class BoardServiceImpl implements BoardService {
             for (Attach attach : board.getAttachs()){
                 attach.setAttachBoardNum(board.getBoardNum());
                 attachDao.add(attach);
-
             }
         }
     }

@@ -44,7 +44,7 @@
                 button.attr("type", "button");
                 button.addClass("btn");
                 button.addClass("btn-sm");
-                button.addClass("btn-outline-danger");
+                button.addClass("btn-danger");
                 button.addClass("delete");
                 button.text("삭제");
 
@@ -54,6 +54,7 @@
                 $("#attachs").append(div);
             });
         });
+
     </script>
 </head>
 <body>
@@ -111,7 +112,7 @@
                     </a>
                 </div>
             </c:forEach>
-            <p> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </p>
+            <h5> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </h5>
             <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
         </div>
     </div>
@@ -123,62 +124,21 @@
     </div>
     <!-- Content Row-->
     <div class="row gx-4 gx-lg-5 text-center">
+        <c:forEach items="${list}" var="list">
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title text-center">빠른 #검색</h2>
-                    <p class="card-text"></p>
-                </div>
-                <%--                <div class="card-footer"><a class="btn btn-secondary btn-sm" href="#!">See more</a></div>--%>
-                <div class="card-footer">
-                    <div>
-                        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button"
-                                data-bs-toggle="dropdown">
-                            Hash List
-                        </button>
-                        <ul class="dropdown-menu">
-                            <c:forEach items="${hashOption}" var="hashOption">
-                                <li><a class="dropdown-item"
-                                       href="/board/search/${hashOption.hashName}">#${hashOption.hashName}</a></li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-5 text-center">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title text-center"> 검색 </h2>
-                    <p class="card-text">해외 여행의 이야기를 모아놨어요 !</p>
-                </div>
-                <div class="card-footer">
-                    <%--                    <a class="btn btn-secondary btn-sm" href="#searchModal" data-bs-target="#searchModal" aria-controls="searchModal">Search</a>--%>
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#searchModal" data-bs-whatever="@fat">Search
-                    </button>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title text-center">이야기 공유하기</h2>
-                    <p class="card-text text-center"> 여행자님의 이야기를 공유 해보세요</p>
-                </div>
+                <a href="/board/detail/${list.boardNum}"><img src="/resources/img/${list.boardImage}" width="373" height="280"></a>
                 <div class="card-footer text-center">
-                    <%--                    <a class="btn btn-secondary btn-sm" href="/board/add">Add Story</a>--%>
-                    <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#WriteModal">
-                        Add Story
-                    </button>
-
+                        <div class="card-body">
+                            <h4 class="card-text"><b>${list.boardTitle}</b></h4>
+                        </div>
+                        <div class="card-footer">
+                            <p class="float-left">${list.boardWrite}여행자님의 이야기 <br>(${list.boardDate})</p>
+                        </div>
                 </div>
             </div>
         </div>
+        </c:forEach>
     </div>
 </div>
 </div>
@@ -314,15 +274,15 @@
                             </div>
                             <div class="input-group mb-3">
                                 <input type="file" name="attach" class="form-control form-control-sm">
-                                <button type="button" class="btn-danger">삭제</button>
+                                <button type="button" class="btn btn-sm btn-danger">삭제</button>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary">Save changes</button>
+                            <button class="btn btn-primary">게시글 등록</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                         </div>
                     </form>
 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

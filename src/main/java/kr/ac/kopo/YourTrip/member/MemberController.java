@@ -1,4 +1,4 @@
-package kr.ac.kopo.YourTrip.root;
+package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
 import org.springframework.stereotype.Controller;
@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class RootController {
-    final RootService service;
+public class MemberController {
+    final MemberService service;
 
-    public RootController(RootService service) {
+    public MemberController(MemberService service) {
         this.service = service;
     }
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "redirect:board/list";
     }
 
     @PostMapping("/login")

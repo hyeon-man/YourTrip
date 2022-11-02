@@ -44,6 +44,8 @@ public class BoardController {
         List<Hash> hashList = service.getHash(boardNum);
         model.addAttribute("hash", hashList);
 
+
+
         return "board/list";
     }
 

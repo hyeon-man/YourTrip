@@ -1,14 +1,14 @@
-package kr.ac.kopo.YourTrip.root;
+package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RootDaoImpl implements RootDao{
+public class MemberDaoImpl implements MemberDao {
     final SqlSession sql;
 
-    public RootDaoImpl(SqlSession sql) {
+    public MemberDaoImpl(SqlSession sql) {
         this.sql = sql;
     }
 
