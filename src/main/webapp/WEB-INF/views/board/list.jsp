@@ -5,11 +5,10 @@
 <head>
     <title>YourTrip 여행자들의 커뮤니티</title>
     <link href="/resources/css/list_styles.css" rel="stylesheet">
-
     <link rel="stylesheet" href="/resources/css/detail_styles.css">
-    <script src="/resources/js/detail_scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <link href="/resources/summernote/summernote.min.css" rel="stylesheet">
     <script src="/resources/summernote/summernote.min.js"></script>
     <script>
@@ -125,19 +124,20 @@
     <!-- Content Row-->
     <div class="row gx-4 gx-lg-5 text-center">
         <c:forEach items="${list}" var="list">
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <a href="/board/detail/${list.boardNum}"><img src="/resources/img/${list.boardImage}" width="373" height="280"></a>
-                <div class="card-footer text-center">
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <a href="/board/detail/${list.boardNum}"><img src="/resources/img/${list.boardImage}" width="373"
+                                                                  height="280"></a>
+                    <div class="card-footer text-center">
                         <div class="card-body">
                             <h4 class="card-text"><b>${list.boardTitle}</b></h4>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-text">
                             <p class="float-left">${list.boardWrite}여행자님의 이야기 <br>(${list.boardDate})</p>
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </c:forEach>
     </div>
 </div>
@@ -282,14 +282,22 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 </div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link fs-1 text-black" href="#" ><i class="bi bi-arrow-left"></i></a>
+        </li>
+        <li class="page-item" style="margin-left: 10px; margin-bottom: 20px">
+            <a class="page-link fs-1 text-black" href="#"><i class="bi bi-arrow-right"></i></a>
+        </li>
+    </ul>
+</nav>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
