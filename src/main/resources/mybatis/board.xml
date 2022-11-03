@@ -9,17 +9,8 @@
     <select id="list" resultType="Board">
         SELECT *
         FROM yourtrip.board
-        LIMIT 9
-        <if test="kind == 1">
-            where board_Title LIKE CONCAT(CONCAT('%',#{keyword}),'%')
-        </if>
-        <if test="kind == 2">
-            where board_Num = #{keyword}
-        </if>
-        <if test="kind == 3">
-            where board_Write LIKE CONCAT(CONCAT('%',#{keyword}),'%')
-        </if>
-
+        ORDER BY board_Date DESC
+        LIMIT 9;
     </select>
 
     <insert id="add">
@@ -136,12 +127,23 @@
     <select id="search" resultType="Board">
         SELECT *
         FROM yourtrip.board
-        where board.board_Content LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+        WHERE board.board_Title LIKE CONCAT(CONCAT('%', #{keyword}), '%')
+           OR board.board_Content LIKE CONCAT(CONCAT('%', #{keyword}), '%')
     </select>
 
     <select id="keyworldTotalList" resultType="Integer">
         SELECT COUNT(*)
         FROM yourtrip.board
-        where board.board_Content LIKE CONCAT(CONCAT('%',#{keyword}),'%')
+        where board.board_Content LIKE CONCAT(CONCAT('%', #{keyword}), '%')
+           OR board.board_Title LIKE CONCAT(CONCAT('%', #{keyword}), '%')
     </select>
+
+    <update id="setBoardImage">
+        UPDATE yourtrip.board
+        SET board.board_Image = (SELECT attach_filename
+                                 FROM yourtrip.attach
+                                 WHERE attach_board_num = #{boardNum}
+                                 LIMIT 1)
+        WHERE board.board_Num = #{boardNum};
+    </update>
 </mapper>

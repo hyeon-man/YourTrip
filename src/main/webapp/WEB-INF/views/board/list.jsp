@@ -121,17 +121,24 @@
     <div class="card text-white bg-dark my-5 py-4 text-center ">
         <div class="card-body "><h3 class="m-0 text-white">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
     </div>
+    <form action="/board/search" class="justify-content-center d-flex">
+        <div class="justify-content-center d-flex" style="width: 300px; height: 50px">
+            <input name="keyword" placeholder="검색어를 입력하세요" type="text" class="form-control"
+                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+        </div>
+    </form>
+
     <!-- Content Row-->
-    <div class="row gx-4 gx-lg-5 text-center">
+    <div class="row gx-4 gx-lg-5 text-center" style="margin-top: 40px">
         <c:forEach items="${list}" var="list">
             <div class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <a href="/board/detail/${list.boardNum}"><img src="/resources/img/${list.boardImage}" width="373"
-                                                                  height="280"></a>
-                    <div class="card-footer text-center">
-                        <div class="card-body">
-                            <h4 class="card-text"><b>${list.boardTitle}</b></h4>
-                        </div>
+                <div class="card h-auto">
+                    <a href="/board/detail/${list.boardNum}"><img src="/images/${list.boardImage}" width="374px"
+                                                                  height="350px"></a>
+                    <div class="card-body">
+                        <h4 class="card-text"><b>${list.boardTitle}</b></h4>
+                    </div>
+                    <div class="text-center">
                         <div class="card-text">
                             <p class="float-left">${list.boardWrite}여행자님의 이야기 <br>(${list.boardDate})</p>
                         </div>
@@ -147,39 +154,26 @@
 <!-- sidebar area-->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h5>
+        <h3 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
         <c:if test="${sessionScope.member != null}">
-            <div>
-                <p>로그인 이름 : ${sessionScope.member.memberName}</p>
-                <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
-            </div>
-
             <form action="/logout">
-                <button class="text-black btn-primary float-end"> 로그아웃</button>
+                <button class="btn btn-sm text-black btn-primary float-end"> 로그아웃</button>
             </form>
+            <div>
+                <p>${sessionScope.member.memberNick} (${sessionScope.member.memberId})여행자님</p>
+            </div>
         </c:if>
-
         <c:if test="${sessionScope.member == null}">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
                     data-bs-target="#LoginModal">
                 로그인
             </button>
         </c:if>
-        <br>
 
-        <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </div>
+
     </div>
 </div>
 
@@ -288,16 +282,8 @@
     </div>
 </div>
 </div>
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a class="page-link fs-1 text-black" href="#" ><i class="bi bi-arrow-left"></i></a>
-        </li>
-        <li class="page-item" style="margin-left: 10px; margin-bottom: 20px">
-            <a class="page-link fs-1 text-black" href="#"><i class="bi bi-arrow-right"></i></a>
-        </li>
-    </ul>
-</nav>
+
+
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>

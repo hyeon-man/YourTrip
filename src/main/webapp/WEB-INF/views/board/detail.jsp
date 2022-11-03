@@ -139,7 +139,6 @@
                             <div class="float-end" style="margin-right: 10px">
                                 <a class="btn btn-danger btn-sm" href="deleteReply/${reply.replyNum}"> 삭제 </a>
                             </div>
-
                         </c:if>
                     </div>
                         ${reply.replyContent}

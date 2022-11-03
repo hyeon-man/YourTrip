@@ -132,5 +132,10 @@ public class BoardDaoImpl implements BoardDao {
         return sql.selectOne("board.keyworldTotalList", keyword);
     }
 
+    @Override
+    public void setBoardImage(Board board) {
+        sql.update("board.setBoardImage", board);
+    }
+
 
 }

@@ -29,8 +29,9 @@ public class BoardController {
     public String list(Model model, Search search) {
 
         List<Board> list = service.list(search); // 리스트 뽑아오기 이거 쓸 지 안 쓸 지 모르곘는데 아마 안 쓸 듯
-
         int boardTotal = service.total(); // 전체 게시글수 카운팅
+
+
         Board hotTopic = service.hotTopic(); // 핫토픽 한개
         List<Attach> hotTopicPicture = service.hotTopicPicture(hotTopic.getBoardNum());
         List<Hash> hashOption = service.hashOption();

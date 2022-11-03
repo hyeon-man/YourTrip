@@ -51,4 +51,6 @@ public interface BoardDao {
     List<Board> search(Search search);
 
     int keyworldTotalList(String keyword);
+
+    void setBoardImage(Board board);
 }

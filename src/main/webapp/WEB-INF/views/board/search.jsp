@@ -38,7 +38,7 @@
 
 <c:if test="${total > 0}">
     <div style="width: 1000px; margin-left: 475px" class="card text-white bg-dark my-5 py-4 text-center">
-        <div class="card-body"><h3 class="m-0 text-white"> ${HashName}에대한 검색 결과에요, ${total}건의 이야기가 있어요!</h3></div>
+        <div class="card-body"><h3 class="m-0 text-white"> ${HashName} 에대한 검색 결과에요, ${total}건의 이야기가 있어요!</h3></div>
     </div>
 </c:if>
 
@@ -146,7 +146,7 @@
 </div>
 
 <!-- Footer-->
-<footer class="py-5 bg-dark" style="position: fixed; bottom: 0; width: 100%">
+<footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
 </footer>
 <!-- Bootstrap core JS-->

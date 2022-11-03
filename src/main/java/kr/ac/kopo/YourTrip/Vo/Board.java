@@ -17,7 +17,7 @@ public class Board {
     private int boardHit;
     private int boardRecommend;
     private String boardWrite;
-
+    private int total;
     private int memberNum;
 
     private List<MultipartFile> attach;

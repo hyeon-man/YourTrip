@@ -32,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
                 attachDao.add(attach);
             }
         }
+        dao.setBoardImage(board);
     }
 
     @Override
