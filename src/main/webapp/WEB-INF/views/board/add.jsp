@@ -55,6 +55,10 @@
                 $("#attachs").append(div);
             });
         });
+
+        function hashInsert(){
+            alert('123');
+        }
     </script>
 
 </head>
@@ -72,8 +76,9 @@
             </div>
 
             <div class="form-group">
-                <label class="form-label">해시태그</label> <input type="text"
-                                                             name="hashName" class="form-control form-control-sm">
+                <label class="form-label">해시태그</label>
+                <input type="text" name="hashName" class="form-control form-control-sm" onkeyup="hashInsert()">
+                <input type="text" style="display: none">
             </div>
 
             <div class="form-group">

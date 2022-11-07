@@ -1,5 +1,6 @@
 package kr.ac.kopo.YourTrip.board;
 
+import kr.ac.kopo.YourTrip.Util.SysoutTester;
 import kr.ac.kopo.YourTrip.Vo.*;
 import kr.ac.kopo.YourTrip.Util.PageUtil;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +19,17 @@ import java.util.List;
 @RequestMapping("/board")
 public class BoardController {
     final BoardService service;
-
     public BoardController(BoardService service) {
         this.service = service;
     }
-
     final String uploadPath = "d://upload/";
-
+    final SysoutTester sout = new SysoutTester();
 
     @RequestMapping("/list")
     public String list(Model model, Search search) {
 
         List<Board> list = service.list(search); // 리스트 뽑아오기 이거 쓸 지 안 쓸 지 모르곘는데 아마 안 쓸 듯
         int boardTotal = service.total(); // 전체 게시글수 카운팅
-
 
         Board hotTopic = service.hotTopic(); // 핫토픽 한개
         List<Attach> hotTopicPicture = service.hotTopicPicture(hotTopic.getBoardNum());
@@ -44,7 +43,6 @@ public class BoardController {
         int boardNum = hotTopic.getBoardNum();
         List<Hash> hashList = service.getHash(boardNum);
         model.addAttribute("hash", hashList);
-
 
 
         return "board/list";
@@ -83,22 +81,32 @@ public class BoardController {
         return "redirect:detail/" + boardNum;
     }
 
-    @GetMapping("/detail/{boardNum}")
-    public String detail(@PathVariable int boardNum, Model model) {
 
-        // 게시글 정보
-        Board item = service.item(boardNum);
+    @GetMapping("/detail/{boardNum}")
+    public String detail(@PathVariable int boardNum, Model model, HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession();
+        Member member = (Member) session.getAttribute("member");
+
+        sout.test(member.getMemberId(), getClass().getSimpleName());
+
+        int memberNum = member.getMemberNum();
+
+        //게시글 정보
+        Board item = service.test(boardNum, memberNum);
+        sout.test(item.getRecommendMemberCount(), getClass().getSimpleName());
+
         model.addAttribute("item", item);
         // 댓글
         List<Reply> list = service.getReply(boardNum);
         model.addAttribute("ReplyList", list);
+
         // 해시
         List<Hash> hash = service.getHash(boardNum);
         model.addAttribute("hash", hash);
+
         // 사진
         List<Attach> attachs = service.getAttach(boardNum);
         model.addAttribute("attach", attachs);
-        // 추천 유무
 
         return "board/detail";
     }
@@ -108,10 +116,10 @@ public class BoardController {
 
         service.delete(boardNum);
 
-        return "redirect:../../list";
+        return "redirect:/board/list";
     }
 
-    @GetMapping("detail/update/{boardNum}")
+    @GetMapping("/update/{boardNum}")
     public String update(@PathVariable int boardNum, Model model) {
 
         Board item = service.item(boardNum);
@@ -120,16 +128,16 @@ public class BoardController {
         return "board/update";
     }
 
-    @PostMapping("detail/update/{boardNum}")
+    @PostMapping("/update/{boardNum}")
     public String update(@PathVariable int boardNum, Board board) {
 
         service.update(board);
 
-        return "redirect:../" + boardNum;
+        return "redirect:/board/detail/" + boardNum;
     }
 
     @RequestMapping("/recommend/{boardNum}")
-    public String recommend(@PathVariable int boardNum, Model model, PageUtil pageUtil, HttpServletRequest request, @SessionAttribute Member member, Board board) {
+    public String recommend(@PathVariable int boardNum, PageUtil pageUtil, HttpServletRequest request, @SessionAttribute Member member, Board board) {
         String prevPage = pageUtil.prevPage(request);
 
         board.setMemberNum(member.getMemberNum());
@@ -140,6 +148,22 @@ public class BoardController {
 
         return "redirect:" + prevPage;
     }
+
+    @PostMapping("/recommendCancel/{boardNum}")
+    public String recommendCancel(@PathVariable int boardNum, PageUtil pageUtil, HttpServletRequest request, Board board, @SessionAttribute Member member) {
+
+        String prevPage = pageUtil.prevPage(request);
+
+        System.out.println("board Num = " + boardNum);
+        board.setBoardNum(boardNum);
+
+        System.out.println("member Num = " + member.getMemberNum());
+        board.setMemberNum(member.getMemberNum());
+
+        service.recommendCancel(board);
+        return "redirect:" + prevPage;
+    }
+
 
     @PostMapping("/replyUpdate/{replyNum}")
     public String replyUpdate(@PathVariable int replyNum, Reply reply, PageUtil pageUtil, HttpServletRequest request) {
@@ -170,7 +194,7 @@ public class BoardController {
         int total = service.keyworldTotalList(search.getKeyword());
         model.addAttribute("total", total);
         String hashName = search.getKeyword();
-        model.addAttribute("HashName",hashName);
+        model.addAttribute("HashName", hashName);
         return "board/search";
     }
 }

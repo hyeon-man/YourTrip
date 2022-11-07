@@ -26,6 +26,7 @@ public class Board {
     private String boardImage;
     private String hashName;
 
+    private String recommendMemberCount;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String boardDate;

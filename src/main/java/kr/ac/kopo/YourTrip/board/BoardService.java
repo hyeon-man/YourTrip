@@ -46,4 +46,8 @@ public interface BoardService {
     List<Board> search(Search search);
 
     int keyworldTotalList(String keyword);
+
+    void recommendCancel(Board board);
+
+    Board test(int boardNum, int memberNum);
 }

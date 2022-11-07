@@ -53,4 +53,10 @@ public interface BoardDao {
     int keyworldTotalList(String keyword);
 
     void setBoardImage(Board board);
+
+    void recommendTableDelete(Board board);
+
+    void recommendCancel(Board board);
+
+    Board test(int boardNum, int memberNum);
 }

@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -135,6 +136,27 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public void setBoardImage(Board board) {
         sql.update("board.setBoardImage", board);
+    }
+
+
+    // 추천 삭제 //
+    @Override
+    public void recommendTableDelete(Board board) {
+        sql.delete("board.recommendTableDelete", board);
+    }
+
+    @Override
+    public void recommendCancel(Board board) {
+        sql.update("board.recommendCancel", board);
+    }
+
+    @Override
+    public Board test(int boardNum, int memberNum) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("boardNum", boardNum);
+        map.put("memberNum", memberNum);
+
+        return sql.selectOne("board.test", map);
     }
 
 

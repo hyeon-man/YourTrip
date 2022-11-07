@@ -74,7 +74,7 @@
                         </a>
                     </div>
                 </c:forEach>
-                <div >
+                <div>
                     <h1 class="fw-bolder">${item.boardTitle} </h1>
                 </div>
                 <div class="fs-5 mb-5">
@@ -86,12 +86,23 @@
                     ${item.boardContent}
                 </p>
                 <div class="d-flex float-end">
-                    <form action="/board/recommend/${item.boardNum}" method="post">
-                        <!-- 여기 추천 한거면 BUTTON CLASS 에 ACTIVE 해줘야함-->
-                        <button class="btn btn-outline-danger flex-shrink-0" id="${item.boardNum}">
-                            <i class="bi bi-heart active"></i>
-                        </button>
-                    </form>
+
+                    <!-- 여기 추천 한거면 BUTTON CLASS 에 ACTIVE 해줘야함-->
+                    <c:if test="${item.recommendMemberCount == 1}">
+                        <form action="/board/recommendCancel/${item.boardNum}" method="post">
+                            <button class="btn btn-outline-danger flex-shrink-0 active" id="${item.boardNum}">
+                                <i class="bi bi-heart active"></i>
+                            </button>
+                        </form>
+                    </c:if>
+
+                    <c:if test="${item.recommendMemberCount == 0}">
+                        <form action="/board/recommend/${item.boardNum}" method="post">
+                            <button class="btn btn-outline-danger flex-shrink-0 " id="${item.boardNum}">
+                                <i class="bi bi-heart active"></i>
+                            </button>
+                        </form>
+                    </c:if>
                     <form>
                         <button class="btn btn-outline-primary flex-shrink-0 " type="button" style="margin-left: 5px">
                             <i class="bi bi-share"></i>
@@ -137,7 +148,8 @@
                                 </button>
                             </div>
                             <div class="float-end" style="margin-right: 10px">
-                                <a class="btn btn-danger btn-sm" href="deleteReply/${reply.replyNum}"> 삭제 </a>
+                                <a class="btn btn-danger btn-sm" href="deleteReply/${reply.replyNum}"
+                                   onclick="replyDelete()"> 삭제 </a>
                             </div>
                         </c:if>
                     </div>

@@ -24,11 +24,30 @@
 
     </insert>
 
-    <!-- 한 개 가져오는 쿼리-->
+    <!-- 디테일 todo ㅆㅣ발-->
     <select id="item" resultType="Board">
-        SELECT *
-        FROM yourtrip.board
-        WHERE board_Num = #{boardNum}
+        <if test="memberNum != null">
+            SELECT board.*, COUNT(recommend.recommend_Num) AS "recommend_Member_Count"
+            FROM yourtrip.board, yourtrip.recommend
+            WHERE recommend.recommend_board_num = board.board_Num
+            AND recommend_member_num = #{memberNum}
+            AND board_Num = #{boardNum}
+        </if>
+        <if test="memberNum == null">
+            SELECT board.*, COUNT(recommend.recommend_Num) AS "recommend_Member_Count"
+            FROM yourtrip.board,
+            yourtrip.recommend
+            WHERE recommend.recommend_board_num = board.board_Num
+            AND board_Num = #{boardNum}
+        </if>
+    </select>
+
+    <select id="test" resultType="Board">
+        SELECT board.*, COUNT(recommend.recommend_Num) AS "recommend_Member_Count"
+        FROM yourtrip.board, yourtrip.recommend
+        WHERE recommend.recommend_board_num = board.board_Num
+          AND board_Num = #{boardNum}
+          AND recommend_member_num = #{memberNum}
     </select>
 
     <!-- 게시글 삭제 -->
@@ -146,4 +165,19 @@
                                  LIMIT 1)
         WHERE board.board_Num = #{boardNum};
     </update>
+
+    <delete id="recommendTableDelete">
+        DELETE
+        FROM yourtrip.recommend
+        WHERE recommend_board_num = #{boardNum}
+          AND recommend_member_num = #{memberNum}
+    </delete>
+
+    <update id="recommendCancel">
+        UPDATE yourtrip.board
+        SET board_Recommend = board_Recommend - 1
+        WHERE board_Num = #{boardNum}
+    </update>
+
+
 </mapper>

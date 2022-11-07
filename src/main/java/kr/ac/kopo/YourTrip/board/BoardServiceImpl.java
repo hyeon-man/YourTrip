@@ -3,6 +3,7 @@ package kr.ac.kopo.YourTrip.board;
 import kr.ac.kopo.YourTrip.Vo.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 
@@ -129,6 +130,18 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int keyworldTotalList(String keyword) {
         return dao.keyworldTotalList(keyword);
+    }
+
+    @Transactional
+    @Override
+    public void recommendCancel(Board board) {
+        dao.recommendTableDelete(board);
+        dao.recommendCancel(board);
+    }
+
+    @Override
+    public Board test(int boardNum, int memberNum) {
+        return dao.test(boardNum, memberNum);
     }
 
 
