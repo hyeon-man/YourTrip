@@ -154,13 +154,11 @@ public class BoardController {
 
         String prevPage = pageUtil.prevPage(request);
 
-        System.out.println("board Num = " + boardNum);
         board.setBoardNum(boardNum);
-
-        System.out.println("member Num = " + member.getMemberNum());
         board.setMemberNum(member.getMemberNum());
 
         service.recommendCancel(board);
+
         return "redirect:" + prevPage;
     }
 
