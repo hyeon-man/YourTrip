@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <link href="/resources/summernote/summernote.min.css" rel="stylesheet">
     <script src="/resources/summernote/summernote.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#ssibal :first-child').addClass('active');
         });
-    </script>
-    <script>
+
         $(function () {
             $('#summernote').summernote({
                 lang: 'ko-KR' // default: 'en-US'
@@ -57,7 +57,9 @@
     </script>
 </head>
 <body>
-<!-- Responsive navbar-->
+
+
+<!-- SideBar Trigger-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
         <a class="navbar-brand" href="../" style="font-size: x-large">YourTrip</a>
@@ -78,7 +80,9 @@
 </nav>
 <!-- Page Content-->
 <div class="container px-4 px-lg-5">
-    <!-- Heading Row-->
+
+
+    <!-- HotTopic -->
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
         <div class="col-lg-7">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -111,13 +115,13 @@
                     </a>
                 </div>
             </c:forEach>
-            <h5> ${hotTopic.boardTitle} <!-- 핫토픽 내용 불러오기--> </h5>
+            <h5> ${hotTopic.boardTitle}</h5>
             <a class="btn btn-secondary" href="detail/${hotTopic.boardNum}">See more</a>
         </div>
     </div>
 
 
-    <!-- Call to Action-->
+    <!-- 중앙 칸막이 -->
     <div class="card text-white bg-dark my-5 py-4 text-center ">
         <div class="card-body "><h3 class="m-0 text-white">여행자님의 이야기도 공유 해보세요, ${total}건의 이야기가 공유 되고 있어요!</h3></div>
     </div>
@@ -128,7 +132,7 @@
         </div>
     </form>
 
-    <!-- Content Row-->
+    <!-- List(Card) Row-->
     <div class="row gx-4 gx-lg-5 text-center" style="margin-top: 40px">
         <c:forEach items="${list}" var="list">
             <div class="col-md-4 mb-5">
@@ -151,7 +155,7 @@
 </div>
 
 
-<!-- sidebar area-->
+<!-- SideBar Area-->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h3>
@@ -177,6 +181,7 @@
     </div>
 </div>
 
+<!--Login Modal Area-->
 
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
@@ -190,15 +195,18 @@
                     <div>
                         <div>
                             <div>
-                                <label>아이디:</label>
-                                <input type="text" name="memberId" class="form-control">
+                                <input type="text" name="memberId" class="form-control" placeholder="아이디">
                             </div>
 
-                            <div>
-                                <label>비밀번호:</label>
-                                <input type="password" name="memberPass" class="form-control">
+                            <div style="margin-top: 15px">
+                                <input type="password" autocomplete="on" name="memberPass" class="form-control"
+                                       placeholder="비밀번호">
                             </div>
-                            <div>
+                            <div class="float-start" style="margin-top: 10px">
+                                <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+                                        data-bs-target="#SignupModal">
+                                    회원 가입
+                                </button>
                             </div>
                             <div style="margin-left: 350px; margin-top: 10px">
                                 <button class="btn btn-danger btn-sm ">로그인</button>
@@ -214,73 +222,54 @@
 </div>
 
 
-<!--검색모달 -->
-
-<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<!--Signup Modal Area-->
+<div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content text-black">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">검색하기</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">회원 가입</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form method="get" action="/board/search">
-                    <div class="mb-3">
-                        <input class="form-control" id="message-text" name="keyword" placeholder="검색어를 입력하세요"/>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-                </form>
-            </div>
+            <form method="post" action="/signup">
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <div class="input-group mb-3" id="idArea">
+                                <input type="text" name="memberId" class="form-control" placeholder="아이디">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon1">중복 확인
+                                </button>
+                            </div>
 
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="WriteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">이야기 공유</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <form action="/board/add" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label class="form-label">제목</label> <input type="text" name="boardTitle"
-                                                                        class="form-control form-control-sm">
-                        </div>
-                        <%--                        <div class="form-group">--%>
-                        <%--                            <label class="form-label">해시태그</label> <input type="text"--%>
-                        <%--                                                                          name="hashName" class="form-control form-control-sm">--%>
-                        <%--                        </div>--%>
-                        <div class="form-group">
-                            <label class="form-label">내용 작성:</label>
-                            <textarea id="summernote" name="boardContent"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>첨부파일:
-                                <button type="button" id="add" class="btn btn-sm btn-primary">추가</button>
-                            </label>
-                            <div id="attachs">
+                            <div class="input-group mb-3" id="passArea">
+                                <input type="password" autocomplete="on" name="memberPass" class="form-control"
+                                       placeholder="비밀번호">
                             </div>
-                            <div class="input-group mb-3">
-                                <input type="file" name="attach" class="form-control form-control-sm">
-                                <button type="button" class="btn btn-sm btn-danger">삭제</button>
+
+                            <div class="input-group mb-3" id="passCheck">
+                                <input type="password" autocomplete="on" name="passCheck" class="form-control"
+                                       placeholder="비밀번호 확인">
+                            </div>
+
+                            <div class="input-group mb-3" id="nickArea">
+                                <input type="text" name="memberNick" class="form-control" placeholder="닉네임">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">중복 확인
+                                </button>
+                            </div>
+
+
+                            <div style="margin-left: 330px; margin-top: 10px" id="signupForm">
+                                <button type="button" class="btn btn-danger btn-sm ">회원 가입</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">취소</button>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary">게시글 등록</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
 </div>
 
 
@@ -291,6 +280,79 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="/resources/js/list_scripts.js"></script>
+<script>
+    $("#button-addon1").click(function () {
+        const value = $("#idArea input[name=memberId]").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/checkId/' + value,
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    if (confirm('사용 가능한 아이디입니다')) {
+                        console.log("쓸래");
+                        $("#idArea input[name=memberId]").attr('readonly', true)
+                        $("#button-addon1").remove();
+                    } else {
+                        console.log("안 쓸래");
+                    }
+                } else {
+                    alert('이미 사용중인 아이디입니다')
+                }
+            }
+        });
+    });
+
+    $("#button-addon2").click(function () {
+        const value = $("#nickArea input[name=memberNick]").val();
+        $.ajax({
+            type: 'POST',
+            url: '/checkNick/' + value,
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    if (confirm('사용 가능한 닉네임입니다.')) {
+                        console.log("쓸래");
+                        $("#nickArea input[name=memberNick]").attr('readonly', true)
+                        $("#button-addon2").remove();
+                    } else {
+                        console.log("안 쓸래");
+                    }
+                } else {
+                    alert('이미 사용중인 닉네임입니다.')
+                }
+            }
+        });
+    });
+
+    $('#signupForm .btn-danger').click(function () {
+        if ($("#idArea input[name=memberId]").val() == "" ||
+            $("#nickArea input[name=memberNick]").val() == "" ||
+            $("#passArea input[name=memberPass]").val() == "") {
+            alert('공백은 허용하지 않습니다.');
+
+            return;
+        }
+
+        if ($("#passArea input[name=memberPass]").val() !=
+            $("#passCheck input[name=passCheck]").val()) {
+
+            alert('비밀번호가 일치하지 않습니다.')
+            return;
+        }
+
+        if ($("#idArea input[name=memberId]").attr('readonly') &&
+            $("#nickArea input[name=memberNick]").attr('readonly') != null) {
+
+            $('#signupForm button.btn-danger').attr('type', 'submit');
+        } else {
+            alert("중복 체크를 해주세요.")
+
+            return;
+        }
+    })
+
+</script>
 </body>
 </html>

@@ -9,4 +9,8 @@ public interface MemberDao {
     Member login(Member member);
 
     Member item(int memberNum);
+
+    int checkID(String id);
+
+    int checkNick(String nick);
 }

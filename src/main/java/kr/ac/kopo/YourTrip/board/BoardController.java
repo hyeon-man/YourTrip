@@ -28,10 +28,10 @@ public class BoardController {
     @RequestMapping("/list")
     public String list(Model model, Search search) {
 
-        List<Board> list = service.list(search); // 리스트 뽑아오기 이거 쓸 지 안 쓸 지 모르곘는데 아마 안 쓸 듯
-        int boardTotal = service.total(); // 전체 게시글수 카운팅
+        List<Board> list = service.list(search);
+        int boardTotal = service.total();
 
-        Board hotTopic = service.hotTopic(); // 핫토픽 한개
+        Board hotTopic = service.hotTopic();
         List<Attach> hotTopicPicture = service.hotTopicPicture(hotTopic.getBoardNum());
         List<Hash> hashOption = service.hashOption();
 
@@ -40,7 +40,9 @@ public class BoardController {
         model.addAttribute("hotTopic", hotTopic);
         model.addAttribute("hotTopicPicture", hotTopicPicture);
         model.addAttribute("hashOption", hashOption);
+
         int boardNum = hotTopic.getBoardNum();
+
         List<Hash> hashList = service.getHash(boardNum);
         model.addAttribute("hash", hashList);
 
@@ -151,7 +153,6 @@ public class BoardController {
 
     @PostMapping("/recommendCancel/{boardNum}")
     public String recommendCancel(@PathVariable int boardNum, PageUtil pageUtil, HttpServletRequest request, Board board, @SessionAttribute Member member) {
-
         String prevPage = pageUtil.prevPage(request);
 
         board.setBoardNum(boardNum);
@@ -184,15 +185,18 @@ public class BoardController {
 
         return "board/search";
     }
-
     @RequestMapping("/search")
     public String search(Search search, Model model) {
+
         List<Board> list = service.search(search);
         model.addAttribute("list", list);
+
         int total = service.keyworldTotalList(search.getKeyword());
         model.addAttribute("total", total);
+
         String hashName = search.getKeyword();
         model.addAttribute("HashName", hashName);
+
         return "board/search";
     }
 }

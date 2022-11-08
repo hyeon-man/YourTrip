@@ -12,16 +12,26 @@
     </select>
 
     <insert id="signup">
-        INSERT yourtrip.member (member_Num, member_Id, member_Pass, member_Name, member_Nick, member_RegDate,
-                                member_Phone, member_Mail)
-        VALUES (NULL, #{memberId}, PASSWORD(#{memberPass}), #{memberName}, #{memberNick}, now(), #{memberPhone},
-                #{memberMail})
+        INSERT yourtrip.member (member_Num, member_Id, member_Pass, member_Nick, member_RegDate)
+        VALUES (NULL, #{memberId}, PASSWORD(#{memberPass}), #{memberNick}, now())
     </insert>
 
     <select id="item" resultType="Member">
         SELECT *
         FROM yourtrip.member
         WHERE member_Num = #{memberNum}
+    </select>
+
+    <select id="checkId" resultType="Integer">
+        SELECT count(member_Id)
+        FROM yourtrip.member
+        WHERE member_Id = #{id}
+    </select>
+
+    <select id="checkNick" resultType="Integer">
+        SELECT COUNT(member_Nick)
+        FROM yourtrip.member
+        WHERE member_Nick = #{nick}
     </select>
 
 </mapper>

@@ -9,4 +9,8 @@ public interface MemberService {
     boolean login(Member member);
 
     Member item(int memberNum);
+
+    boolean checkId(String id);
+
+    boolean checkNick(String nick);
 }

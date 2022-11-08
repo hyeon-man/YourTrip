@@ -12,6 +12,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void signup(Member member) {
         dao.signup(member);
+
     }
 
     @Override
@@ -36,5 +37,23 @@ public class MemberServiceImpl implements MemberService {
     public Member item(int memberNum) {
 
         return dao.item(memberNum);
+    }
+
+    @Override
+    public boolean checkId(String id) {
+        if (dao.checkID(id) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean checkNick(String nick) {
+        if(dao.checkNick(nick) == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

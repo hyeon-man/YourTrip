@@ -28,4 +28,14 @@ public class MemberDaoImpl implements MemberDao {
         return sql.selectOne("member.item", memberNum);
     }
 
+    @Override
+    public int checkID(String id) {
+        return sql.selectOne("member.checkId", id);
+    }
+
+    @Override
+    public int checkNick(String nick) {
+        return sql.selectOne("member.checkNick", nick);
+    }
+
 }
