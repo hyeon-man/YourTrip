@@ -33,6 +33,7 @@
             AND recommend_member_num = #{memberNum}
             AND board_Num = #{boardNum}
         </if>
+
         <if test="memberNum == null">
             SELECT board.*, COUNT(recommend.recommend_Num) AS "recommend_Member_Count"
             FROM yourtrip.board,

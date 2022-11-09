@@ -3,6 +3,7 @@ package kr.ac.kopo.YourTrip.board;
 import kr.ac.kopo.YourTrip.Util.SysoutTester;
 import kr.ac.kopo.YourTrip.Vo.*;
 import kr.ac.kopo.YourTrip.Util.PageUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/board")
 public class BoardController {
     final BoardService service;
+
     public BoardController(BoardService service) {
         this.service = service;
     }
+
     final String uploadPath = "d://upload/";
     final SysoutTester sout = new SysoutTester();
 
@@ -86,32 +88,35 @@ public class BoardController {
 
     @GetMapping("/detail/{boardNum}")
     public String detail(@PathVariable int boardNum, Model model, HttpServletRequest httpServletRequest) {
+
         HttpSession session = httpServletRequest.getSession();
-        Member member = (Member) session.getAttribute("member");
+        Member member;
+        int memberNum;
 
-        sout.test(member.getMemberId(), getClass().getSimpleName());
+        //세션 체크
 
-        int memberNum = member.getMemberNum();
+        if (session.getAttribute("member") == null) {
+            memberNum = 0;
+        } else {
+            member = (Member) session.getAttribute("member");
+            memberNum = member.getMemberNum();
+        }
 
-        //게시글 정보
         Board item = service.test(boardNum, memberNum);
-        sout.test(item.getRecommendMemberCount(), getClass().getSimpleName());
-
         model.addAttribute("item", item);
-        // 댓글
+
         List<Reply> list = service.getReply(boardNum);
         model.addAttribute("ReplyList", list);
 
-        // 해시
         List<Hash> hash = service.getHash(boardNum);
         model.addAttribute("hash", hash);
 
-        // 사진
         List<Attach> attachs = service.getAttach(boardNum);
         model.addAttribute("attach", attachs);
 
         return "board/detail";
     }
+
 
     @RequestMapping("/detail/delete/{boardNum}")
     public String delete(@PathVariable int boardNum) {
@@ -185,6 +190,7 @@ public class BoardController {
 
         return "board/search";
     }
+
     @RequestMapping("/search")
     public String search(Search search, Model model) {
 

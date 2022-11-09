@@ -23,7 +23,6 @@ public class MemberServiceImpl implements MemberService {
             member.setMemberId(item.getMemberId());
             member.setMemberPass(null);
             member.setMemberNick(item.getMemberNick());
-            member.setMemberName(item.getMemberName());
             member.setMemberNum(item.getMemberNum());
 
             return true;

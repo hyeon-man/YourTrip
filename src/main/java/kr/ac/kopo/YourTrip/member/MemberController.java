@@ -50,7 +50,7 @@ public class MemberController {
     public String logout(HttpSession session, HttpServletRequest request) {
         session.invalidate();
         String referer = request.getHeader("referer");
-        System.out.println("이전페이지는" + referer);
+
 
         return "redirect:" + referer;
     }

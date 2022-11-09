@@ -272,7 +272,13 @@
 <!-- Bootstrap core JS-->
 <!-- Core theme JS-->
 <script src="/resources/js/detail_scripts.js"></script>
+<script>
+    function loginAlert(){
+        confirm('로그인이 필요한 기능입니다.')
+    }
 
+
+</script>
 
 </body>
 

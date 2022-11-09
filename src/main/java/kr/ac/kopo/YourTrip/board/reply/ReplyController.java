@@ -34,7 +34,6 @@ public class ReplyController {
     @RequestMapping("board/detail/deleteReply/{replyNum}")
     public String deleteReply(@PathVariable int replyNum, HttpServletRequest request, PageUtil pageUtil) {
 
-        //이전페이지
         String prevPage = pageUtil.prevPage(request);
 
         service.deleteReply(replyNum);
