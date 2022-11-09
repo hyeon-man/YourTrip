@@ -288,11 +288,14 @@
     });
 
     $('#recommendArea button.active').click(function () {
-        if (confirm('추천을 취소 할까요 ? ') == true)
+        if (confirm('추천을 취소 할까요 ? ') == true) {
             if ($('#sessionCheck button').length) {
                 $('#recommendArea button').removeAttr('type');
                 return;
+            } else{
+                loginAlert();
             }
+        }
     });
 
     $('#recommendArea button').click(function () {
