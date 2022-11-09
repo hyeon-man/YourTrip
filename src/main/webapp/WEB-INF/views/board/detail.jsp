@@ -32,7 +32,7 @@
                 <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
                 <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
                                         href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    ${sessionScope.member.memberName}여행자님 </a></li>
+                    ${sessionScope.member.memberName}여행자님</a></li>
             </ul>
         </div>
     </div>
@@ -87,19 +87,19 @@
                 </p>
                 <div class="d-flex float-end">
 
-                    <!-- 여기 추천 한거면 BUTTON CLASS 에 ACTIVE 해줘야함-->
                     <c:if test="${item.recommendMemberCount == 1}">
-                        <form action="/board/recommendCancel/${item.boardNum}" method="post">
-                            <button class="btn btn-outline-danger flex-shrink-0 active" id="${item.boardNum}">
-                                <i class="bi bi-heart active"></i>
+                        <form action="/board/recommendCancel/${item.boardNum}" method="post" id="recommendArea">
+                            <button class="btn btn-outline-danger flex-shrink-0 active" id="${item.boardNum}"
+                                    type="button">
+                                <i class="bi bi-heart"></i>
                             </button>
                         </form>
                     </c:if>
 
                     <c:if test="${item.recommendMemberCount == 0}">
-                        <form action="/board/recommend/${item.boardNum}" method="post">
-                            <button class="btn btn-outline-danger flex-shrink-0 " id="${item.boardNum}">
-                                <i class="bi bi-heart active"></i>
+                        <form action="/board/recommend/${item.boardNum}" method="post" id="recommendArea">
+                            <button class="btn btn-outline-danger flex-shrink-0 " id="${item.boardNum}" type="button">
+                                <i class="bi bi-heart"></i>
                             </button>
                         </form>
                     </c:if>
@@ -119,10 +119,10 @@
 <section class="mb-5 container" style="width:1250px; height: auto">
     <div class="card bg-light">
         <div class="card-body">
-            <form class="mb-4" action="/addReply/${item.boardNum}" method="post">
+            <form class="mb-4" action="/addReply/${item.boardNum}" method="post" id="replyArea">
                 <textarea name="replyContent" class="form-control" rows="3" type="textarea"
                           placeholder="궁금한점이 있다면 여행자님에게 댓글을 남겨 소통해보세요!"></textarea>
-                <button class="float-end btn btn-primary" style="margin-top: 5px">등록</button>
+                <button type="button" class="float-end btn btn-primary" style="margin-top: 5px">등록</button>
             </form>
             <br>
 
@@ -181,8 +181,7 @@
                 <p>로그인 계정 : ${sessionScope.member.memberId}</p>
                 <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
             </div>
-
-            <form action="/logout">
+            <form action="/logout" id="sessionCheck">
                 <button class="text-black btn-primary float-end"> 로그아웃</button>
             </form>
         </c:if>
@@ -273,11 +272,31 @@
 <!-- Core theme JS-->
 <script src="/resources/js/detail_scripts.js"></script>
 <script>
-    function loginAlert(){
+    function loginAlert() {
         confirm('로그인이 필요한 기능입니다.')
     }
 
+    $('#replyArea button').click(function () {
+        if ($('#sessionCheck button').length) {
+            console.log("세션있음");
+            $('#replyArea button').removeAttr('type');
+            return;
+        } else {
+            loginAlert();
+            return;
+        }
+    });
 
+    $('#recommendArea button').click(function () {
+        if ($('#sessionCheck button').length) {
+            $('#recommendArea button').removeAttr('type');
+            console.log('추천 완')
+            return;
+        } else {
+            loginAlert();
+            return;
+        }
+    });
 </script>
 
 </body>

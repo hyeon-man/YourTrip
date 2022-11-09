@@ -34,7 +34,7 @@
             AND board_Num = #{boardNum}
         </if>
 
-        <if test="memberNum == null">
+        <if test="memberNum == 0">
             SELECT board.*, COUNT(recommend.recommend_Num) AS "recommend_Member_Count"
             FROM yourtrip.board,
             yourtrip.recommend
@@ -48,7 +48,9 @@
         FROM yourtrip.board, yourtrip.recommend
         WHERE recommend.recommend_board_num = board.board_Num
           AND board_Num = #{boardNum}
+          <if test="memberNum != null">
           AND recommend_member_num = #{memberNum}
+          </if>
     </select>
 
     <!-- 게시글 삭제 -->
