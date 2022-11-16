@@ -28,7 +28,7 @@ public class ReplyController {
 
         service.addReply(reply);
 
-        return "redirect:../board/detail/" + boardNum;
+        return "redirect:/board/detail/" + boardNum;
     }
 
     @RequestMapping("board/detail/deleteReply/{replyNum}")

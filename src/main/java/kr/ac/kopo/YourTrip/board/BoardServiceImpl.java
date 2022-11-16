@@ -1,9 +1,9 @@
 package kr.ac.kopo.YourTrip.board;
 
 import kr.ac.kopo.YourTrip.Vo.*;
+import kr.ac.kopo.YourTrip.board.attach.AttachDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
-package kr.ac.kopo.YourTrip.board;
+package kr.ac.kopo.YourTrip.board.attach;
 
 import kr.ac.kopo.YourTrip.Vo.Attach;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository

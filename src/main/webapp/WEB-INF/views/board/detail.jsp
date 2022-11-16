@@ -187,7 +187,8 @@
         </c:if>
 
         <c:if test="${sessionScope.member == null}">
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#LoginModal">
+            <button type="button" class="btn btn-primary float-end LoginModal" data-bs-toggle="modal"
+                    data-bs-target="#LoginModal">
                 로그인
             </button>
         </c:if>
@@ -206,7 +207,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content text-black">
@@ -219,19 +219,71 @@
                     <div>
                         <div>
                             <div>
-                                <label>아이디:</label>
-                                <input type="text" name="memberId" class="form-control">
+                                <input type="text" name="memberId" class="form-control" placeholder="아이디">
                             </div>
 
-                            <div>
-                                <label>비밀번호:</label>
-                                <input type="password" name="memberPass" class="form-control">
+                            <div style="margin-top: 15px">
+                                <input type="password" autocomplete="on" name="memberPass" class="form-control"
+                                       placeholder="비밀번호">
                             </div>
-                            <div>
+                            <div class="float-start" style="margin-top: 10px">
+                                <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+                                        data-bs-target="#SignupModal">
+                                    회원 가입
+                                </button>
                             </div>
                             <div style="margin-left: 350px; margin-top: 10px">
                                 <button class="btn btn-danger btn-sm ">로그인</button>
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">닫기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--Signup Modal Area-->
+<div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content text-black">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">회원 가입</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="/signup">
+                <div class="modal-body">
+                    <div>
+                        <div>
+                            <div class="input-group mb-3" id="idArea">
+                                <input type="text" name="memberId" class="form-control" placeholder="아이디">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon1">중복 확인
+                                </button>
+                            </div>
+
+                            <div class="input-group mb-3" id="passArea">
+                                <input type="password" autocomplete="on" name="memberPass" class="form-control"
+                                       placeholder="비밀번호">
+                            </div>
+
+                            <div class="input-group mb-3" id="passCheck">
+                                <input type="password" autocomplete="on" name="passCheck" class="form-control"
+                                       placeholder="비밀번호 확인">
+                            </div>
+
+                            <div class="input-group mb-3" id="nickArea">
+                                <input type="text" name="memberNick" class="form-control" placeholder="닉네임">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">중복 확인
+                                </button>
+                            </div>
+
+
+                            <div style="margin-left: 330px; margin-top: 10px" id="signupForm">
+                                <button type="button" class="btn btn-danger btn-sm ">회원 가입</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">취소</button>
                             </div>
                         </div>
                     </div>
@@ -278,12 +330,12 @@
 
     $('#replyArea button').click(function () {
         if ($('#sessionCheck button').length) {
-            console.log("세션있음");
             $('#replyArea button').removeAttr('type');
-            return;
+
         } else {
-            loginAlert();
-            return;
+            if (confirm('로그인이 필요한 기능입니다.')) {
+                $('.offcanvas-body button').trigger('click');
+            }
         }
     });
 
@@ -292,7 +344,7 @@
             if ($('#sessionCheck button').length) {
                 $('#recommendArea button').removeAttr('type');
                 return;
-            } else{
+            } else {
                 loginAlert();
             }
         }
@@ -302,11 +354,82 @@
         if ($('#sessionCheck button').length) {
             $('#recommendArea button').removeAttr('type');
         } else {
-            loginAlert();
-            return;
+            if (confirm('로그인이 필요한 기능입니다.')) {
+                $('.offcanvas-body button').trigger('click');
+            }
         }
     });
 
+    $('#signupForm .btn-danger').click(function () {
+        if ($("#idArea input[name=memberId]").val() == "" ||
+            $("#nickArea input[name=memberNick]").val() == "" ||
+            $("#passArea input[name=memberPass]").val() == "") {
+            alert('공백은 허용하지 않습니다.');
+
+            return;
+        }
+
+        if ($("#passArea input[name=memberPass]").val() !=
+            $("#passCheck input[name=passCheck]").val()) {
+
+            alert('비밀번호가 일치하지 않습니다.')
+            return;
+        }
+
+        if ($("#idArea input[name=memberId]").attr('readonly') &&
+            $("#nickArea input[name=memberNick]").attr('readonly') != null) {
+
+            $('#signupForm button.btn-danger').attr('type', 'submit');
+        } else {
+            alert("중복 체크를 해주세요.")
+
+            return;
+        }
+    })
+    $("#button-addon1").click(function () {
+        const value = $("#idArea input[name=memberId]").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/checkId/' + value,
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    if (confirm('사용 가능한 아이디입니다')) {
+                        console.log("쓸래");
+                        $("#idArea input[name=memberId]").attr('readonly', true)
+                        $("#button-addon1").remove();
+                    } else {
+                        console.log("안 쓸래");
+                    }
+                } else {
+                    alert('이미 사용중인 아이디입니다')
+                }
+            }
+        });
+    });
+
+    $("#button-addon2").click(function () {
+        const value = $("#nickArea input[name=memberNick]").val();
+        $.ajax({
+            type: 'POST',
+            url: '/checkNick/' + value,
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    if (confirm('사용 가능한 닉네임입니다.')) {
+                        console.log("쓸래");
+                        $("#nickArea input[name=memberNick]").attr('readonly', true)
+                        $("#button-addon2").remove();
+                    } else {
+                        console.log("안 쓸래");
+                    }
+                } else {
+                    alert('이미 사용중인 닉네임입니다.')
+                }
+            }
+        });
+    });
 
 </script>
 

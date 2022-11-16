@@ -1,4 +1,4 @@
-package kr.ac.kopo.YourTrip.board;
+package kr.ac.kopo.YourTrip.board.attach;
 
 import kr.ac.kopo.YourTrip.Vo.Attach;
 
