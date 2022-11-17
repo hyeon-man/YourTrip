@@ -76,7 +76,10 @@
                 <button type="button" class="btn btn-sm btn-primary" id="hashAddButton">추가</button>
             </div>
 
-            <div id="hashs"></div>
+            <div id="hashs">
+
+
+            </div>
 
             <div class="form-group">
                 <%--<label class="form-label">내용</label>--%>
@@ -114,14 +117,18 @@
 
         const input = $("<input>");
         input.attr('readonly', true)
+        input.attr('name', 'hash')
         input.addClass("btn");
         input.addClass("btn-light");
-        input.addClass("text-black")
-        input.val($('#hashList').val())
+        input.addClass("text-black");
+        input.val($('#hashList').val());
 
         const deleteButton = $("<button>");
         deleteButton.addClass("btn-sm btn");
-        deleteButton.text("x")
+        deleteButton.text("x");
+        deleteButton.attr('hash-Id', input.val());
+        deleteButton.attr('id', 'deleteButton')
+        div.attr('hash-Id', input.val())
 
         div.append(input);
         div.append(deleteButton);
@@ -136,10 +143,18 @@
         $("#hashs").append(div);
         $("#hashList").val("")
     });
+
     //클릭서브밋
     $("#submitButton").on('click', function () {
         $('#form').attr("onsubmit", 'true');
     });
+
+
+    $('#hashs').on("click", "#deleteButton", function (e){
+        const button = $(e.target).parent();
+        button.remove()
+    });
+
 </script>
 </body>
 </html>
