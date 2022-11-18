@@ -61,8 +61,9 @@ public class BoardController {
     @PostMapping("/add")
     public String add(Board board, @SessionAttribute Member member) {
 
-        board.setBoardWrite(member.getMemberId());
 
+
+        board.setBoardWrite(member.getMemberId()); // 보드 작성자 설정
         try {
             List<Attach> list = new ArrayList<Attach>(); // 이미지를 담을 list
             for (MultipartFile attach : board.getAttach()) { // 멀티파트파일 attach의 크기만큼 반복

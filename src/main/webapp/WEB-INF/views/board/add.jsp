@@ -70,7 +70,7 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 20px">
-                <input placeholder="해시태그를 추가해보세요!" type="text" name="hashName"
+                <input placeholder="해시태그를 추가해보세요!" type="text"
                        class="form-control form-control-sm d-inline-block" id="hashList"
                        style="height: 31px; width: 200px; margin-top: 20px;">
                 <button type="button" class="btn btn-sm btn-primary" id="hashAddButton">추가</button>
@@ -117,7 +117,7 @@
 
         const input = $("<input>");
         input.attr('readonly', true)
-        input.attr('name', 'hash')
+        input.attr('name', 'hashName')
         input.addClass("btn");
         input.addClass("btn-light");
         input.addClass("text-black");

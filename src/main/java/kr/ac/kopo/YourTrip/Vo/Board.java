@@ -23,9 +23,9 @@ public class Board {
     private List<MultipartFile> attach;
     private List<Attach> attachs;
 
-    private String boardImage;
-    private String hashName;
+    private List<Hash> hashes;
 
+    private String boardImage;
     private String recommendMemberCount;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
