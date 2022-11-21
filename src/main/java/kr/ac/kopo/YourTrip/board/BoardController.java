@@ -197,7 +197,6 @@ public class BoardController {
 
         List<Board> list = service.search(search);
         model.addAttribute("list", list);
-
         int total = service.keyworldTotalList(search.getKeyword());
         model.addAttribute("total", total);
 
