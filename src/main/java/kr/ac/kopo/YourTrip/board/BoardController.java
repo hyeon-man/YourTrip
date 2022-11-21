@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -62,7 +63,6 @@ public class BoardController {
     public String add(Board board, @SessionAttribute Member member) {
 
 
-
         board.setBoardWrite(member.getMemberId()); // 보드 작성자 설정
         try {
             List<Attach> list = new ArrayList<Attach>(); // 이미지를 담을 list
@@ -82,7 +82,7 @@ public class BoardController {
         }
 
         int boardNum = board.getBoardNum();
-
+        System.out.println("<!-- -->" + board.getHashName());
         return "redirect:detail/" + boardNum;
     }
 

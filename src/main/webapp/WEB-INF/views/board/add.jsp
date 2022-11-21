@@ -66,7 +66,7 @@
         <form id="form" method="post" enctype="multipart/form-data" onsubmit="return false">
             <div class="form-group">
                 <label class="form-label">제목</label>
-                <input type="text" name="boardTitle" class="form-control form-control-sm">
+                <input type="text" name="boardTitle" class="form-control form-control-sm" id="boardTitle">
             </div>
 
             <div class="form-group" style="margin-bottom: 20px">
@@ -93,7 +93,7 @@
 
                 </div>
                 <div class="input-group mb-3">
-                    <input type="file" name="attach" class="form-control">
+                    <input type="file" name="attach" class="form-control" id="attach">
                     <button id="add" type="button" class="btn btn-primary">추가</button>
                     <button type="button" class="btn btn-danger">삭제</button>
                 </div>
@@ -146,14 +146,32 @@
 
     //클릭서브밋
     $("#submitButton").on('click', function () {
-        $('#form').attr("onsubmit", 'true');
+        const title = $('#boardTitle').val();
+        const content = $('#summernote').val();
+        const attach = $('#attach').val();
+        console.log(title);
+        console.log(content);
+        console.log(attach);
+
+        if (title == "") {
+            alert("제목을 입력 해주세요")
+        } else if (content == "") {
+            alert("내용을 입력 해주세요")
+        } else if (attach == "") {
+            alert("사진을 한 장 이상 등록 해주세요")
+        }
+
+        if (title != "" && content != "" && attach != "") {
+            $('form').removeAttr("onsubmit");
+        }
     });
 
 
-    $('#hashs').on("click", "#deleteButton", function (e){
+    $('#hashs').on("click", "#deleteButton", function (e) {
         const button = $(e.target).parent();
         button.remove()
     });
+
 
 </script>
 </body>
