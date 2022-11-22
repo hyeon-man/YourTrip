@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="hash">
+
+    <select id="hashCheck" resultType="Hash">
+        SELECT hash_Num
+        FROM yourtrip.hash
+        WHERE hash_Name = #{hashName}
+    </select>
+
+    <insert id="hashInsert">
+        INSERT INTO yourtrip.hash
+        values (NULL, #{hashName})
+        <selectKey resultType="Integer" keyProperty="hashNum" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="connectInsert">
+        INSERT INTO yourtrip.board_hash_connect
+        values (#{boardNum}, #{hashNum})
+    </insert>
+
+
+</mapper>

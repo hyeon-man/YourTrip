@@ -19,6 +19,7 @@
         <mapper resource="mybatis/member.xml"/>
         <mapper resource="mybatis/reply.xml"/>
         <mapper resource="mybatis/attach.xml"/>
+        <mapper resource="mybatis/hash.xml"/>
     </mappers>
 
 </configuration>

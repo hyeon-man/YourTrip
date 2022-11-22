@@ -12,6 +12,7 @@ public class Hash {
     private int hashNum;
     private int hashBoardNum;
     private String hashName;
+    private int boardNum;
 
     private List<Hash> hashes;
 

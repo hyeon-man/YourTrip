@@ -3,7 +3,7 @@ package kr.ac.kopo.YourTrip.board;
 import kr.ac.kopo.YourTrip.Util.SysoutTester;
 import kr.ac.kopo.YourTrip.Vo.*;
 import kr.ac.kopo.YourTrip.Util.PageUtil;
-import lombok.extern.slf4j.Slf4j;
+import kr.ac.kopo.YourTrip.board.hash.HashService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -21,9 +20,13 @@ import java.util.List;
 public class BoardController {
     final BoardService service;
 
-    public BoardController(BoardService service) {
+    final HashService hashService;
+
+    public BoardController(BoardService service, HashService hashService) {
         this.service = service;
+        this.hashService = hashService;
     }
+
 
     final String uploadPath = "d://upload/";
     final SysoutTester sout = new SysoutTester();
@@ -62,8 +65,8 @@ public class BoardController {
     @PostMapping("/add")
     public String add(Board board, @SessionAttribute Member member) {
 
-
         board.setBoardWrite(member.getMemberId()); // 보드 작성자 설정
+
         try {
             List<Attach> list = new ArrayList<Attach>(); // 이미지를 담을 list
             for (MultipartFile attach : board.getAttach()) { // 멀티파트파일 attach의 크기만큼 반복
@@ -81,11 +84,16 @@ public class BoardController {
             e.printStackTrace(); // 로그찍어
         }
 
-        int boardNum = board.getBoardNum();
-        System.out.println("<!-- -->" + board.getHashName());
-        return "redirect:detail/" + boardNum;
-    }
+        for (String hashes : board.getHashName()) {
+            Hash hash = new Hash();
+            hash.setHashName(hashes);
+            hash.setBoardNum(board.getBoardNum());
+            System.out.println("<!-->" + hash.getBoardNum() + "<!-->" + hash.getHashName());
+            hashService.addhashes(hash);
+        }
 
+        return "redirect:detail/" + board.getBoardNum();
+    }
 
     @GetMapping("/detail/{boardNum}")
     public String detail(@PathVariable int boardNum, Model model, HttpServletRequest httpServletRequest) {
