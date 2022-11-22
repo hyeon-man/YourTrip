@@ -163,15 +163,18 @@
     </div>
     <div class="offcanvas-body">
         <c:if test="${sessionScope.member != null}">
-            <form action="/logout">
-                <button class="btn btn-sm text-black btn-primary float-end"> 로그아웃</button>
-            </form>
             <div>
-                <p>${sessionScope.member.memberNick} (${sessionScope.member.memberId})여행자님</p>
+                <p>${sessionScope.member.memberNick} (${sessionScope.member.memberId}) 여행자님</p>
+                <p></p>
             </div>
+
+            <form action="/logout">
+                <button class="btn btn-sm text-white btn-primary float-end"> 로그아웃</button>
+            </form>
         </c:if>
-        <c:if test="${sessionScope.member == null}">
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+        <!-- 로그인 안 했을 때때-->
+       <c:if test="${sessionScope.member == null}">
+            <button type="button" class="btn btn-sm text-white btn-primary float-end" data-bs-toggle="modal"
                     data-bs-target="#LoginModal">
                 로그인
             </button>

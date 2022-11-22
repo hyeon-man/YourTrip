@@ -11,7 +11,21 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
+    <style>
+        html, body {
+            height: 100%
+        }
 
+        #wrapper {
+            min-height: 100%;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        footer {
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -35,6 +49,7 @@
         </div>
     </div>
 </nav>
+<div id="wrapper">
 
 <c:if test="${total > 0}">
     <div style="width: 1000px; margin-left: 475px" class="card text-white bg-dark my-5 py-4 text-center">
@@ -144,7 +159,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
