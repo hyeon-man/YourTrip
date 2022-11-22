@@ -12,6 +12,7 @@
     <link href="/resources/summernote/summernote.min.css" rel="stylesheet">
     <script src="/resources/summernote/summernote.min.js"></script>
 
+
     <script>
         $(document).ready(function () {
             $('#ssibal :first-child').addClass('active');
@@ -56,8 +57,7 @@
 
     </script>
 </head>
-<body>
-
+<body class="body">
 
 <!-- SideBar Trigger-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
