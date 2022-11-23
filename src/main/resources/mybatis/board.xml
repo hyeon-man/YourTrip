@@ -47,10 +47,10 @@
         SELECT board.*, COUNT(recommend.recommend_Num) AS "recommend_Member_Count"
         FROM yourtrip.board, yourtrip.recommend
         WHERE recommend.recommend_board_num = board.board_Num
-          AND board_Num = #{boardNum}
-          <if test="memberNum != null">
-          AND recommend_member_num = #{memberNum}
-          </if>
+        AND board_Num = #{boardNum}
+        <if test="memberNum != null">
+            AND recommend_member_num = #{memberNum}
+        </if>
     </select>
 
     <!-- 게시글 삭제 -->
@@ -149,8 +149,8 @@
     <select id="search" resultType="Board">
         SELECT *
         FROM yourtrip.board
-        WHERE board.board_Title LIKE CONCAT(CONCAT('%', #{keyword}), '%')
-           OR board.board_Content LIKE CONCAT(CONCAT('%', #{keyword}), '%')
+        WHERE board.board_Title LIKE '%${keyword}%'
+           OR board.board_Title LIKE '%${keyword}%'
     </select>
 
     <select id="keyworldTotalList" resultType="Integer">

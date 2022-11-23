@@ -68,12 +68,12 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <%--                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
-                <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
-                                        href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    ${sessionScope.member.memberName}여행자님 </a></li>
+                <li class="nav-item" style="font-size: 30px">
+                    <a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
+                       href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class="bi bi-menu-button-wide"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -107,7 +107,7 @@
             </div>
         </div>
         <div class="col-lg-5">
-            <h1 class="font-weight-light">Today Rank #1</h1>
+            <h1 class="font-weight-light">This Week Rank #1</h1>
             <c:forEach items="${hash}" var="hash">
                 <div class="small mb-1 d-inline">
                     <a style="text-decoration: none" href="search/${hash.hashName}">
@@ -162,26 +162,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+        <!-- 로그인 했을 때-->
         <c:if test="${sessionScope.member != null}">
-            <div>
-                <p>${sessionScope.member.memberNick} (${sessionScope.member.memberId}) 여행자님</p>
-                <p></p>
-            </div>
+        <p>${sessionScope.member.memberNick} (${sessionScope.member.memberId}) 여행자님</p>
+        <i style="font-size: 50px" class="bi bi-pencil-square text-black"></i>
+        <i style="font-size: 50px" class="bi bi-person-circle"></i>
 
-            <form action="/logout">
-                <button class="btn btn-sm text-white btn-primary float-end"> 로그아웃</button>
-            </form>
-        </c:if>
-        <!-- 로그인 안 했을 때때-->
-       <c:if test="${sessionScope.member == null}">
-            <button type="button" class="btn btn-sm text-white btn-primary float-end" data-bs-toggle="modal"
-                    data-bs-target="#LoginModal">
-                로그인
-            </button>
-        </c:if>
-
-
+        <form action="/logout">
+            <button class="btn btn-sm text-white btn-primary float-end"> 로그아웃</button>
+        </form>
     </div>
+    <!-- 로그인 했을 때 사이드바 -->
+
+    </c:if>
+    <!-- 로그인 안 했을 때-->
+    <c:if test="${sessionScope.member == null}">
+        <button type="button" class="btn btn-sm text-white btn-primary float-end" data-bs-toggle="modal"
+                data-bs-target="#LoginModal">
+            로그인
+        </button>
+    </c:if>
+    <div class="d-flex justify-content-start">
+        <div class="position-absolute bottom-0" style="display: inline-block">
+            <p style="font-size: 40px"><i class="bi bi-github"></i></p>
+        </div>
+    </div>
+</div>
 </div>
 
 <!--Login Modal Area-->
