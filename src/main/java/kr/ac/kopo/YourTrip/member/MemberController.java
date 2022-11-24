@@ -27,7 +27,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(HttpSession session, Member member, HttpServletRequest request) {
+    public String login(HttpSession session, Member member, HttpServletRequest request, Model model) {
         String referer = request.getHeader("referer");
 
         if (service.login(member)) {

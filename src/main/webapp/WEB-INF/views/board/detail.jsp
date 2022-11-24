@@ -14,6 +14,14 @@
         $(document).ready(function () {
             $('#ssibal :first-child').addClass('active');
         });
+
+        $(function () {
+            $('#summernote').summernote({
+                lang: 'ko-KR', // default: 'en-US'
+                height: 600
+
+            })
+        });
     </script>
 
 </head>
@@ -21,18 +29,18 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="../list" style="font-size: x-large">YourTrip</a>
+        <a class="navbar-brand" href="/board/list" style="font-size: x-large">YourTrip</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <%--                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>--%>
-                <%--                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>--%>
-                <li class="nav-item"><a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
-                                        href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    ${sessionScope.member.memberName}여행자님</a></li>
+                <li class="nav-item" style="font-size: 30px">
+                    <a class="nav-link" style="text-decoration: none" data-bs-toggle="offcanvas"
+                       href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class="bi bi-menu-button-wide"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -162,49 +170,105 @@
 </section>
 </div>
 
+<c:forEach var="reply" items="${ReplyList}">
+    <div class="modal fade" id="replyUpdate" tabindex="-1" aria-labelledby="replyUpdate" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content text-black">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="replyUpdate">댓글 수정</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="../replyUpdate/${reply.replyNum}">
+                    <div class="modal-body">
+                        <div>
+                            <div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="replyContent"
+                                           aria-label="Recipient's username with two button addons">
+                                    <button class="btn btn-outline-secondary">변경</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</c:forEach>
 
-<br>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
-</footer>
 
-
+<!-- SideBar Area-->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h5>
+        <h3 class="offcanvas-title" id="offcanvasExampleLabel">YourTrip</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+        <!-- 로그인 했을 때-->
         <c:if test="${sessionScope.member != null}">
-            <div>
-                <p>로그인 계정 : ${sessionScope.member.memberId}</p>
-                <p>로그인 닉네임 : ${sessionScope.member.memberNick}</p>
+            <p class="d-flex justify-content-end">${sessionScope.member.memberNick}여행자로 로그인중</p>
+            <div class="d-flex justify-content-start">
+                <a class=" text-black"  href="/board/add" role="button">
+                    <i style="font-size: 50px;" class="bi bi-pencil-square text-black">
+                    </i></a>
+                <i style="font-size: 50px; margin-left: 20px" class="bi bi-person-circle"></i>
             </div>
-            <form action="/logout" id="sessionCheck">
-                <button class="text-black btn-primary float-end"> 로그아웃</button>
-            </form>
-        </c:if>
 
+            <p style="margin-top: 20px">
+
+                <a class="btn btn-dark d-flex justify-content-center" data-bs-toggle="collapse" href="#collapseExample"
+                   role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Contact us
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    H.p : 010-8314-3368
+                    <br>
+                    E-mail : kimhyunmin34@naver.com
+                    <br>
+                    Address : 대전광역시 동구 가양동 우암로 352-21
+                </div>
+            </div>
+            <div>
+                <form action="/logout">
+                    <button class="btn btn-sm text-white btn-danger float-end"> 로그아웃</button>
+                </form>
+            </div>
+            <!-- 로그인 했을 때 사이드바 -->
+
+        </c:if>
+        <!-- 로그인 안 했을 때-->
         <c:if test="${sessionScope.member == null}">
-            <button type="button" class="btn btn-primary float-end LoginModal" data-bs-toggle="modal"
-                    data-bs-target="#LoginModal">
-                로그인
-            </button>
+            <div>
+                <button type="button" class="btn btn-sm text-white btn-primary float-end" data-bs-toggle="modal"
+                        data-bs-target="#LoginModal">
+                    로그인
+                </button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <p style="margin-top: 20px; position: absolute; bottom: 500px">
+                    <a class="btn btn-dark d-flex justify-content-center" data-bs-toggle="collapse"
+                       href="#collapseExample"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseExample">
+                        Contact us
+                    </a>
+                </p>
+            </div>
+            <div class="collapse" id="collapseExample" style="position: absolute; bottom: 400px">
+                <div class="card card-body">
+                    H.p : 010-8314-3368
+                    <br>
+                    E-mail : kimhyunmin34@naver.com
+                    <br>
+                    Address : 대전광역시 동구 가양동 우암로 352-21
+                </div>
+            </div>
         </c:if>
-        <br>
-
-        <div class="dropdown mt-3">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Dropdown button
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-        </div>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -244,7 +308,6 @@
         </div>
     </div>
 </div>
-
 
 <!--Signup Modal Area-->
 <div class="modal fade" id="SignupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -293,32 +356,11 @@
     </div>
 </div>
 
-<c:forEach var="reply" items="${ReplyList}">
-    <div class="modal fade" id="replyUpdate" tabindex="-1" aria-labelledby="replyUpdate" aria-hidden="true">
-        <div class="modal-dialog ">
-            <div class="modal-content text-black">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="replyUpdate">댓글 수정</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form method="post" action="../replyUpdate/${reply.replyNum}">
-                    <div class="modal-body">
-                        <div>
-                            <div>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="replyContent"
-                                           aria-label="Recipient's username with two button addons">
-                                    <button class="btn btn-outline-secondary">변경</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
 
-            </div>
-        </div>
-    </div>
-</c:forEach>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
+</footer>
 
 <!-- Bootstrap core JS-->
 <!-- Core theme JS-->
@@ -429,6 +471,140 @@
                 }
             }
         });
+    });
+
+    $("#button-addon1").click(function () {
+        const value = $("#idArea input[name=memberId]").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/checkId/' + value,
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    if (confirm('사용 가능한 아이디입니다')) {
+                        console.log("쓸래");
+                        $("#idArea input[name=memberId]").attr('readonly', true)
+                        $("#button-addon1").remove();
+                    } else {
+                        console.log("안 쓸래");
+                    }
+                } else {
+                    alert('이미 사용중인 아이디입니다')
+                }
+            }
+        });
+    });
+
+    $("#button-addon2").click(function () {
+        const value = $("#nickArea input[name=memberNick]").val();
+        $.ajax({
+            type: 'POST',
+            url: '/checkNick/' + value,
+            success: function (result) {
+                console.log(result);
+                if (result == "OK") {
+                    if (confirm('사용 가능한 닉네임입니다.')) {
+                        console.log("쓸래");
+                        $("#nickArea input[name=memberNick]").attr('readonly', true)
+                        $("#button-addon2").remove();
+                    } else {
+                        console.log("안 쓸래");
+                    }
+                } else {
+                    alert('이미 사용중인 닉네임입니다.')
+                }
+            }
+        });
+    });
+
+    $('#signupForm .btn-danger').click(function () {
+        if ($("#idArea input[name=memberId]").val() == "" ||
+            $("#nickArea input[name=memberNick]").val() == "" ||
+            $("#passArea input[name=memberPass]").val() == "") {
+            alert('공백은 허용하지 않습니다.');
+
+            return;
+        }
+
+        if ($("#passArea input[name=memberPass]").val() !=
+            $("#passCheck input[name=passCheck]").val()) {
+
+            alert('비밀번호가 일치하지 않습니다.')
+            return;
+        }
+
+        if ($("#idArea input[name=memberId]").attr('readonly') &&
+            $("#nickArea input[name=memberNick]").attr('readonly') != null) {
+
+            $('#signupForm button.btn-danger').attr('type', 'submit');
+        } else {
+            alert("중복 체크를 해주세요.")
+
+            return;
+        }
+    })
+    // 해시 추가하는 js
+    $("#hashAddButton").on('click', function () {
+        const div = $("<div>");
+        div.addClass("d-inline-block");
+        div.attr('style', 'margin-bottom: 10px;')
+
+        const input = $("<input>");
+        input.attr('readonly', true)
+        input.attr('name', 'hashName')
+        input.addClass("btn");
+        input.addClass("btn-light");
+        input.addClass("text-black");
+        input.val($('#hashList').val());
+
+        const deleteButton = $("<button>");
+        deleteButton.addClass("btn-sm btn");
+        deleteButton.text("x");
+        deleteButton.attr('hash-Id', input.val());
+        deleteButton.attr('id', 'deleteButton')
+        div.attr('hash-Id', input.val())
+
+        div.append(input);
+        div.append(deleteButton);
+        if ($("#hashList").val() == "") {
+            alert('공백은 허용하지 않습니다.')
+            return;
+        } else if ($("#hashList").val().length < 2) {
+            alert('두 글자 이상 입력해주세요.')
+            return;
+        }
+        console.log("눌림")
+        $("#hashs").append(div);
+        $("#hashList").val("")
+    });
+
+    //클릭서브밋
+    $("#submitButton").on('click', function () {
+        const title = $('#boardTitle').val();
+        const content = $('#summernote').val();
+        const attach = $('#attach').val();
+        console.log(title);
+        console.log(content);
+        console.log(attach);
+
+        if (title == "") {
+            alert("제목을 입력 해주세요")
+        } else if (content == "") {
+            alert("내용을 입력 해주세요")
+        } else if (attach == "") {
+            alert("사진을 한 장 이상 등록 해주세요")
+        }
+
+        if (title != "" && content != "" && attach != "") {
+            $('form').removeAttr("onsubmit");
+        }
+    });
+
+
+    $('#hashs').on("click", "#deleteButton", function (e) {
+        const button = $(e.target).parent();
+        button.remove()
     });
 
 </script>

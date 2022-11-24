@@ -149,8 +149,8 @@
     <select id="search" resultType="Board">
         SELECT *
         FROM yourtrip.board
-        WHERE board.board_Title LIKE '%${keyword}%'
-           OR board.board_Title LIKE '%${keyword}%'
+        WHERE board.board_Title LIKE CONCAT(CONCAT('%', #{keyword}), '%')
+           OR board.board_Title LIKE CONCAT(CONCAT('%', #{keyword}), '%')
     </select>
 
     <select id="keyworldTotalList" resultType="Integer">

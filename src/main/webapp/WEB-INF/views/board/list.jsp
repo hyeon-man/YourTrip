@@ -14,9 +14,12 @@
 
 
     <script>
+
+
         $(document).ready(function () {
             $('#ssibal :first-child').addClass('active');
         });
+
 
         $(function () {
             $('#summernote').summernote({
@@ -58,7 +61,6 @@
     </script>
 </head>
 <body class="body">
-
 <!-- SideBar Trigger-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
@@ -80,7 +82,6 @@
 </nav>
 <!-- Page Content-->
 <div class="container px-4 px-lg-5">
-
 
     <!-- HotTopic -->
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
@@ -164,29 +165,75 @@
     <div class="offcanvas-body">
         <!-- 로그인 했을 때-->
         <c:if test="${sessionScope.member != null}">
-        <p>${sessionScope.member.memberNick} (${sessionScope.member.memberId}) 여행자님</p>
-        <i style="font-size: 50px" class="bi bi-pencil-square text-black"></i>
-        <i style="font-size: 50px" class="bi bi-person-circle"></i>
+            <p class="d-flex justify-content-end">${sessionScope.member.memberNick}여행자로 로그인중</p>
+            <div class="d-flex justify-content-start">
 
-        <form action="/logout">
-            <button class="btn btn-sm text-white btn-primary float-end"> 로그아웃</button>
-        </form>
-    </div>
-    <!-- 로그인 했을 때 사이드바 -->
 
-    </c:if>
-    <!-- 로그인 안 했을 때-->
-    <c:if test="${sessionScope.member == null}">
-        <button type="button" class="btn btn-sm text-white btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#LoginModal">
-            로그인
-        </button>
-    </c:if>
-    <div class="d-flex justify-content-start">
-        <div class="position-absolute bottom-0" style="display: inline-block">
-            <p style="font-size: 40px"><i class="bi bi-github"></i></p>
-        </div>
+                <a class=" text-black"  href="/board/add" role="button">
+                    <i style="font-size: 50px;" class="bi bi-pencil-square text-black">
+                    </i></a>
+                <i style="font-size: 50px; margin-left: 20px" class="bi bi-person-circle"></i>
+            </div>
+
+            <p style="margin-top: 20px">
+
+                <a class="btn btn-dark d-flex justify-content-center" data-bs-toggle="collapse" href="#collapseExample"
+                   role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    Contact us
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    H.p : 010-8314-3368
+                    <br>
+                    E-mail : kimhyunmin34@naver.com
+                    <br>
+                    Address : 대전광역시 동구 가양동 우암로 352-21
+                </div>
+            </div>
+
+
+            <div>
+                <form action="/logout">
+                    <button class="btn btn-sm text-white btn-danger float-end"> 로그아웃</button>
+                </form>
+            </div>
+            <!-- 로그인 했을 때 사이드바 -->
+
+        </c:if>
+        <!-- 로그인 안 했을 때-->
+        <c:if test="${sessionScope.member == null}">
+            <div>
+                <button type="button" class="btn btn-sm text-white btn-primary float-end" data-bs-toggle="modal"
+                        data-bs-target="#LoginModal">
+                    로그인
+                </button>
+            </div>
+            <div class="d-flex justify-content-center">
+                <p style="margin-top: 20px; position: absolute; bottom: 500px" >
+                    <a class="btn btn-dark d-flex justify-content-center" data-bs-toggle="collapse"
+                       href="#collapseExample"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseExample">
+                        Contact us
+                    </a>
+                </p>
+            </div>
+            <div class="collapse" id="collapseExample" style="position: absolute; bottom: 400px">
+                <div class="card card-body">
+                    H.p : 010-8314-3368
+                    <br>
+                    E-mail : kimhyunmin34@naver.com
+                    <br>
+                    Address : 대전광역시 동구 가양동 우암로 352-21
+                </div>
+            </div>
+        </c:if>
+
+
     </div>
+
 </div>
 </div>
 
@@ -278,9 +325,70 @@
     </div>
 </div>
 
+<!-- -->
+<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">이야기 등록</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div>
+                        <form id="form" method="post" enctype="multipart/form-data" onsubmit="return false" action="/board/add">
+                            <div class="form-group">
+                                <label class="form-label">제목</label>
+                                <input type="text" name="boardTitle" class="form-control form-control-sm" id="boardTitle">
+                            </div>
 
+                            <div class="form-group" style="margin-bottom: 20px">
+                                <input placeholder="해시태그를 추가해보세요!" type="text"
+                                       class="form-control form-control-sm d-inline-block" id="hashList"
+                                       style="height: 31px; width: 200px; margin-top: 20px;">
+                                <button type="button" class="btn btn-sm btn-primary" id="hashAddButton">추가</button>
+                            </div>
+
+                            <div id="hashs">
+
+
+                            </div>
+
+                            <div class="form-group">
+                                <%--<label class="form-label">내용</label>--%>
+                                <textarea id="summernote" name="boardContent"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>사진 등록
+                                </label>
+                                <div id="attachs">
+
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="file" name="attach" class="form-control" id="attach">
+                                    <button id="add" type="button" class="btn btn-primary">추가</button>
+                                    <button type="button" class="btn btn-danger">삭제</button>
+                                </div>
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group mt-3 justify-content-end d-flex">
+                    <button class="btn btn-sm btn-primary" id="submitButton">등록</button>
+                    <a href="/">
+                        <button type="button" class="btn btn-sm btn-danger">취소</button>
+                    </a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 <!-- Footer-->
 <footer class="py-5 bg-dark">
@@ -361,7 +469,68 @@
             return;
         }
     })
+    // 해시 추가하는 js
+    $("#hashAddButton").on('click', function () {
+        const div = $("<div>");
+        div.addClass("d-inline-block");
+        div.attr('style', 'margin-bottom: 10px;')
 
+        const input = $("<input>");
+        input.attr('readonly', true)
+        input.attr('name', 'hashName')
+        input.addClass("btn");
+        input.addClass("btn-light");
+        input.addClass("text-black");
+        input.val($('#hashList').val());
+
+        const deleteButton = $("<button>");
+        deleteButton.addClass("btn-sm btn");
+        deleteButton.text("x");
+        deleteButton.attr('hash-Id', input.val());
+        deleteButton.attr('id', 'deleteButton')
+        div.attr('hash-Id', input.val())
+
+        div.append(input);
+        div.append(deleteButton);
+        if ($("#hashList").val() == "") {
+            alert('공백은 허용하지 않습니다.')
+            return;
+        } else if ($("#hashList").val().length < 2) {
+            alert('두 글자 이상 입력해주세요.')
+            return;
+        }
+        console.log("눌림")
+        $("#hashs").append(div);
+        $("#hashList").val("")
+    });
+
+    //클릭서브밋
+    $("#submitButton").on('click', function () {
+        const title = $('#boardTitle').val();
+        const content = $('#summernote').val();
+        const attach = $('#attach').val();
+        console.log(title);
+        console.log(content);
+        console.log(attach);
+
+        if (title == "") {
+            alert("제목을 입력 해주세요")
+        } else if (content == "") {
+            alert("내용을 입력 해주세요")
+        } else if (attach == "") {
+            alert("사진을 한 장 이상 등록 해주세요")
+        }
+
+        if (title != "" && content != "" && attach != "") {
+            $('form').removeAttr("onsubmit");
+        }
+    });
+
+
+    $('#hashs').on("click", "#deleteButton", function (e) {
+        const button = $(e.target).parent();
+        button.remove()
+    });
 </script>
 </body>
 </html>
