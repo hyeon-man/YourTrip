@@ -233,7 +233,7 @@
             </div>
             <div>
                 <form action="/logout">
-                    <button class="btn btn-sm text-white btn-danger float-end"> 로그아웃</button>
+                    <button class="btn btn-sm text-white btn-danger float-end" id="sessionCheck"> 로그아웃</button>
                 </form>
             </div>
             <!-- 로그인 했을 때 사이드바 -->
@@ -371,7 +371,7 @@
     }
 
     $('#replyArea button').click(function () {
-        if ($('#sessionCheck button').length) {
+        if ($('#sessionCheck').length) {
             $('#replyArea button').removeAttr('type');
 
         } else {
@@ -383,8 +383,9 @@
 
     $('#recommendArea button.active').click(function () {
         if (confirm('추천을 취소 할까요 ? ') == true) {
-            if ($('#sessionCheck button').length) {
+            if ($('#sessionCheck').length) {
                 $('#recommendArea button').removeAttr('type');
+
                 return;
             } else {
                 loginAlert();
@@ -393,7 +394,7 @@
     });
 
     $('#recommendArea button').click(function () {
-        if ($('#sessionCheck button').length) {
+        if ($('#sessionCheck').length) {
             $('#recommendArea button').removeAttr('type');
         } else {
             if (confirm('로그인이 필요한 기능입니다.')) {
@@ -473,77 +474,7 @@
         });
     });
 
-    $("#button-addon1").click(function () {
-        const value = $("#idArea input[name=memberId]").val();
-
-        $.ajax({
-            type: 'POST',
-            url: '/checkId/' + value,
-            success: function (result) {
-                console.log(result);
-                if (result == "OK") {
-                    if (confirm('사용 가능한 아이디입니다')) {
-                        console.log("쓸래");
-                        $("#idArea input[name=memberId]").attr('readonly', true)
-                        $("#button-addon1").remove();
-                    } else {
-                        console.log("안 쓸래");
-                    }
-                } else {
-                    alert('이미 사용중인 아이디입니다')
-                }
-            }
-        });
-    });
-
-    $("#button-addon2").click(function () {
-        const value = $("#nickArea input[name=memberNick]").val();
-        $.ajax({
-            type: 'POST',
-            url: '/checkNick/' + value,
-            success: function (result) {
-                console.log(result);
-                if (result == "OK") {
-                    if (confirm('사용 가능한 닉네임입니다.')) {
-                        console.log("쓸래");
-                        $("#nickArea input[name=memberNick]").attr('readonly', true)
-                        $("#button-addon2").remove();
-                    } else {
-                        console.log("안 쓸래");
-                    }
-                } else {
-                    alert('이미 사용중인 닉네임입니다.')
-                }
-            }
-        });
-    });
-
-    $('#signupForm .btn-danger').click(function () {
-        if ($("#idArea input[name=memberId]").val() == "" ||
-            $("#nickArea input[name=memberNick]").val() == "" ||
-            $("#passArea input[name=memberPass]").val() == "") {
-            alert('공백은 허용하지 않습니다.');
-
-            return;
-        }
-
-        if ($("#passArea input[name=memberPass]").val() !=
-            $("#passCheck input[name=passCheck]").val()) {
-
-            alert('비밀번호가 일치하지 않습니다.')
-            return;
-        }
-
-        if ($("#idArea input[name=memberId]").attr('readonly') &&
-            $("#nickArea input[name=memberNick]").attr('readonly') != null) {
-
-            $('#signupForm button.btn-danger').attr('type', 'submit');
-        } else {
-            alert("중복 체크를 해주세요.")
-
-            return;
-        }
-    })
+   
     // 해시 추가하는 js
     $("#hashAddButton").on('click', function () {
         const div = $("<div>");

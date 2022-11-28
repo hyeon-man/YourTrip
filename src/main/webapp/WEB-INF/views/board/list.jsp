@@ -165,7 +165,7 @@
     <div class="offcanvas-body">
         <!-- 로그인 했을 때-->
         <c:if test="${sessionScope.member != null}">
-            <p class="d-flex justify-content-end">${sessionScope.member.memberNick}여행자로 로그인중</p>
+            <p class="d-flex justify-content-end">(${sessionScope.member.memberNick})님</p>
             <div class="d-flex justify-content-start">
 
 
