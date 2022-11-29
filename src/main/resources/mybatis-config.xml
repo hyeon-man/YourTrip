@@ -12,6 +12,7 @@
         <typeAlias type="kr.ac.kopo.YourTrip.Vo.Reply" alias="Reply"/>
         <typeAlias type="kr.ac.kopo.YourTrip.Vo.Hash" alias="Hash"/>
         <typeAlias type="kr.ac.kopo.YourTrip.Vo.Attach" alias="Attach"/>
+        <typeAlias type="kr.ac.kopo.YourTrip.Vo.MyBoard" alias="MyBoard"/>
     </typeAliases>
 
     <mappers>

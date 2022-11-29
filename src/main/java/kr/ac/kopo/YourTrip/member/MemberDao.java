@@ -1,6 +1,9 @@
 package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
+import kr.ac.kopo.YourTrip.Vo.MyBoard;
+
+import java.util.List;
 
 public interface MemberDao {
 
@@ -13,4 +16,6 @@ public interface MemberDao {
     int checkID(String id);
 
     int checkNick(String nick);
+
+    List<MyBoard> boardList(MyBoard board);
 }

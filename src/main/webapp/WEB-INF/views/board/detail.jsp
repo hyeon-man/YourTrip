@@ -111,11 +111,26 @@
                             </button>
                         </form>
                     </c:if>
+
                     <form>
-                        <button class="btn btn-outline-primary flex-shrink-0 " type="button" style="margin-left: 5px">
-                            <i class="bi bi-share"></i>
+                        <button class="btn btn-outline-primary flex-shrink-0 text-black" type="button"
+                                style="margin-left: 5px">
+                            <a class="text-black" href="#" onclick="clip(); return false;">
+                                <i class="bi bi-share">
+                                </i>
+                            </a>
                         </button>
                     </form>
+
+                    <c:if test="${sessionScope.member.memberId == item.boardWrite}">
+                        <form action="/board/delete/${item.boardNum}" method="post">
+                            <button id = "boardDeleteButton" type="button" class="btn btn-outline-dark flex-shrink-0" style="margin-left: 5px" onclick="deleteCheck()">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </c:if>
+
+
                 </div>
             </div>
         </div>
@@ -208,7 +223,7 @@
         <c:if test="${sessionScope.member != null}">
             <p class="d-flex justify-content-end">${sessionScope.member.memberNick}여행자로 로그인중</p>
             <div class="d-flex justify-content-start">
-                <a class=" text-black"  href="/board/add" role="button">
+                <a class=" text-black" href="/board/add" role="button">
                     <i style="font-size: 50px;" class="bi bi-pencil-square text-black">
                     </i></a>
                 <i style="font-size: 50px; margin-left: 20px" class="bi bi-person-circle"></i>
@@ -474,7 +489,7 @@
         });
     });
 
-   
+
     // 해시 추가하는 js
     $("#hashAddButton").on('click', function () {
         const div = $("<div>");
@@ -537,6 +552,28 @@
         const button = $(e.target).parent();
         button.remove()
     });
+
+
+    function clip() {
+
+        var url = '';
+        var textarea = document.createElement("textarea");
+        document.body.appendChild(textarea);
+        url = window.document.location.href;
+        textarea.value = url;
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("URL이 복사되었습니다.")
+
+    }
+
+    function deleteCheck(){
+        if(confirm("삭제 하시겠습니까?")){
+            $('#boardDeleteButton').removeAttr('type');
+        }
+    }
+
 
 </script>
 

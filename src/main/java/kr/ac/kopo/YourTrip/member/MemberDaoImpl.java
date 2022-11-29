@@ -1,8 +1,11 @@
 package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
+import kr.ac.kopo.YourTrip.Vo.MyBoard;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -36,6 +39,11 @@ public class MemberDaoImpl implements MemberDao {
     @Override
     public int checkNick(String nick) {
         return sql.selectOne("member.checkNick", nick);
+    }
+
+    @Override
+    public List<MyBoard> boardList(MyBoard board) {
+        return sql.selectList("member.boardList", board);
     }
 
 }

@@ -127,7 +127,7 @@ public class BoardController {
     }
 
 
-    @RequestMapping("/detail/delete/{boardNum}")
+    @PostMapping("/delete/{boardNum}")
     public String delete(@PathVariable int boardNum) {
 
         service.delete(boardNum);

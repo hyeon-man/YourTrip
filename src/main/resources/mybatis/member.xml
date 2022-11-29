@@ -34,4 +34,17 @@
         WHERE member_Nick = #{nick}
     </select>
 
+    <select id="boardList" resultType="MyBoard">
+        SELECT *
+        FROM yourtrip.member, yourtrip.board, yourtrip.recommend
+        <if test="searchType = 1">
+
+        </if>
+        <if test="searchType = 2">
+
+        </if>
+        <if test="searchType = 3">
+
+        </if>
+    </select>
 </mapper>

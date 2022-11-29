@@ -1,8 +1,11 @@
 package kr.ac.kopo.YourTrip.member;
 
 import kr.ac.kopo.YourTrip.Vo.Member;
+import kr.ac.kopo.YourTrip.Vo.MyBoard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -54,5 +57,10 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<MyBoard> boardList(MyBoard board) {
+        return dao.boardList(board);
     }
 }

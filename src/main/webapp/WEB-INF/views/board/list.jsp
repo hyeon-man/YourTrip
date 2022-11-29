@@ -168,11 +168,12 @@
             <p class="d-flex justify-content-end">(${sessionScope.member.memberNick})님</p>
             <div class="d-flex justify-content-start">
 
-
                 <a class=" text-black"  href="/board/add" role="button">
                     <i style="font-size: 50px;" class="bi bi-pencil-square text-black">
                     </i></a>
+                <a class=" text-black"  href="/board/myPage" role="button">
                 <i style="font-size: 50px; margin-left: 20px" class="bi bi-person-circle"></i>
+                </a>
             </div>
 
             <p style="margin-top: 20px">
