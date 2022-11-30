@@ -81,9 +81,9 @@ public class MemberController {
 
     @RequestMapping("/board/myPage")
     public String myPage(MyBoard board, Model model){
-        List<MyBoard> list = service.boardList(board);
-
-        model.addAttribute("list", list);
+//        List<MyBoard> list = service.boardList(board);
+//
+//        model.addAttribute("list", list);
 
 
         return "board/myPage";

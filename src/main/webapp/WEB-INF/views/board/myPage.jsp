@@ -49,9 +49,7 @@
 </nav>
 <!-- -->
 <div id="wrapper">
-    <c:forEach items="${list}" var="item">
-        <p>${item.boardNum}</p>
-    </c:forEach>
+
 
 </div>
 <!-- -->

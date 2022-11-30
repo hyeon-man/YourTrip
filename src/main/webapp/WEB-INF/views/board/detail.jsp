@@ -122,7 +122,7 @@
                         </button>
                     </form>
 
-                    <c:if test="${sessionScope.member.memberId == item.boardWrite}">
+                    <c:if test="${sessionScope.member.memberId == item.boardWrite || sessionScope.member.memberId == 'ADMIN'}">
                         <form action="/board/delete/${item.boardNum}" method="post">
                             <button id = "boardDeleteButton" type="button" class="btn btn-outline-dark flex-shrink-0" style="margin-left: 5px" onclick="deleteCheck()">
                                 <i class="bi bi-trash"></i>
