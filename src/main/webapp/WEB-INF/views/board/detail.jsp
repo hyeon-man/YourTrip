@@ -397,14 +397,10 @@
     });
 
     $('#recommendArea button.active').click(function () {
-        if (confirm('추천을 취소 할까요 ? ') == true) {
-            if ($('#sessionCheck').length) {
+        if (confirm('추천을 취소 할까요 ? ')) {
                 $('#recommendArea button').removeAttr('type');
-
-                return;
-            } else {
-                loginAlert();
-            }
+        } else{
+            $('#recommendArea button').attr('type','button');
         }
     });
 
