@@ -3,6 +3,7 @@ package kr.ac.kopo.YourTrip.member;
 import kr.ac.kopo.YourTrip.Util.SysoutTester;
 import kr.ac.kopo.YourTrip.Vo.Member;
 import kr.ac.kopo.YourTrip.Vo.MyBoard;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,6 @@ public class MemberController {
     public String index() {
         return "redirect:board/list";
     }
-
     @PostMapping("/login")
     public String login(HttpSession session, Member member, HttpServletRequest request, Model model) {
         String referer = request.getHeader("referer");

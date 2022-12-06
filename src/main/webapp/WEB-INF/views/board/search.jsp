@@ -263,14 +263,13 @@
             type: 'POST',
             url: '/checkId/' + value,
             success: function (result) {
-                console.log(result);
                 if (result == "OK") {
                     if (confirm('사용 가능한 아이디입니다')) {
                         console.log("쓸래");
                         $("#idArea input[name=memberId]").attr('readonly', true)
                         $("#button-addon1").remove();
                     } else {
-                        console.log("안 쓸래");
+                        console.log("미사용");
                     }
                 } else {
                     alert('이미 사용중인 아이디입니다')
@@ -288,11 +287,10 @@
                 console.log(result);
                 if (result == "OK") {
                     if (confirm('사용 가능한 닉네임입니다.')) {
-                        console.log("쓸래");
                         $("#nickArea input[name=memberNick]").attr('readonly', true)
                         $("#button-addon2").remove();
                     } else {
-                        console.log("안 쓸래");
+                        console.log("미사용");
                     }
                 } else {
                     alert('이미 사용중인 닉네임입니다.')

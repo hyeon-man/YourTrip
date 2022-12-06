@@ -3,10 +3,8 @@
 
 
 <mapper namespace="attach">
-
     <insert id="add">
         INSERT INTO yourtrip.attach (attach_board_num, attach_filename)
         VALUES (#{attachBoardNum}, #{attachFileName})
     </insert>
-
 </mapper>

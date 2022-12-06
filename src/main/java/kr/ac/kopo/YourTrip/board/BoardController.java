@@ -4,6 +4,8 @@ import kr.ac.kopo.YourTrip.Util.SysoutTester;
 import kr.ac.kopo.YourTrip.Vo.*;
 import kr.ac.kopo.YourTrip.Util.PageUtil;
 import kr.ac.kopo.YourTrip.board.hash.HashService;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +53,6 @@ public class BoardController {
 
         List<Hash> hashList = service.getHash(boardNum);
         model.addAttribute("hash", hashList);
-
 
         return "board/list";
     }

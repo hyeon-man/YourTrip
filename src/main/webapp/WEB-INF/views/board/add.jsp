@@ -238,6 +238,7 @@
 
         div.append(input);
         div.append(deleteButton);
+
         if ($("#hashList").val() == "") {
             alert('공백은 허용하지 않습니다.')
             return;
@@ -245,6 +246,7 @@
             alert('두 글자 이상 입력해주세요.')
             return;
         }
+
         console.log("눌림")
         $("#hashs").append(div);
         $("#hashList").val("")
@@ -255,9 +257,6 @@
         const title = $('#boardTitle').val();
         const content = $('#summernote').val();
         const attach = $('#attach').val();
-        console.log(title);
-        console.log(content);
-        console.log(attach);
 
         if (title == "") {
             alert("제목을 입력 해주세요")

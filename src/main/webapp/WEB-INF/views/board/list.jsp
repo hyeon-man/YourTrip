@@ -17,7 +17,7 @@
 
 
         $(document).ready(function () {
-            $('#ssibal :first-child').addClass('active');
+            $('#attachList :first-child').addClass('active');
         });
 
 
@@ -87,7 +87,7 @@
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
         <div class="col-lg-7">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="ssibal">
+                <div class="carousel-inner" id="attachList">
                     <c:forEach items="${hotTopicPicture}" var="hotPicture">
                         <div class="carousel-item">
                             <img src="/images/${hotPicture.attachFileName}"
@@ -409,7 +409,6 @@
                 console.log(result);
                 if (result == "OK") {
                     if (confirm('사용 가능한 아이디입니다')) {
-                        console.log("쓸래");
                         $("#idArea input[name=memberId]").attr('readonly', true)
                         $("#button-addon1").remove();
                     } else {
@@ -500,7 +499,6 @@
             alert('두 글자 이상 입력해주세요.')
             return;
         }
-        console.log("눌림")
         $("#hashs").append(div);
         $("#hashList").val("")
     });
@@ -510,9 +508,6 @@
         const title = $('#boardTitle').val();
         const content = $('#summernote').val();
         const attach = $('#attach').val();
-        console.log(title);
-        console.log(content);
-        console.log(attach);
 
         if (title == "") {
             alert("제목을 입력 해주세요")

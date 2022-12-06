@@ -4,25 +4,14 @@
 <html>
 <head>
     <title>YourTrip</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/resources/css/list_styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.1.js"
-            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $('#ssibal :first-child').addClass('active');
-        });
 
-        $(function () {
-            $('#summernote').summernote({
-                lang: 'ko-KR', // default: 'en-US'
-                height: 600
-
-            })
-        });
-    </script>
 
 </head>
 <body class="body">
@@ -51,7 +40,7 @@
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="ssibal">
+                    <div class="carousel-inner" id="carouselList">
                         <c:forEach items="${attach}" var="attach">
                             <div class="carousel-item">
                                 <img src="/images/${attach.attachFileName}" class="d-block w-100">
@@ -124,7 +113,8 @@
 
                     <c:if test="${sessionScope.member.memberId == item.boardWrite || sessionScope.member.memberId == 'ADMIN'}">
                         <form action="/board/delete/${item.boardNum}" method="post">
-                            <button id = "boardDeleteButton" type="button" class="btn btn-outline-dark flex-shrink-0" style="margin-left: 5px" onclick="deleteCheck()">
+                            <button id="boardDeleteButton" type="button" class="btn btn-outline-dark flex-shrink-0"
+                                    style="margin-left: 5px" onclick="deleteCheck()">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>
@@ -376,19 +366,49 @@
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Kr.ac.kopo</p></div>
 </footer>
-
+<c:if test="${sessionScope.member.memberId != null}">
+<p id = session style="display: none"></p>
+</c:if>
 <!-- Bootstrap core JS-->
 <!-- Core theme JS-->
-<script src="/resources/js/detail_scripts.js"></script>
 <script>
+
     function loginAlert() {
         confirm('로그인이 필요한 기능입니다.')
     }
 
+    $(document).ready(function () {
+        $('#carouselList :first-child').addClass('active');
+    });
+
+    $('#recommendArea button').on('click', function () {
+        const recommendCheck = $('#session').length;
+        console.log(recommendCheck);
+
+        if(recommendCheck == 1){
+            if ($('#recommendArea button').hasClass('active')){
+                console.log('active 있음');
+                if(confirm('추천을 취소 할까요?')){
+                    console.log('추천 취소 confirm true')
+                    $('#recommendArea button').removeAttr('type');
+                }
+            } else {
+                console.log('추천 안 눌려 있음')
+                $('#recommendArea button').removeAttr('type');
+            }
+        }
+        if(recommendCheck == 0){
+            console.log('세션 없음')
+            if(confirm('로그인이 필요한 기능입니다.')){
+                $('.offcanvas-body button').trigger('click');
+            }
+        }
+    });
+
     $('#replyArea button').click(function () {
+
         if ($('#sessionCheck').length) {
             $('#replyArea button').removeAttr('type');
-
         } else {
             if (confirm('로그인이 필요한 기능입니다.')) {
                 $('.offcanvas-body button').trigger('click');
@@ -396,23 +416,6 @@
         }
     });
 
-    $('#recommendArea button.active').click(function () {
-        if (confirm('추천을 취소 할까요 ? ')) {
-                $('#recommendArea button').removeAttr('type');
-        } else{
-            $('#recommendArea button').attr('type','button');
-        }
-    });
-
-    $('#recommendArea button').click(function () {
-        if ($('#sessionCheck').length) {
-            $('#recommendArea button').removeAttr('type');
-        } else {
-            if (confirm('로그인이 필요한 기능입니다.')) {
-                $('.offcanvas-body button').trigger('click');
-            }
-        }
-    });
 
     $('#signupForm .btn-danger').click(function () {
         if ($("#idArea input[name=memberId]").val() == "" ||
@@ -450,11 +453,9 @@
                 console.log(result);
                 if (result == "OK") {
                     if (confirm('사용 가능한 아이디입니다')) {
-                        console.log("쓸래");
                         $("#idArea input[name=memberId]").attr('readonly', true)
                         $("#button-addon1").remove();
                     } else {
-                        console.log("안 쓸래");
                     }
                 } else {
                     alert('이미 사용중인 아이디입니다')
@@ -469,14 +470,12 @@
             type: 'POST',
             url: '/checkNick/' + value,
             success: function (result) {
-                console.log(result);
                 if (result == "OK") {
                     if (confirm('사용 가능한 닉네임입니다.')) {
-                        console.log("쓸래");
                         $("#nickArea input[name=memberNick]").attr('readonly', true)
                         $("#button-addon2").remove();
                     } else {
-                        console.log("안 쓸래");
+                        console.log("미사용");
                     }
                 } else {
                     alert('이미 사용중인 닉네임입니다.')
@@ -516,7 +515,6 @@
             alert('두 글자 이상 입력해주세요.')
             return;
         }
-        console.log("눌림")
         $("#hashs").append(div);
         $("#hashList").val("")
     });
@@ -526,9 +524,7 @@
         const title = $('#boardTitle').val();
         const content = $('#summernote').val();
         const attach = $('#attach').val();
-        console.log(title);
-        console.log(content);
-        console.log(attach);
+
 
         if (title == "") {
             alert("제목을 입력 해주세요")
@@ -564,8 +560,8 @@
 
     }
 
-    function deleteCheck(){
-        if(confirm("삭제 하시겠습니까?")){
+    function deleteCheck() {
+        if (confirm("삭제 하시겠습니까?")) {
             $('#boardDeleteButton').removeAttr('type');
         }
     }
